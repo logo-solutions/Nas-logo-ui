@@ -1,11 +1,21 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { usePhotos } from '../../hooks/usePhotos'
+import { useAuth } from '../../store/auth'
+import { setImmichApiKey } from '../../lib/immich'
 import PhotoGrid from './PhotoGrid'
 
 export default function PhotosPage() {
   const [skip, setSkip] = useState(0)
+  const { immichApiKey } = useAuth()
   const { data: photos = [], isLoading, error } = usePhotos(skip, 50)
-  const hasApiKey = !!localStorage.getItem('immich_api_key')
+
+  useEffect(() => {
+    if (immichApiKey) {
+      setImmichApiKey(immichApiKey)
+    }
+  }, [immichApiKey])
+
+  const hasApiKey = !!immichApiKey
 
   if (!hasApiKey) {
     return (

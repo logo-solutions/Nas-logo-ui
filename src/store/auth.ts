@@ -4,8 +4,10 @@ import { persist } from 'zustand/middleware'
 interface AuthStore {
   immichApiKey: string
   paperlessToken: string
+  meilisearchKey: string
   setImmichApiKey: (key: string) => void
   setPaperlessToken: (token: string) => void
+  setMeilisearchKey: (key: string) => void
   clearAuth: () => void
 }
 
@@ -14,6 +16,7 @@ export const useAuth = create<AuthStore>()(
     (set) => ({
       immichApiKey: '',
       paperlessToken: '',
+      meilisearchKey: '',
       setImmichApiKey: (key) => {
         set({ immichApiKey: key })
         localStorage.setItem('immich_api_key', key)
@@ -22,10 +25,15 @@ export const useAuth = create<AuthStore>()(
         set({ paperlessToken: token })
         localStorage.setItem('paperless_token', token)
       },
+      setMeilisearchKey: (key) => {
+        set({ meilisearchKey: key })
+        localStorage.setItem('meilisearch_key', key)
+      },
       clearAuth: () => {
-        set({ immichApiKey: '', paperlessToken: '' })
+        set({ immichApiKey: '', paperlessToken: '', meilisearchKey: '' })
         localStorage.removeItem('immich_api_key')
         localStorage.removeItem('paperless_token')
+        localStorage.removeItem('meilisearch_key')
       },
     }),
     {
@@ -33,6 +41,7 @@ export const useAuth = create<AuthStore>()(
       partialize: (state) => ({
         immichApiKey: state.immichApiKey,
         paperlessToken: state.paperlessToken,
+        meilisearchKey: state.meilisearchKey,
       }),
     },
   ),

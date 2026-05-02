@@ -50,12 +50,21 @@ export interface PaperlessListResponse<T> {
 }
 
 const API_BASE = 'http://100.113.214.55:8010/api'
-const API_TOKEN = localStorage.getItem('paperless_token') || ''
+let API_TOKEN = ''
 
-const headers = () => ({
-  'Content-Type': 'application/json',
-  'Authorization': `Token ${API_TOKEN}`,
-})
+export function setPaperlessToken(token: string) {
+  API_TOKEN = token
+}
+
+const headers = () => {
+  const h: Record<string, string> = {
+    'Content-Type': 'application/json',
+  }
+  if (API_TOKEN) {
+    h['Authorization'] = `Token ${API_TOKEN}`
+  }
+  return h
+}
 
 export async function getDocuments(
   page = 1,
@@ -113,11 +122,12 @@ export async function uploadDocument(file: File, title?: string): Promise<Paperl
   formData.append('document', file)
   if (title) formData.append('title', title)
 
+  const h = headers()
+  delete h['Content-Type']
+
   const res = await fetch(`${API_BASE}/documents/post_document/`, {
     method: 'POST',
-    headers: {
-      'Authorization': `Token ${API_TOKEN}`,
-    },
+    headers: h,
     body: formData,
   })
   if (!res.ok) throw new Error('Failed to upload document')

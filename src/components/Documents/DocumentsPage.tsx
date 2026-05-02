@@ -1,14 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDocuments, useCorrespondents } from '../../hooks/useDocuments'
+import { useAuth } from '../../store/auth'
+import { setPaperlessToken } from '../../lib/paperless'
 import DocumentList from './DocumentList'
 
 export default function DocumentsPage() {
   const [page, setPage] = useState(1)
   const [searchQuery, setSearchQuery] = useState('')
+  const { paperlessToken } = useAuth()
   const { data: documentsData, isLoading, error } = useDocuments(page)
   const { data: correspondentsData } = useCorrespondents()
 
-  const hasToken = !!localStorage.getItem('paperless_token')
+  useEffect(() => {
+    if (paperlessToken) {
+      setPaperlessToken(paperlessToken)
+    }
+  }, [paperlessToken])
+
+  const hasToken = !!paperlessToken
   const documents = documentsData?.results || []
   const totalCount = documentsData?.count || 0
 

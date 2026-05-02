@@ -50,12 +50,21 @@ export interface ImmichServerInfo {
 }
 
 const API_BASE = 'http://100.113.214.55:2283/api'
-const API_KEY = localStorage.getItem('immich_api_key') || ''
+let API_KEY = ''
 
-const headers = () => ({
-  'Content-Type': 'application/json',
-  'x-api-key': API_KEY,
-})
+export function setImmichApiKey(key: string) {
+  API_KEY = key
+}
+
+const headers = () => {
+  const h: Record<string, string> = {
+    'Content-Type': 'application/json',
+  }
+  if (API_KEY) {
+    h['x-api-key'] = API_KEY
+  }
+  return h
+}
 
 export async function getServerInfo(): Promise<ImmichServerInfo> {
   const res = await fetch(`${API_BASE}/server/info`, {
@@ -69,7 +78,7 @@ export async function getPhotos(
   skip = 0,
   take = 50,
 ): Promise<ImmichPhoto[]> {
-  const res = await fetch(`${API_BASE}/search/photos?skip=${skip}&take=${take}`, {
+  const res = await fetch(`${API_BASE}/assets?skip=${skip}&take=${take}`, {
     headers: headers(),
   })
   if (!res.ok) throw new Error('Failed to fetch photos')

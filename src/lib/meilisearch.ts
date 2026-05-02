@@ -16,6 +16,11 @@ export interface MeilisearchSearchResult<T = any> {
 }
 
 const API_BASE = 'http://100.113.214.55:7700'
+let MASTER_KEY = ''
+
+export function setMeilisearchKey(key: string) {
+  MASTER_KEY = key
+}
 
 export async function searchAll(query: string): Promise<MeilisearchSearchResult> {
   // Search across all indexed documents (photos, documents, etc)
@@ -48,9 +53,14 @@ export async function searchIndex(
   limit = 50,
   offset = 0,
 ): Promise<MeilisearchSearchResult> {
+  const headers: HeadersInit = { 'Content-Type': 'application/json' }
+  if (MASTER_KEY) {
+    headers['Authorization'] = `Bearer ${MASTER_KEY}`
+  }
+
   const res = await fetch(`${API_BASE}/indexes/${index}/search`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     body: JSON.stringify({
       q: query,
       limit,
@@ -66,7 +76,12 @@ export async function searchIndex(
 }
 
 export async function getStats(): Promise<{ indexes: Record<string, any> }> {
-  const res = await fetch(`${API_BASE}/stats`)
+  const headers: HeadersInit = {}
+  if (MASTER_KEY) {
+    headers['Authorization'] = `Bearer ${MASTER_KEY}`
+  }
+
+  const res = await fetch(`${API_BASE}/stats`, { headers })
   if (!res.ok) throw new Error('Failed to get stats')
   return res.json()
 }

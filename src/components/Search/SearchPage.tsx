@@ -1,9 +1,18 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSearch } from '../../hooks/useSearch'
+import { useAuth } from '../../store/auth'
+import { setMeilisearchKey } from '../../lib/meilisearch'
 
 export default function SearchPage() {
   const [query, setQuery] = useState('')
+  const { meilisearchKey } = useAuth()
   const { data: results, isLoading, error } = useSearch(query)
+
+  useEffect(() => {
+    if (meilisearchKey) {
+      setMeilisearchKey(meilisearchKey)
+    }
+  }, [meilisearchKey])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -18,6 +27,14 @@ export default function SearchPage() {
         </p>
       </div>
 
+      {!meilisearchKey && (
+        <div className="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+          <p className="text-amber-700 dark:text-amber-400">
+            ⚠️ Meilisearch key not configured. Go to Settings to add your master key.
+          </p>
+        </div>
+      )}
+
       {/* Search Form */}
       <form onSubmit={handleSearch} className="flex gap-2">
         <input
@@ -26,11 +43,13 @@ export default function SearchPage() {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search photos, documents... (min 3 chars)"
           className="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          disabled={!meilisearchKey}
           autoFocus
         />
         <button
           type="submit"
-          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          disabled={!meilisearchKey}
+          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           Search
         </button>

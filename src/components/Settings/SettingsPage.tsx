@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { useAuth } from '../../store/auth'
 
 export default function SettingsPage() {
-  const { immichApiKey, paperlessToken, setImmichApiKey, setPaperlessToken, clearAuth } = useAuth()
+  const { immichApiKey, paperlessToken, meilisearchKey, setImmichApiKey, setPaperlessToken, setMeilisearchKey, clearAuth } = useAuth()
   const [immichKey, setImmichKey] = useState(immichApiKey)
   const [paperlessTokenInput, setPaperlessTokenInput] = useState(paperlessToken)
+  const [meilisearchKeyInput, setMeilisearchKeyInput] = useState(meilisearchKey)
   const [showSuccess, setShowSuccess] = useState(false)
 
   const handleSaveImmich = () => {
@@ -23,11 +24,20 @@ export default function SettingsPage() {
     }
   }
 
+  const handleSaveMeilisearch = () => {
+    if (meilisearchKeyInput.trim()) {
+      setMeilisearchKey(meilisearchKeyInput)
+      setShowSuccess(true)
+      setTimeout(() => setShowSuccess(false), 3000)
+    }
+  }
+
   const handleClearAll = () => {
     if (confirm('Are you sure? This will clear all API credentials.')) {
       clearAuth()
       setImmichKey('')
       setPaperlessTokenInput('')
+      setMeilisearchKeyInput('')
     }
   }
 
@@ -118,6 +128,42 @@ export default function SettingsPage() {
         )}
       </div>
 
+      {/* Meilisearch Settings */}
+      <div className="card space-y-4">
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Meilisearch</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Full-text search</p>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Master Key
+          </label>
+          <input
+            type="password"
+            value={meilisearchKeyInput}
+            onChange={(e) => setMeilisearchKeyInput(e.target.value)}
+            placeholder="Enter your Meilisearch master key"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+            Get from: http://100.113.214.55:7700/
+          </p>
+        </div>
+
+        <button
+          onClick={handleSaveMeilisearch}
+          disabled={!meilisearchKeyInput.trim()}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          Save Meilisearch Credentials
+        </button>
+
+        {meilisearchKey && (
+          <p className="text-xs text-green-600 dark:text-green-400">✓ Configured</p>
+        )}
+      </div>
+
       {/* Service Status */}
       <div className="card space-y-4">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Service Status</h3>
@@ -139,7 +185,9 @@ export default function SettingsPage() {
 
           <div className="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded">
             <span>Meilisearch</span>
-            <span className="text-gray-500">○ Coming soon</span>
+            <span className={meilisearchKey ? 'text-green-600 dark:text-green-400' : 'text-gray-500'}>
+              {meilisearchKey ? '✓ Connected' : '○ Not configured'}
+            </span>
           </div>
 
           <div className="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded">
