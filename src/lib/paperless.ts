@@ -49,7 +49,7 @@ export interface PaperlessListResponse<T> {
   results: T[]
 }
 
-const API_BASE = 'http://localhost:8010/api'
+const API_BASE = '/api/paperless'
 let API_TOKEN = ''
 
 export function setPaperlessToken(token: string) {

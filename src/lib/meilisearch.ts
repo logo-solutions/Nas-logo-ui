@@ -15,7 +15,7 @@ export interface MeilisearchSearchResult<T = any> {
   estimatedTotalHits: number
 }
 
-const API_BASE = 'http://localhost:7700'
+const API_BASE = '/api/meilisearch'
 let MASTER_KEY = ''
 
 export function setMeilisearchKey(key: string) {
