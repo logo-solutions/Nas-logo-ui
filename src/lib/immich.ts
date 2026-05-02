@@ -78,11 +78,30 @@ export async function getPhotos(
   skip = 0,
   take = 50,
 ): Promise<ImmichPhoto[]> {
-  const res = await fetch(`${API_BASE}/assets?skip=${skip}&take=${take}`, {
-    headers: headers(),
-  })
-  if (!res.ok) throw new Error('Failed to fetch photos')
-  return res.json()
+  if (!API_KEY) {
+    throw new Error('Immich API key not configured')
+  }
+
+  const url = `${API_BASE}/assets?skip=${skip}&take=${take}`
+  try {
+    const res = await fetch(url, {
+      headers: headers(),
+    })
+    if (!res.ok) {
+      const errorData = await res.text()
+      throw new Error(
+        `HTTP ${res.status}: ${res.statusText}. ${errorData.slice(0, 100)}`,
+      )
+    }
+    return res.json()
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error(
+        `Network error fetching photos. Check if Immich is accessible at ${API_BASE}`,
+      )
+    }
+    throw error
+  }
 }
 
 export async function getAlbums(): Promise<ImmichAlbum[]> {

@@ -53,26 +53,41 @@ export async function searchIndex(
   limit = 50,
   offset = 0,
 ): Promise<MeilisearchSearchResult> {
+  if (!MASTER_KEY) {
+    throw new Error('Meilisearch master key not configured')
+  }
+
   const headers: HeadersInit = { 'Content-Type': 'application/json' }
-  if (MASTER_KEY) {
-    headers['Authorization'] = `Bearer ${MASTER_KEY}`
+  headers['Authorization'] = `Bearer ${MASTER_KEY}`
+
+  const url = `${API_BASE}/indexes/${index}/search`
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        q: query,
+        limit,
+        offset,
+      }),
+    })
+
+    if (!res.ok) {
+      const errorData = await res.text()
+      throw new Error(
+        `HTTP ${res.status}: ${res.statusText}. ${errorData.slice(0, 100)}`,
+      )
+    }
+
+    return res.json()
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error(
+        `Network error searching ${index}. Check if Meilisearch is accessible at ${API_BASE}`,
+      )
+    }
+    throw error
   }
-
-  const res = await fetch(`${API_BASE}/indexes/${index}/search`, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      q: query,
-      limit,
-      offset,
-    }),
-  })
-
-  if (!res.ok) {
-    throw new Error(`Search failed: ${res.statusText}`)
-  }
-
-  return res.json()
 }
 
 export async function getStats(): Promise<{ indexes: Record<string, any> }> {

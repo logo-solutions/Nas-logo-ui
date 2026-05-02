@@ -70,11 +70,30 @@ export async function getDocuments(
   page = 1,
   pageSize = 50,
 ): Promise<PaperlessListResponse<PaperlessDocument>> {
-  const res = await fetch(`${API_BASE}/documents/?page=${page}&page_size=${pageSize}`, {
-    headers: headers(),
-  })
-  if (!res.ok) throw new Error('Failed to fetch documents')
-  return res.json()
+  if (!API_TOKEN) {
+    throw new Error('Paperless API token not configured')
+  }
+
+  const url = `${API_BASE}/documents/?page=${page}&page_size=${pageSize}`
+  try {
+    const res = await fetch(url, {
+      headers: headers(),
+    })
+    if (!res.ok) {
+      const errorData = await res.text()
+      throw new Error(
+        `HTTP ${res.status}: ${res.statusText}. ${errorData.slice(0, 100)}`,
+      )
+    }
+    return res.json()
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error(
+        `Network error fetching documents. Check if Paperless is accessible at ${API_BASE}`,
+      )
+    }
+    throw error
+  }
 }
 
 export async function getDocument(id: number): Promise<PaperlessDocument> {

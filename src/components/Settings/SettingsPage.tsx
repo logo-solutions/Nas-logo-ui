@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuth } from '../../store/auth'
+import { checkHealth, type HealthStatus } from '../../lib/healthcheck'
 
 export default function SettingsPage() {
   const { immichApiKey, paperlessToken, meilisearchKey, setImmichApiKey, setPaperlessToken, setMeilisearchKey, clearAuth } = useAuth()
@@ -7,6 +8,23 @@ export default function SettingsPage() {
   const [paperlessTokenInput, setPaperlessTokenInput] = useState(paperlessToken)
   const [meilisearchKeyInput, setMeilisearchKeyInput] = useState(meilisearchKey)
   const [showSuccess, setShowSuccess] = useState(false)
+  const [health, setHealth] = useState<HealthStatus | null>(null)
+  const [isCheckingHealth, setIsCheckingHealth] = useState(false)
+
+  useEffect(() => {
+    const runHealthCheck = async () => {
+      setIsCheckingHealth(true)
+      try {
+        const status = await checkHealth()
+        setHealth(status)
+      } catch (error) {
+        console.error('Health check failed:', error)
+      } finally {
+        setIsCheckingHealth(false)
+      }
+    }
+    runHealthCheck()
+  }, [immichApiKey, paperlessToken, meilisearchKey])
 
   const handleSaveImmich = () => {
     if (immichKey.trim()) {
@@ -166,28 +184,91 @@ export default function SettingsPage() {
 
       {/* Service Status */}
       <div className="card space-y-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Service Status</h3>
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Service Status</h3>
+          {isCheckingHealth && <span className="text-xs text-gray-500">Checking...</span>}
+        </div>
 
         <div className="space-y-3">
-          <div className="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded">
-            <span>Immich</span>
-            <span className={immichApiKey ? 'text-green-600 dark:text-green-400' : 'text-gray-500'}>
-              {immichApiKey ? '✓ Connected' : '○ Not configured'}
-            </span>
+          {/* Immich */}
+          <div className="p-3 bg-gray-100 dark:bg-gray-700 rounded">
+            <div className="flex items-center justify-between mb-1">
+              <span className="font-medium text-gray-900 dark:text-white">Immich</span>
+              <span
+                className={
+                  !immichApiKey
+                    ? 'text-gray-500 text-sm'
+                    : health?.immich.accessible
+                      ? 'text-green-600 dark:text-green-400 text-sm'
+                      : 'text-red-600 dark:text-red-400 text-sm'
+                }
+              >
+                {!immichApiKey
+                  ? '○ Not configured'
+                  : health?.immich.accessible
+                    ? '✓ Connected'
+                    : `✗ ${health?.immich.error || 'Unreachable'}`}
+              </span>
+            </div>
+            {immichApiKey && !health?.immich.accessible && health?.immich.error && (
+              <p className="text-xs text-red-600 dark:text-red-400">
+                {health.immich.error}
+              </p>
+            )}
           </div>
 
-          <div className="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded">
-            <span>Paperless-ngx</span>
-            <span className={paperlessToken ? 'text-green-600 dark:text-green-400' : 'text-gray-500'}>
-              {paperlessToken ? '✓ Connected' : '○ Not configured'}
-            </span>
+          {/* Paperless */}
+          <div className="p-3 bg-gray-100 dark:bg-gray-700 rounded">
+            <div className="flex items-center justify-between mb-1">
+              <span className="font-medium text-gray-900 dark:text-white">Paperless-ngx</span>
+              <span
+                className={
+                  !paperlessToken
+                    ? 'text-gray-500 text-sm'
+                    : health?.paperless.accessible
+                      ? 'text-green-600 dark:text-green-400 text-sm'
+                      : 'text-red-600 dark:text-red-400 text-sm'
+                }
+              >
+                {!paperlessToken
+                  ? '○ Not configured'
+                  : health?.paperless.accessible
+                    ? '✓ Connected'
+                    : `✗ ${health?.paperless.error || 'Unreachable'}`}
+              </span>
+            </div>
+            {paperlessToken && !health?.paperless.accessible && health?.paperless.error && (
+              <p className="text-xs text-red-600 dark:text-red-400">
+                {health.paperless.error}
+              </p>
+            )}
           </div>
 
-          <div className="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded">
-            <span>Meilisearch</span>
-            <span className={meilisearchKey ? 'text-green-600 dark:text-green-400' : 'text-gray-500'}>
-              {meilisearchKey ? '✓ Connected' : '○ Not configured'}
-            </span>
+          {/* Meilisearch */}
+          <div className="p-3 bg-gray-100 dark:bg-gray-700 rounded">
+            <div className="flex items-center justify-between mb-1">
+              <span className="font-medium text-gray-900 dark:text-white">Meilisearch</span>
+              <span
+                className={
+                  !meilisearchKey
+                    ? 'text-gray-500 text-sm'
+                    : health?.meilisearch.accessible
+                      ? 'text-green-600 dark:text-green-400 text-sm'
+                      : 'text-red-600 dark:text-red-400 text-sm'
+                }
+              >
+                {!meilisearchKey
+                  ? '○ Not configured'
+                  : health?.meilisearch.accessible
+                    ? '✓ Connected'
+                    : `✗ ${health?.meilisearch.error || 'Unreachable'}`}
+              </span>
+            </div>
+            {meilisearchKey && !health?.meilisearch.accessible && health?.meilisearch.error && (
+              <p className="text-xs text-red-600 dark:text-red-400">
+                {health.meilisearch.error}
+              </p>
+            )}
           </div>
 
           <div className="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded">
