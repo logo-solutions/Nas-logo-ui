@@ -25,6 +25,15 @@ Feature: User Interface
     And pagination controls should be visible
     And each photo should have thumbnail image
 
+  Scenario: Photos page shows 0 photos when not configured
+    When credentials are not configured
+    And I navigate to Photos
+    Then page should display "Photos" heading
+    And photo count should show "0 photos"
+    And I should see message "Please configure Immich API key in settings"
+    And no photo thumbnails should be displayed
+    And pagination controls should not be visible
+
   Scenario: Documents page loads after configuration
     Given API credentials are configured
     When I navigate to Documents
@@ -73,3 +82,36 @@ Feature: User Interface
       | Meilisearch  | ✓ Connected    |
     When I configure invalid credentials
     Then services should show error status with HTTP error codes
+
+  Scenario: Documents page shows 0 documents when not configured
+    When credentials are not configured
+    And I navigate to Documents
+    Then page should display "Documents" heading
+    And I should see message "Please configure Paperless API token in settings"
+    And document count should show "0 documents"
+    And document list should be empty
+
+  Scenario: End-to-end credential configuration flow
+    When I navigate to http://100.113.214.55:5173
+    And the app loads successfully
+    Then page should display "Dashboard" heading
+
+    When I navigate to Settings
+    And I enter the Immich API key
+    And I enter the Paperless API token
+    And I enter the Meilisearch master key
+    And I click Save buttons
+    Then success message should appear
+    And service status should show "✓ Connected" for each service
+
+    When I navigate to Photos
+    Then page should display "Photos" heading
+    And photos should load and display count
+
+    When I navigate to Documents
+    Then page should display "Documents" heading
+    And document list should display items
+
+    When I navigate to Search
+    Then page should display "Search" heading
+    And search bar should be visible

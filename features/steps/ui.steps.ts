@@ -90,3 +90,94 @@ Then('service status should show {string} for each service', async function (sta
     throw new Error(`Expected at least 3 services with "${status}", found ${count}`)
   }
 })
+
+When('credentials are not configured', async function () {
+  if (!this.page) throw new Error('Browser not initialized')
+  await this.page.evaluate(() => {
+    localStorage.clear()
+  })
+  await this.page.goto('http://100.113.214.55:5173')
+  await this.page.reload()
+})
+
+When('I navigate to Photos', async function () {
+  if (!this.page) throw new Error('Browser not initialized')
+  await this.page.click('text=Photos')
+  await this.page.waitForLoadState('networkidle')
+  await this.page.waitForTimeout(2000)
+})
+
+Then('photo count should show {string}', async function (text: string) {
+  if (!this.page) throw new Error('Browser not initialized')
+  const photoCountText = await this.page.locator('p:has-text("photos")').textContent()
+  if (!photoCountText?.includes(text)) {
+    throw new Error(`Expected photo count text to include "${text}", got "${photoCountText}"`)
+  }
+})
+
+Then('no photo thumbnails should be displayed', async function () {
+  if (!this.page) throw new Error('Browser not initialized')
+  const images = this.page.locator('img[src*="thumbnail"]')
+  const count = await images.count()
+  if (count > 0) {
+    throw new Error(`Expected no photo thumbnails, but found ${count}`)
+  }
+})
+
+Then('pagination controls should not be visible', async function () {
+  if (!this.page) throw new Error('Browser not initialized')
+  const prev = this.page.locator('button:has-text("Previous")')
+  const next = this.page.locator('button:has-text("Next")')
+  const prevCount = await prev.count()
+  const nextCount = await next.count()
+  if (prevCount > 0 || nextCount > 0) {
+    throw new Error('Pagination controls should not be visible when no photos loaded')
+  }
+})
+
+When('I navigate to Documents', async function () {
+  if (!this.page) throw new Error('Browser not initialized')
+  await this.page.click('text=Documents')
+  await this.page.waitForLoadState('networkidle')
+  await this.page.waitForTimeout(2000)
+})
+
+Then('document count should show {string}', async function (text: string) {
+  if (!this.page) throw new Error('Browser not initialized')
+  const docCountText = await this.page.locator('p:has-text("documents")').textContent()
+  if (!docCountText?.includes(text)) {
+    throw new Error(`Expected document count text to include "${text}", got "${docCountText}"`)
+  }
+})
+
+Then('document list should be empty', async function () {
+  if (!this.page) throw new Error('Browser not initialized')
+  const items = this.page.locator('[class*="list"], [class*="document"], [class*="row"]')
+  const count = await items.count()
+  if (count > 0) {
+    throw new Error(`Expected no document items, but found ${count}`)
+  }
+})
+
+Then('document list should display items', async function () {
+  if (!this.page) throw new Error('Browser not initialized')
+  const items = this.page.locator('[class*="list"], [class*="document"], [class*="row"]')
+  const count = await items.count()
+  if (count === 0) {
+    throw new Error('Document items not found')
+  }
+})
+
+Given('I am in Settings', async function () {
+  if (!this.page) throw new Error('Browser not initialized')
+  await this.page.goto('http://100.113.214.55:5173')
+  await this.page.click('text=Settings')
+  await this.page.waitForLoadState('networkidle')
+})
+
+When('I navigate to {string}', async function (pageName: string) {
+  if (!this.page) throw new Error('Browser not initialized')
+  await this.page.click(`text=${pageName}`)
+  await this.page.waitForLoadState('networkidle')
+  await this.page.waitForTimeout(1500)
+})
