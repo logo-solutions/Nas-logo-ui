@@ -5,7 +5,7 @@ Feature: API Integration
 
   Scenario: Immich API returns photos
     When I fetch photos from Immich
-    Then I should receive 14 photos
+    Then I should receive 1995 photos
     And each photo has required fields id, fileName, fileCreatedAt
     And Immich API should respond with HTTP 200
 

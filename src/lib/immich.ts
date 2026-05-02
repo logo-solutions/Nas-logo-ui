@@ -83,37 +83,49 @@ export async function getPhotos(
   }
 
   try {
-    // Get list of albums
-    const albumRes = await fetch(`${API_BASE}/albums?skip=0&take=1`, {
-      headers: headers(),
-    })
-    if (!albumRes.ok) {
-      throw new Error(
-        `Failed to fetch albums: HTTP ${albumRes.status}`,
+    // Get all albums (paginate if needed)
+    const allAssets: ImmichPhoto[] = []
+    let albumPage = 0
+    const albumsPerPage = 100
+
+    while (true) {
+      const albumRes = await fetch(
+        `${API_BASE}/albums?skip=${albumPage * albumsPerPage}&take=${albumsPerPage}`,
+        {
+          headers: headers(),
+        },
       )
-    }
+      if (!albumRes.ok) {
+        throw new Error(
+          `Failed to fetch albums: HTTP ${albumRes.status}`,
+        )
+      }
 
-    const albums = await albumRes.json()
-    if (!Array.isArray(albums) || albums.length === 0) {
-      return []
-    }
+      const albums = await albumRes.json()
+      if (!Array.isArray(albums) || albums.length === 0) {
+        break
+      }
 
-    // Get assets from first album
-    const firstAlbum = albums[0]
-    const assetRes = await fetch(`${API_BASE}/albums/${firstAlbum.id}`, {
-      headers: headers(),
-    })
-    if (!assetRes.ok) {
-      throw new Error(
-        `Failed to fetch album: HTTP ${assetRes.status}`,
-      )
-    }
+      // Fetch assets from each album
+      for (const album of albums) {
+        const assetRes = await fetch(`${API_BASE}/albums/${album.id}`, {
+          headers: headers(),
+        })
+        if (assetRes.ok) {
+          const albumData = await assetRes.json()
+          const assets = albumData.assets || []
+          allAssets.push(...assets)
+        }
+      }
 
-    const album = await assetRes.json()
-    const assets = album.assets || []
+      if (albums.length < albumsPerPage) {
+        break
+      }
+      albumPage++
+    }
 
     // Apply pagination
-    return assets.slice(skip, skip + take)
+    return allAssets.slice(skip, skip + take)
   } catch (error) {
     if (error instanceof TypeError) {
       throw new Error(
