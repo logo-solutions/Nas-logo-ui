@@ -5,6 +5,9 @@ import Header from './Header'
 import Dashboard from './Dashboard'
 import PhotosPage from './Photos/PhotosPage'
 import DocumentsPage from './Documents/DocumentsPage'
+import SearchPage from './Search/SearchPage'
+import MonitoringPage from './Monitoring/MonitoringPage'
+import SettingsPage from './Settings/SettingsPage'
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -16,10 +19,13 @@ export default function Layout() {
         return <PhotosPage />
       case 'documents':
         return <DocumentsPage />
-      case 'workflows':
       case 'search':
+        return <SearchPage />
       case 'monitoring':
+        return <MonitoringPage />
       case 'settings':
+        return <SettingsPage />
+      case 'workflows':
         return (
           <div className="text-center py-12">
             <p className="text-gray-500 dark:text-gray-400">Coming soon...</p>
