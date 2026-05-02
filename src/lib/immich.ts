@@ -49,7 +49,7 @@ export interface ImmichServerInfo {
   version: string
 }
 
-const API_BASE = 'http://100.113.214.55:2283/api'
+const API_BASE = 'http://localhost:2283/api'
 let API_KEY = ''
 
 export function setImmichApiKey(key: string) {
@@ -82,18 +82,38 @@ export async function getPhotos(
     throw new Error('Immich API key not configured')
   }
 
-  const url = `${API_BASE}/assets?skip=${skip}&take=${take}`
   try {
-    const res = await fetch(url, {
+    // Get list of albums
+    const albumRes = await fetch(`${API_BASE}/albums?skip=0&take=1`, {
       headers: headers(),
     })
-    if (!res.ok) {
-      const errorData = await res.text()
+    if (!albumRes.ok) {
       throw new Error(
-        `HTTP ${res.status}: ${res.statusText}. ${errorData.slice(0, 100)}`,
+        `Failed to fetch albums: HTTP ${albumRes.status}`,
       )
     }
-    return res.json()
+
+    const albums = await albumRes.json()
+    if (!Array.isArray(albums) || albums.length === 0) {
+      return []
+    }
+
+    // Get assets from first album
+    const firstAlbum = albums[0]
+    const assetRes = await fetch(`${API_BASE}/albums/${firstAlbum.id}`, {
+      headers: headers(),
+    })
+    if (!assetRes.ok) {
+      throw new Error(
+        `Failed to fetch album: HTTP ${assetRes.status}`,
+      )
+    }
+
+    const album = await assetRes.json()
+    const assets = album.assets || []
+
+    // Apply pagination
+    return assets.slice(skip, skip + take)
   } catch (error) {
     if (error instanceof TypeError) {
       throw new Error(
