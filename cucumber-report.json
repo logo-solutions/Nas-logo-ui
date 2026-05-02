@@ -1,0 +1,511 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "api-integration;immich-api-returns-photos",
+        "keyword": "Scenario",
+        "line": 6,
+        "name": "Immich API returns photos",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "failed",
+              "duration": 4162624,
+              "error_message": "TypeError: Cannot read properties of undefined (reading 'name')\n    at World.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/hooks.ts:8:32)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "API credentials are valid",
+            "match": {
+              "location": "features/steps/api.steps.ts:18"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "services are running on 100.113.214.55",
+            "match": {
+              "location": "features/steps/api.steps.ts:23"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 7,
+            "name": "I fetch photos from Immich",
+            "match": {
+              "location": "features/steps/api.steps.ts:46"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 8,
+            "name": "I should receive 14 photos",
+            "match": {
+              "location": "features/steps/api.steps.ts:59"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "each photo has required fields (id, fileName, fileCreatedAt)",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "Immich API should respond with HTTP 200",
+            "match": {
+              "location": "features/steps/api.steps.ts:81"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 115541
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "api-integration;paperless-api-returns-documents",
+        "keyword": "Scenario",
+        "line": 12,
+        "name": "Paperless API returns documents",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "failed",
+              "duration": 104167,
+              "error_message": "TypeError: Cannot read properties of undefined (reading 'name')\n    at World.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/hooks.ts:8:32)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "API credentials are valid",
+            "match": {
+              "location": "features/steps/api.steps.ts:18"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "services are running on 100.113.214.55",
+            "match": {
+              "location": "features/steps/api.steps.ts:23"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 13,
+            "name": "I fetch documents from Paperless",
+            "match": {
+              "location": "features/steps/api.steps.ts:89"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "I should receive 3463 documents",
+            "match": {
+              "location": "features/steps/api.steps.ts:96"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "each document has required fields (id, title, created)",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 16,
+            "name": "Paperless API should respond with HTTP 200",
+            "match": {
+              "location": "features/steps/api.steps.ts:121"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 54707
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "api-integration;meilisearch-api-is-healthy",
+        "keyword": "Scenario",
+        "line": 18,
+        "name": "Meilisearch API is healthy",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "failed",
+              "duration": 143958,
+              "error_message": "TypeError: Cannot read properties of undefined (reading 'name')\n    at World.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/hooks.ts:8:32)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "API credentials are valid",
+            "match": {
+              "location": "features/steps/api.steps.ts:18"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "services are running on 100.113.214.55",
+            "match": {
+              "location": "features/steps/api.steps.ts:23"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 19,
+            "name": "I check Meilisearch health",
+            "match": {
+              "location": "features/steps/api.steps.ts:129"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 20,
+            "name": "Meilisearch should respond with HTTP 200",
+            "match": {
+              "location": "features/steps/api.steps.ts:136"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 21,
+            "name": "I should be able to search for \"test\"",
+            "match": {
+              "location": "features/steps/api.steps.ts:144"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 22,
+            "name": "search results should return documents",
+            "match": {
+              "location": "features/steps/api.steps.ts:161"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 51916
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "api-integration;immich-thumbnail-endpoint-works",
+        "keyword": "Scenario",
+        "line": 24,
+        "name": "Immich thumbnail endpoint works",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "failed",
+              "duration": 74750,
+              "error_message": "TypeError: Cannot read properties of undefined (reading 'name')\n    at World.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/hooks.ts:8:32)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "API credentials are valid",
+            "match": {
+              "location": "features/steps/api.steps.ts:18"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "services are running on 100.113.214.55",
+            "match": {
+              "location": "features/steps/api.steps.ts:23"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 25,
+            "name": "I fetch a photo thumbnail",
+            "match": {
+              "location": "features/steps/api.steps.ts:179"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 26,
+            "name": "thumbnail should respond with HTTP 200",
+            "match": {
+              "location": "features/steps/api.steps.ts:200"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 27,
+            "name": "response should have image content-type",
+            "match": {
+              "location": "features/steps/api.steps.ts:208"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 45708
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "api-integration;invalid-api-credentials-are-rejected",
+        "keyword": "Scenario",
+        "line": 29,
+        "name": "Invalid API credentials are rejected",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "failed",
+              "duration": 149333,
+              "error_message": "TypeError: Cannot read properties of undefined (reading 'name')\n    at World.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/hooks.ts:8:32)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "API credentials are valid",
+            "match": {
+              "location": "features/steps/api.steps.ts:18"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "services are running on 100.113.214.55",
+            "match": {
+              "location": "features/steps/api.steps.ts:23"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 30,
+            "name": "I try to fetch photos with invalid key",
+            "match": {
+              "location": "features/steps/api.steps.ts:217"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 31,
+            "name": "API should respond with HTTP 401 or 403",
+            "match": {
+              "location": "features/steps/api.steps.ts:224"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 32,
+            "name": "error message should indicate authentication failure",
+            "match": {
+              "location": "features/steps/api.steps.ts:235"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 115207
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "api-integration",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "API Integration",
+    "tags": [],
+    "uri": "features/api.feature"
+  }
+]
