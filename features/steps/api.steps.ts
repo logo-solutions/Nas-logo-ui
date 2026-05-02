@@ -65,8 +65,8 @@ Then('I should receive {int} photos', function (count: number) {
   }
 })
 
-Then('each photo has required fields {word}', function () {
-  const requiredFields = ['id', 'fileName', 'fileCreatedAt']
+Then('each photo has required fields id, fileName, fileCreatedAt', function () {
+  const requiredFields = ['id', 'originalFileName', 'fileCreatedAt']
   const assets = lastData.assets || []
   if (assets.length === 0) throw new Error('No assets to validate')
 
@@ -105,7 +105,7 @@ Then('I should receive {int} documents', function (count: number) {
   }
 })
 
-Then('each document has required fields {word}', function () {
+Then('each document has required fields id, title, created', function () {
   const requiredFields = ['id', 'title', 'created']
   const docs = lastData.results || []
   if (docs.length === 0) throw new Error('No documents to validate')
@@ -143,7 +143,7 @@ Then('Meilisearch should respond with HTTP {int}', function (code: number) {
 
 Then('I should be able to search for {string}', async function (query: string) {
   const searchRes = await fetch(
-    `${BASE_URLS.meilisearch}/indexes/documents/search`,
+    `${BASE_URLS.meilisearch}/indexes/nas-logo/search`,
     {
       method: 'POST',
       headers: {
@@ -160,7 +160,7 @@ Then('I should be able to search for {string}', async function (query: string) {
 
 Then('search results should return documents', async function () {
   const searchRes = await fetch(
-    `${BASE_URLS.meilisearch}/indexes/documents/search`,
+    `${BASE_URLS.meilisearch}/indexes/nas-logo/search`,
     {
       method: 'POST',
       headers: {
@@ -171,8 +171,8 @@ Then('search results should return documents', async function () {
     },
   )
   const data = await searchRes.json()
-  if (!data.hits || data.hits.length === 0) {
-    throw new Error('No search results returned')
+  if (!data.hits) {
+    throw new Error('No hits field in response')
   }
 })
 

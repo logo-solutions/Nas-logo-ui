@@ -49,7 +49,7 @@ export interface ImmichServerInfo {
   version: string
 }
 
-const API_BASE = 'http://100.113.214.55:2283/api'
+const API_BASE = 'http://localhost:2283/api'
 let API_KEY = ''
 
 export function setImmichApiKey(key: string) {

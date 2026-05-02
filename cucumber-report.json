@@ -10,15 +10,6 @@
         "name": "Immich API returns photos",
         "steps": [
           {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "failed",
-              "duration": 4162624,
-              "error_message": "TypeError: Cannot read properties of undefined (reading 'name')\n    at World.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/hooks.ts:8:32)"
-            }
-          },
-          {
             "arguments": [],
             "keyword": "Given ",
             "line": 3,
@@ -27,8 +18,8 @@
               "location": "features/steps/api.steps.ts:18"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 1277375
             }
           },
           {
@@ -40,8 +31,8 @@
               "location": "features/steps/api.steps.ts:23"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 249827459
             }
           },
           {
@@ -53,8 +44,8 @@
               "location": "features/steps/api.steps.ts:46"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 128204874
             }
           },
           {
@@ -66,18 +57,21 @@
               "location": "features/steps/api.steps.ts:59"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 456416
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 9,
-            "name": "each photo has required fields (id, fileName, fileCreatedAt)",
+            "name": "each photo has required fields id, fileName, fileCreatedAt",
+            "match": {
+              "location": "features/steps/api.steps.ts:68"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 478666
             }
           },
           {
@@ -89,16 +83,8 @@
               "location": "features/steps/api.steps.ts:81"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
               "status": "passed",
-              "duration": 115541
+              "duration": 333333
             }
           }
         ],
@@ -113,15 +99,6 @@
         "name": "Paperless API returns documents",
         "steps": [
           {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "failed",
-              "duration": 104167,
-              "error_message": "TypeError: Cannot read properties of undefined (reading 'name')\n    at World.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/hooks.ts:8:32)"
-            }
-          },
-          {
             "arguments": [],
             "keyword": "Given ",
             "line": 3,
@@ -130,8 +107,8 @@
               "location": "features/steps/api.steps.ts:18"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 177499
             }
           },
           {
@@ -143,8 +120,8 @@
               "location": "features/steps/api.steps.ts:23"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 94691624
             }
           },
           {
@@ -156,8 +133,8 @@
               "location": "features/steps/api.steps.ts:89"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 86119416
             }
           },
           {
@@ -169,18 +146,21 @@
               "location": "features/steps/api.steps.ts:96"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 360375
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 15,
-            "name": "each document has required fields (id, title, created)",
+            "name": "each document has required fields id, title, created",
+            "match": {
+              "location": "features/steps/api.steps.ts:108"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 495417
             }
           },
           {
@@ -192,16 +172,8 @@
               "location": "features/steps/api.steps.ts:121"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
               "status": "passed",
-              "duration": 54707
+              "duration": 147834
             }
           }
         ],
@@ -216,15 +188,6 @@
         "name": "Meilisearch API is healthy",
         "steps": [
           {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "failed",
-              "duration": 143958,
-              "error_message": "TypeError: Cannot read properties of undefined (reading 'name')\n    at World.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/hooks.ts:8:32)"
-            }
-          },
-          {
             "arguments": [],
             "keyword": "Given ",
             "line": 3,
@@ -233,8 +196,8 @@
               "location": "features/steps/api.steps.ts:18"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 304333
             }
           },
           {
@@ -246,8 +209,8 @@
               "location": "features/steps/api.steps.ts:23"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 86166458
             }
           },
           {
@@ -259,8 +222,8 @@
               "location": "features/steps/api.steps.ts:129"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 17126292
             }
           },
           {
@@ -272,8 +235,8 @@
               "location": "features/steps/api.steps.ts:136"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 363082
             }
           },
           {
@@ -285,8 +248,8 @@
               "location": "features/steps/api.steps.ts:144"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 12217791
             }
           },
           {
@@ -298,16 +261,8 @@
               "location": "features/steps/api.steps.ts:161"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
               "status": "passed",
-              "duration": 51916
+              "duration": 6654875
             }
           }
         ],
@@ -322,15 +277,6 @@
         "name": "Immich thumbnail endpoint works",
         "steps": [
           {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "failed",
-              "duration": 74750,
-              "error_message": "TypeError: Cannot read properties of undefined (reading 'name')\n    at World.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/hooks.ts:8:32)"
-            }
-          },
-          {
             "arguments": [],
             "keyword": "Given ",
             "line": 3,
@@ -339,8 +285,8 @@
               "location": "features/steps/api.steps.ts:18"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 163667
             }
           },
           {
@@ -352,8 +298,8 @@
               "location": "features/steps/api.steps.ts:23"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 115260084
             }
           },
           {
@@ -365,8 +311,8 @@
               "location": "features/steps/api.steps.ts:179"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 80091125
             }
           },
           {
@@ -378,8 +324,8 @@
               "location": "features/steps/api.steps.ts:200"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 497667
             }
           },
           {
@@ -391,16 +337,8 @@
               "location": "features/steps/api.steps.ts:208"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
               "status": "passed",
-              "duration": 45708
+              "duration": 292666
             }
           }
         ],
@@ -415,15 +353,6 @@
         "name": "Invalid API credentials are rejected",
         "steps": [
           {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "failed",
-              "duration": 149333,
-              "error_message": "TypeError: Cannot read properties of undefined (reading 'name')\n    at World.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/hooks.ts:8:32)"
-            }
-          },
-          {
             "arguments": [],
             "keyword": "Given ",
             "line": 3,
@@ -432,8 +361,8 @@
               "location": "features/steps/api.steps.ts:18"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 330750
             }
           },
           {
@@ -445,8 +374,8 @@
               "location": "features/steps/api.steps.ts:23"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 215210250
             }
           },
           {
@@ -458,8 +387,8 @@
               "location": "features/steps/api.steps.ts:217"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 3865917
             }
           },
           {
@@ -471,8 +400,8 @@
               "location": "features/steps/api.steps.ts:224"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 281541
             }
           },
           {
@@ -484,16 +413,8 @@
               "location": "features/steps/api.steps.ts:235"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
               "status": "passed",
-              "duration": 115207
+              "duration": 602916
             }
           }
         ],

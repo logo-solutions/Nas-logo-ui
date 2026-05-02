@@ -6,13 +6,13 @@ Feature: API Integration
   Scenario: Immich API returns photos
     When I fetch photos from Immich
     Then I should receive 14 photos
-    And each photo has required fields (id, fileName, fileCreatedAt)
+    And each photo has required fields id, fileName, fileCreatedAt
     And Immich API should respond with HTTP 200
 
   Scenario: Paperless API returns documents
     When I fetch documents from Paperless
     Then I should receive 3463 documents
-    And each document has required fields (id, title, created)
+    And each document has required fields id, title, created
     And Paperless API should respond with HTTP 200
 
   Scenario: Meilisearch API is healthy
