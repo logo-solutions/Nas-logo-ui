@@ -4,6 +4,7 @@ import Sidebar from './Sidebar'
 import Header from './Header'
 import Dashboard from './Dashboard'
 import PhotosPage from './Photos/PhotosPage'
+import DocumentsPage from './Documents/DocumentsPage'
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -14,6 +15,7 @@ export default function Layout() {
       case 'photos':
         return <PhotosPage />
       case 'documents':
+        return <DocumentsPage />
       case 'workflows':
       case 'search':
       case 'monitoring':
