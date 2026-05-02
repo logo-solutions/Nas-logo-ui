@@ -40,7 +40,7 @@ export async function checkHealth(): Promise<HealthStatus> {
   if (immichApiKey) {
     try {
       const res = await fetch(
-        'http://localhost:2283/api/server/version',
+        'http://100.113.214.55:2283/api/server/version',
         {
           headers: { 'x-api-key': immichApiKey },
         },
@@ -59,7 +59,7 @@ export async function checkHealth(): Promise<HealthStatus> {
   if (paperlessToken) {
     try {
       const res = await fetch(
-        'http://localhost:8010/api/documents/?page=1&page_size=1',
+        'http://100.113.214.55:8010/api/documents/?page=1&page_size=1',
         {
           headers: { 'Authorization': `Token ${paperlessToken}` },
         },
@@ -77,7 +77,7 @@ export async function checkHealth(): Promise<HealthStatus> {
   // Check Meilisearch
   if (meilisearchKey) {
     try {
-      const res = await fetch('http://localhost:7700/health', {
+      const res = await fetch('http://100.113.214.55:7700/health', {
         headers: { 'Authorization': `Bearer ${meilisearchKey}` },
       })
       status.meilisearch.accessible = res.ok
