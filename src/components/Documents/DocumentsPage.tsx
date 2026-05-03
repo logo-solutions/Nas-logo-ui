@@ -1,56 +1,42 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useDocuments, useCorrespondents } from '../../hooks/useDocuments'
-import { useAuth } from '../../store/auth'
-import { setPaperlessToken } from '../../lib/paperless'
 import DocumentList from './DocumentList'
 
 export default function DocumentsPage() {
   const [page, setPage] = useState(1)
   const [searchQuery, setSearchQuery] = useState('')
   const [activeSearch, setActiveSearch] = useState('')
-  const { paperlessToken } = useAuth()
   const { data: documentsData, isLoading, error } = useDocuments(page, activeSearch)
   const { data: correspondentsData } = useCorrespondents()
 
-  useEffect(() => {
-    if (paperlessToken) {
-      setPaperlessToken(paperlessToken)
-    }
-  }, [])
-
-  const hasToken = !!paperlessToken
   const documents = documentsData?.results || []
   const totalCount = documentsData?.count || 0
 
-  if (!hasToken) {
-    return (
-      <div className="text-center py-12">
-        <p className="text-gray-500 dark:text-gray-400">
-          Please configure Paperless API token in settings
-        </p>
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-12">
-        <p className="text-red-600 dark:text-red-400">
-          Error loading documents: {error instanceof Error ? error.message : 'Unknown error'}
-        </p>
-      </div>
-    )
-  }
 
   const maxPages = Math.ceil(totalCount / 50)
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Documents</h2>
-        <p className="text-gray-600 dark:text-gray-400">
-          {totalCount} documents total
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Documents</h2>
+          <p className="text-gray-600 dark:text-gray-400">
+            {totalCount} documents total
+          </p>
+          {error && (
+            <p className="text-red-600 dark:text-red-400 text-sm mt-2">
+              Error: {error instanceof Error ? error.message : 'Unknown error'}
+            </p>
+          )}
+        </div>
+        <a
+          href="http://100.113.214.55:8010"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+        >
+          📋 Open in Paperless
+        </a>
       </div>
 
       {/* Search Bar */}

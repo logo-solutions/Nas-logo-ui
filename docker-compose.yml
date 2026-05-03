@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  gateway:
+    build: ./gateway
+    container_name: nas-logo-gateway
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - JWT_SECRET=nas-logo-dev-secret-key-change-in-prod
+      - IMMICH_URL=http://immich_server:2283
+      - PAPERLESS_URL=http://paperless:8000
+      - MEILISEARCH_URL=http://meilisearch:7700
+      - N8N_URL=http://n8n:5678
+      - GRAFANA_URL=http://grafana:3000
+      - NTFY_URL=http://ntfy:80
+    networks:
+      - nas-network
+    depends_on:
+      - ui
+
+  ui:
+    build: .
+    container_name: nas-logo-ui
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    networks:
+      - nas-network
+    depends_on:
+      - gateway
+
+networks:
+  nas-network:
+    driver: bridge

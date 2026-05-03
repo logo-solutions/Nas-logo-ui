@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+dist
+.git
+.gitignore
+README.md
+.env
+.env.local
+cucumber-report.html
+cucumber-report.json
+.DS_Store

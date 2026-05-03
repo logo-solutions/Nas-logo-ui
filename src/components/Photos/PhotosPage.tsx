@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { usePhotos } from '../../hooks/usePhotos'
-import { useAuth } from '../../store/auth'
-import { setImmichApiKey } from '../../lib/immich'
 import PhotoGrid from './PhotoGrid'
 
 export default function PhotosPage() {
@@ -9,16 +7,9 @@ export default function PhotosPage() {
   const [sortBy, setSortBy] = useState<'newest' | 'oldest'>('newest')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
-  const { immichApiKey } = useAuth()
   const { data: photos = [], isLoading, error } = usePhotos(skip, 50, sortBy, startDate, endDate)
 
-  useEffect(() => {
-    if (immichApiKey) {
-      setImmichApiKey(immichApiKey)
-    }
-  }, [])
-
-  const hasApiKey = !!immichApiKey
+  const hasApiKey = true
   const currentPage = Math.floor(skip / 50) + 1
 
   if (!hasApiKey) {
@@ -31,23 +22,28 @@ export default function PhotosPage() {
     )
   }
 
-  if (error) {
-    return (
-      <div className="text-center py-12">
-        <p className="text-red-600 dark:text-red-400">
-          Error loading photos: {error instanceof Error ? error.message : 'Unknown error'}
-        </p>
-      </div>
-    )
-  }
-
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Photos</h2>
-        <p className="text-gray-600 dark:text-gray-400">
-          Page {currentPage} · Showing 50 photos per page · Sort: {sortBy === 'newest' ? '📅 Newest first' : '📅 Oldest first'}
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Photos</h2>
+          <p className="text-gray-600 dark:text-gray-400">
+            Page {currentPage} · Showing 50 photos per page · Sort: {sortBy === 'newest' ? '📅 Newest first' : '📅 Oldest first'}
+          </p>
+          {error && (
+            <p className="text-red-600 dark:text-red-400 text-sm mt-2">
+              Error: {error instanceof Error ? error.message : 'Unknown error'}
+            </p>
+          )}
+        </div>
+        <a
+          href="http://100.113.214.55:2283"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+        >
+          🖼️ Open in Immich
+        </a>
       </div>
 
       {/* Filters and Sorting */}

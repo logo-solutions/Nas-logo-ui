@@ -7,31 +7,12 @@ export default defineConfig({
     port: 5173,
     host: '0.0.0.0',
     open: true,
+    allowedHosts: ['localhost', '127.0.0.1', 'nas.logo-solutions.fr'],
     proxy: {
-      '/api/immich': {
-        target: 'http://100.113.214.55:2283',
+      '/api': {
+        target: 'http://localhost:8000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/immich/, '/api'),
-      },
-      '/api/paperless': {
-        target: 'http://100.113.214.55:8010',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/paperless/, '/api'),
-      },
-      '/api/meilisearch': {
-        target: 'http://100.113.214.55:7700',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/meilisearch/, ''),
-      },
-      '/api/n8n': {
-        target: 'http://100.113.214.55:5679',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/n8n/, ''),
-      },
-      '/api/grafana': {
-        target: 'http://100.113.214.55:3000',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/grafana/, ''),
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
