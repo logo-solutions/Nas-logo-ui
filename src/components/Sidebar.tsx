@@ -15,6 +15,7 @@ export default function Sidebar({ open }: SidebarProps) {
     { icon: '🔄', label: 'Workflows', page: 'workflows' },
     { icon: '🔍', label: 'Search', page: 'search' },
     { icon: '📊', label: 'Monitoring', page: 'monitoring' },
+    { icon: '🔔', label: 'Notifications', page: 'ntfy' },
     { icon: '⚙️', label: 'Settings', page: 'settings' },
   ]
 

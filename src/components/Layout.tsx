@@ -9,6 +9,7 @@ import SearchPage from './Search/SearchPage'
 import MonitoringPage from './Monitoring/MonitoringPage'
 import WorkflowsPage from './Workflows/WorkflowsPage'
 import SettingsPage from './Settings/SettingsPage'
+import NtfyPage from './Ntfy/NtfyPage'
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -24,6 +25,8 @@ export default function Layout() {
         return <SearchPage />
       case 'monitoring':
         return <MonitoringPage />
+      case 'ntfy':
+        return <NtfyPage />
       case 'settings':
         return <SettingsPage />
       case 'workflows':
