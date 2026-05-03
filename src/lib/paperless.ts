@@ -152,3 +152,28 @@ export async function uploadDocument(file: File, title?: string): Promise<Paperl
   if (!res.ok) throw new Error('Failed to upload document')
   return res.json()
 }
+
+export async function getAllDocuments(): Promise<PaperlessDocument[]> {
+  if (!API_TOKEN) {
+    throw new Error('Paperless API token not configured')
+  }
+
+  const allDocs: PaperlessDocument[] = []
+  let page = 1
+  const pageSize = 100
+
+  while (true) {
+    const res = await fetch(`${API_BASE}/documents/?page=${page}&page_size=${pageSize}`, {
+      headers: headers(),
+    })
+    if (!res.ok) break
+
+    const data: PaperlessListResponse<PaperlessDocument> = await res.json()
+    allDocs.push(...data.results)
+
+    if (!data.next) break
+    page++
+  }
+
+  return allDocs
+}

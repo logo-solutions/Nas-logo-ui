@@ -10,6 +10,14 @@
         "name": "Immich API returns photos",
         "steps": [
           {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1898834083
+            }
+          },
+          {
             "arguments": [],
             "keyword": "Given ",
             "line": 3,
@@ -19,7 +27,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1277375
+              "duration": 255874
             }
           },
           {
@@ -32,7 +40,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 249827459
+              "duration": 290702124
             }
           },
           {
@@ -45,20 +53,20 @@
             },
             "result": {
               "status": "passed",
-              "duration": 128204874
+              "duration": 792066542
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 8,
-            "name": "I should receive 14 photos",
+            "name": "I should receive 1995 photos",
             "match": {
-              "location": "features/steps/api.steps.ts:59"
+              "location": "features/steps/api.steps.ts:78"
             },
             "result": {
               "status": "passed",
-              "duration": 456416
+              "duration": 132083
             }
           },
           {
@@ -67,11 +75,11 @@
             "line": 9,
             "name": "each photo has required fields id, fileName, fileCreatedAt",
             "match": {
-              "location": "features/steps/api.steps.ts:68"
+              "location": "features/steps/api.steps.ts:91"
             },
             "result": {
               "status": "passed",
-              "duration": 478666
+              "duration": 50165
             }
           },
           {
@@ -80,11 +88,19 @@
             "line": 10,
             "name": "Immich API should respond with HTTP 200",
             "match": {
-              "location": "features/steps/api.steps.ts:81"
+              "location": "features/steps/api.steps.ts:104"
             },
             "result": {
               "status": "passed",
-              "duration": 333333
+              "duration": 39292
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 18365625
             }
           }
         ],
@@ -99,6 +115,14 @@
         "name": "Paperless API returns documents",
         "steps": [
           {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 115342333
+            }
+          },
+          {
             "arguments": [],
             "keyword": "Given ",
             "line": 3,
@@ -108,7 +132,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 177499
+              "duration": 176666
             }
           },
           {
@@ -121,7 +145,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 94691624
+              "duration": 139624624
             }
           },
           {
@@ -130,11 +154,11 @@
             "line": 13,
             "name": "I fetch documents from Paperless",
             "match": {
-              "location": "features/steps/api.steps.ts:89"
+              "location": "features/steps/api.steps.ts:112"
             },
             "result": {
               "status": "passed",
-              "duration": 86119416
+              "duration": 91385291
             }
           },
           {
@@ -143,11 +167,11 @@
             "line": 14,
             "name": "I should receive 3463 documents",
             "match": {
-              "location": "features/steps/api.steps.ts:96"
+              "location": "features/steps/api.steps.ts:119"
             },
             "result": {
               "status": "passed",
-              "duration": 360375
+              "duration": 124042
             }
           },
           {
@@ -156,11 +180,11 @@
             "line": 15,
             "name": "each document has required fields id, title, created",
             "match": {
-              "location": "features/steps/api.steps.ts:108"
+              "location": "features/steps/api.steps.ts:131"
             },
             "result": {
               "status": "passed",
-              "duration": 495417
+              "duration": 62791
             }
           },
           {
@@ -169,11 +193,19 @@
             "line": 16,
             "name": "Paperless API should respond with HTTP 200",
             "match": {
-              "location": "features/steps/api.steps.ts:121"
+              "location": "features/steps/api.steps.ts:144"
             },
             "result": {
               "status": "passed",
-              "duration": 147834
+              "duration": 150333
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 22673249
             }
           }
         ],
@@ -188,6 +220,14 @@
         "name": "Meilisearch API is healthy",
         "steps": [
           {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 158730042
+            }
+          },
+          {
             "arguments": [],
             "keyword": "Given ",
             "line": 3,
@@ -197,7 +237,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 304333
+              "duration": 461249
             }
           },
           {
@@ -210,7 +250,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 86166458
+              "duration": 127891708
             }
           },
           {
@@ -219,11 +259,11 @@
             "line": 19,
             "name": "I check Meilisearch health",
             "match": {
-              "location": "features/steps/api.steps.ts:129"
+              "location": "features/steps/api.steps.ts:152"
             },
             "result": {
               "status": "passed",
-              "duration": 17126292
+              "duration": 8549041
             }
           },
           {
@@ -232,11 +272,11 @@
             "line": 20,
             "name": "Meilisearch should respond with HTTP 200",
             "match": {
-              "location": "features/steps/api.steps.ts:136"
+              "location": "features/steps/api.steps.ts:159"
             },
             "result": {
               "status": "passed",
-              "duration": 363082
+              "duration": 91625
             }
           },
           {
@@ -245,11 +285,11 @@
             "line": 21,
             "name": "I should be able to search for \"test\"",
             "match": {
-              "location": "features/steps/api.steps.ts:144"
+              "location": "features/steps/api.steps.ts:167"
             },
             "result": {
               "status": "passed",
-              "duration": 12217791
+              "duration": 7931375
             }
           },
           {
@@ -258,11 +298,19 @@
             "line": 22,
             "name": "search results should return documents",
             "match": {
-              "location": "features/steps/api.steps.ts:161"
+              "location": "features/steps/api.steps.ts:184"
             },
             "result": {
               "status": "passed",
-              "duration": 6654875
+              "duration": 3587749
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 11330791
             }
           }
         ],
@@ -277,6 +325,14 @@
         "name": "Immich thumbnail endpoint works",
         "steps": [
           {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 115688167
+            }
+          },
+          {
             "arguments": [],
             "keyword": "Given ",
             "line": 3,
@@ -286,7 +342,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 163667
+              "duration": 104834
             }
           },
           {
@@ -299,7 +355,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 115260084
+              "duration": 102343957
             }
           },
           {
@@ -308,11 +364,11 @@
             "line": 25,
             "name": "I fetch a photo thumbnail",
             "match": {
-              "location": "features/steps/api.steps.ts:179"
+              "location": "features/steps/api.steps.ts:202"
             },
             "result": {
               "status": "passed",
-              "duration": 80091125
+              "duration": 1430771166
             }
           },
           {
@@ -321,11 +377,11 @@
             "line": 26,
             "name": "thumbnail should respond with HTTP 200",
             "match": {
-              "location": "features/steps/api.steps.ts:200"
+              "location": "features/steps/api.steps.ts:223"
             },
             "result": {
               "status": "passed",
-              "duration": 497667
+              "duration": 203750
             }
           },
           {
@@ -334,11 +390,19 @@
             "line": 27,
             "name": "response should have image content-type",
             "match": {
-              "location": "features/steps/api.steps.ts:208"
+              "location": "features/steps/api.steps.ts:231"
             },
             "result": {
               "status": "passed",
-              "duration": 292666
+              "duration": 259374
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 22700166
             }
           }
         ],
@@ -353,6 +417,14 @@
         "name": "Invalid API credentials are rejected",
         "steps": [
           {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 159530249
+            }
+          },
+          {
             "arguments": [],
             "keyword": "Given ",
             "line": 3,
@@ -362,7 +434,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 330750
+              "duration": 124832
             }
           },
           {
@@ -375,7 +447,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 215210250
+              "duration": 219882042
             }
           },
           {
@@ -384,11 +456,11 @@
             "line": 30,
             "name": "I try to fetch photos with invalid key",
             "match": {
-              "location": "features/steps/api.steps.ts:217"
+              "location": "features/steps/api.steps.ts:240"
             },
             "result": {
               "status": "passed",
-              "duration": 3865917
+              "duration": 7050166
             }
           },
           {
@@ -397,11 +469,11 @@
             "line": 31,
             "name": "API should respond with HTTP 401 or 403",
             "match": {
-              "location": "features/steps/api.steps.ts:224"
+              "location": "features/steps/api.steps.ts:247"
             },
             "result": {
               "status": "passed",
-              "duration": 281541
+              "duration": 107041
             }
           },
           {
@@ -410,11 +482,19 @@
             "line": 32,
             "name": "error message should indicate authentication failure",
             "match": {
-              "location": "features/steps/api.steps.ts:235"
+              "location": "features/steps/api.steps.ts:258"
             },
             "result": {
               "status": "passed",
-              "duration": 602916
+              "duration": 204334
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 17492750
             }
           }
         ],
@@ -428,5 +508,1890 @@
     "name": "API Integration",
     "tags": [],
     "uri": "features/api.feature"
+  },
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "user-interface;dashboard-displays-service-cards",
+        "keyword": "Scenario",
+        "line": 6,
+        "name": "Dashboard displays service cards",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 171796290
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I navigate to \"http://localhost:5173\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1619658584
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "the app loads successfully",
+            "match": {
+              "location": "features/steps/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 25244375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 7,
+            "name": "I view the Dashboard",
+            "match": {
+              "location": "features/steps/ui.steps.ts:25"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 10858333,
+              "error_message": "locator.click: Error: strict mode violation: locator('text=Dashboard') resolved to 2 elements:\n    1) <span class=\"text-sm\">Dashboard</span> aka getByRole('button', { name: '🏠 Dashboard' })\n    2) <p class=\"text-lg text-gray-600 dark:text-gray-400 mt-2\">Unified dashboard for your personal NAS infrastru…</p> aka getByText('Unified dashboard for your')\n\nCall log:\n\u001b[2m  - waiting for locator('text=Dashboard')\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:29:16)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 8,
+            "name": "I should see service cards for Photos, Documents, Search, Monitoring, Settings",
+            "match": {
+              "location": "features/steps/ui.steps.ts:45"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "each card should have a title and description",
+            "match": {
+              "location": "features/steps/ui.steps.ts:56"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 14961792
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-interface;configure-api-credentials-in-settings",
+        "keyword": "Scenario",
+        "line": 11,
+        "name": "Configure API credentials in Settings",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 114190083
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I navigate to \"http://localhost:5173\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1564314625
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "the app loads successfully",
+            "match": {
+              "location": "features/steps/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 19362250
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I navigate to Settings",
+            "match": {
+              "location": "features/steps/ui.steps.ts:64"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 70489583
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "I enter the Immich API key",
+            "match": {
+              "location": "features/steps/ui.steps.ts:70"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9171083
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I enter the Paperless API token",
+            "match": {
+              "location": "features/steps/ui.steps.ts:76"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 10731041
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "I enter the Meilisearch master key",
+            "match": {
+              "location": "features/steps/ui.steps.ts:82"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 8358833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 16,
+            "name": "I click Save buttons",
+            "match": {
+              "location": "features/steps/ui.steps.ts:88"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1608175750
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 17,
+            "name": "success message should appear",
+            "match": {
+              "location": "features/steps/ui.steps.ts:98"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5452374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 18,
+            "name": "service status should show \"✓ Connected\" for each service",
+            "match": {
+              "location": "features/steps/ui.steps.ts:104"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1997457
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 19851791
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-interface;photos-page-loads-after-configuration",
+        "keyword": "Scenario",
+        "line": 20,
+        "name": "Photos page loads after configuration",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 181759708
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I navigate to \"http://localhost:5173\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1587334874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "the app loads successfully",
+            "match": {
+              "location": "features/steps/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 17604541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 21,
+            "name": "API credentials are configured",
+            "match": {
+              "location": "features/steps/ui.steps.ts:212"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 552427708
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 22,
+            "name": "I navigate to Photos",
+            "match": {
+              "location": "features/steps/ui.steps.ts:122"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2082566957
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 23,
+            "name": "page should display \"Photos\" heading",
+            "match": {
+              "location": "features/steps/ui.steps.ts:265"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5105332
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 24,
+            "name": "photos should load and display count",
+            "match": {
+              "location": "features/steps/ui.steps.ts:293"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2028957
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 25,
+            "name": "pagination controls should be visible",
+            "match": {
+              "location": "features/steps/ui.steps.ts:273"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 2738749,
+              "error_message": "Error: Pagination controls not found\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:280:11)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 26,
+            "name": "each photo should have thumbnail image",
+            "match": {
+              "location": "features/steps/ui.steps.ts:284"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 13931000
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-interface;photos-pagination-works-with-next-button",
+        "keyword": "Scenario",
+        "line": 28,
+        "name": "Photos pagination works with Next button",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 120139040
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I navigate to \"http://localhost:5173\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1568822374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "the app loads successfully",
+            "match": {
+              "location": "features/steps/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 19769625
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 29,
+            "name": "API credentials are configured",
+            "match": {
+              "location": "features/steps/ui.steps.ts:212"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 552836917
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 30,
+            "name": "I navigate to Photos",
+            "match": {
+              "location": "features/steps/ui.steps.ts:122"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2067242207
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 31,
+            "name": "I click the Next button",
+            "match": {
+              "location": "features/steps/ui.steps.ts:228"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 30002932750,
+              "error_message": "Error: function timed out, ensure the promise resolves within 30000 milliseconds\n    at Timeout.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/node_modules/@cucumber/cucumber/src/time.ts:52:14)\n    at listOnTimeout (node:internal/timers:581:17)\n    at processTimers (node:internal/timers:519:7)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 32,
+            "name": "page should display \"Photos\" heading",
+            "match": {
+              "location": "features/steps/ui.steps.ts:265"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 33,
+            "name": "new photos should load on the next page",
+            "match": {
+              "location": "features/steps/ui.steps.ts:240"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 34,
+            "name": "Previous button should be enabled",
+            "match": {
+              "location": "features/steps/ui.steps.ts:248"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 35,
+            "name": "page counter should show \"Page 2\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:257"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 20071624
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-interface;photos-page-shows-0-photos-when-not-configured",
+        "keyword": "Scenario",
+        "line": 37,
+        "name": "Photos page shows 0 photos when not configured",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 128799582
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I navigate to \"http://localhost:5173\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1579640083
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "the app loads successfully",
+            "match": {
+              "location": "features/steps/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 23181124
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 38,
+            "name": "credentials are not configured",
+            "match": {
+              "location": "features/steps/ui.steps.ts:113"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 90115624
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 39,
+            "name": "I navigate to Photos",
+            "match": {
+              "location": "features/steps/ui.steps.ts:122"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2498442875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 40,
+            "name": "page should display \"Photos\" heading",
+            "match": {
+              "location": "features/steps/ui.steps.ts:265"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 3509375,
+              "error_message": "Error: Heading \"Photos\" not found\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:269:11)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 41,
+            "name": "photo count should show \"0 photos\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:129"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 42,
+            "name": "I should see message \"Please configure Immich API key in settings\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:403"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 43,
+            "name": "no photo thumbnails should be displayed",
+            "match": {
+              "location": "features/steps/ui.steps.ts:137"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 44,
+            "name": "pagination controls should not be visible",
+            "match": {
+              "location": "features/steps/ui.steps.ts:146"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 15493875
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-interface;documents-page-loads-after-configuration",
+        "keyword": "Scenario",
+        "line": 46,
+        "name": "Documents page loads after configuration",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 124442875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I navigate to \"http://localhost:5173\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1569423458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "the app loads successfully",
+            "match": {
+              "location": "features/steps/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 16283708
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 47,
+            "name": "API credentials are configured",
+            "match": {
+              "location": "features/steps/ui.steps.ts:212"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 539288791
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 48,
+            "name": "I navigate to Documents",
+            "match": {
+              "location": "features/steps/ui.steps.ts:157"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2062228541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 49,
+            "name": "page should display \"Documents\" heading",
+            "match": {
+              "location": "features/steps/ui.steps.ts:265"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3709540
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 50,
+            "name": "document count should show 3463",
+            "match": {
+              "location": "features/steps/ui.steps.ts:172"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 5211082,
+              "error_message": "locator.textContent: Error: strict mode violation: locator('p:has-text(\"documents\")') resolved to 2 elements:\n    1) <p class=\"text-gray-600 dark:text-gray-400\">0 documents total</p> aka getByText('documents total')\n    2) <p class=\"text-gray-500 dark:text-gray-400\">No documents found</p> aka getByText('No documents found')\n\nCall log:\n\u001b[2m  - waiting for locator('p:has-text(\"documents\")')\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:174:75)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 51,
+            "name": "search bar should be visible",
+            "match": {
+              "location": "features/steps/ui.steps.ts:448"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 52,
+            "name": "document list should display items",
+            "match": {
+              "location": "features/steps/ui.steps.ts:189"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 15477375
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-interface;search-functionality-works",
+        "keyword": "Scenario",
+        "line": 54,
+        "name": "Search functionality works",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 171800625
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I navigate to \"http://localhost:5173\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1582556916
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "the app loads successfully",
+            "match": {
+              "location": "features/steps/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 19443416
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 55,
+            "name": "API credentials are configured",
+            "match": {
+              "location": "features/steps/ui.steps.ts:212"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 547257541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 56,
+            "name": "I navigate to Search",
+            "match": {
+              "location": "features/steps/ui.steps.ts:205"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1569520292
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 57,
+            "name": "I enter \"test\" in search box",
+            "match": {
+              "location": "features/steps/ui.steps.ts:301"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 10406540
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 58,
+            "name": "I click Search button",
+            "match": {
+              "location": "features/steps/ui.steps.ts:307"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 9018167,
+              "error_message": "locator.click: Error: strict mode violation: locator('button:has-text(\"Search\")') resolved to 2 elements:\n    1) <button class=\"w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-colors bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400\">…</button> aka getByRole('button', { name: '🔍 Search' })\n    2) <button type=\"submit\" class=\"px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors\">Search</button> aka getByRole('main').getByRole('button', { name: 'Search' })\n\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"Search\")')\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:310:19)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 59,
+            "name": "results should appear",
+            "match": {
+              "location": "features/steps/ui.steps.ts:314"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 60,
+            "name": "each result should have title, description, and date",
+            "match": {
+              "location": "features/steps/ui.steps.ts:323"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 61,
+            "name": "results should include documents and photos",
+            "match": {
+              "location": "features/steps/ui.steps.ts:331"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 17761417
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-interface;theme-switching-works",
+        "keyword": "Scenario",
+        "line": 63,
+        "name": "Theme switching works",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 146661749
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I navigate to \"http://localhost:5173\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1581513499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "the app loads successfully",
+            "match": {
+              "location": "features/steps/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 21156707
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 64,
+            "name": "I click the theme switcher button",
+            "match": {
+              "location": "features/steps/ui.steps.ts:340"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 64999084
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 65,
+            "name": "theme should cycle through System → Light → Dark",
+            "match": {
+              "location": "features/steps/ui.steps.ts:346"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 17630958
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 66,
+            "name": "theme preference should be persisted",
+            "match": {
+              "location": "features/steps/ui.steps.ts:355"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 872040,
+              "error_message": "Error: Theme preference not persisted to localStorage\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:359:11)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 67,
+            "name": "UI colors should update accordingly",
+            "match": {
+              "location": "features/steps/ui.steps.ts:363"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 15342709
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-interface;sidebar-navigation-toggles",
+        "keyword": "Scenario",
+        "line": 69,
+        "name": "Sidebar navigation toggles",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 113154249
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I navigate to \"http://localhost:5173\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1565924874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "the app loads successfully",
+            "match": {
+              "location": "features/steps/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 19827416
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 70,
+            "name": "I click the menu button",
+            "match": {
+              "location": "features/steps/ui.steps.ts:373"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 61054084
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 71,
+            "name": "sidebar should toggle visibility",
+            "match": {
+              "location": "features/steps/ui.steps.ts:379"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2213292
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 72,
+            "name": "current page should be highlighted",
+            "match": {
+              "location": "features/steps/ui.steps.ts:387"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 2141875,
+              "error_message": "Error: Active navigation link not found\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:391:11)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 73,
+            "name": "clicking a menu item should navigate to that page",
+            "match": {
+              "location": "features/steps/ui.steps.ts:395"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 20697459
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-interface;error-handling-for-unconfigured-services",
+        "keyword": "Scenario",
+        "line": 75,
+        "name": "Error handling for unconfigured services",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 174805166
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I navigate to \"http://localhost:5173\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1585184416
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "the app loads successfully",
+            "match": {
+              "location": "features/steps/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 17340917
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 76,
+            "name": "credentials are not configured",
+            "match": {
+              "location": "features/steps/ui.steps.ts:113"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 36194166
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 77,
+            "name": "I navigate to Photos",
+            "match": {
+              "location": "features/steps/ui.steps.ts:122"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2501939208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 78,
+            "name": "I should see message \"Please configure Immich API key in settings\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:403"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3161790
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 79,
+            "name": "I navigate to Documents",
+            "match": {
+              "location": "features/steps/ui.steps.ts:157"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2027029999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 80,
+            "name": "I should see message \"Please configure Paperless API token in settings\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:403"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5144459
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 81,
+            "name": "I navigate to Search",
+            "match": {
+              "location": "features/steps/ui.steps.ts:205"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1531301124
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 82,
+            "name": "I should see message \"Meilisearch key not configured\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:403"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 4281499,
+              "error_message": "Error: Message \"Meilisearch key not configured\" not found\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:407:11)"
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 16371624
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-interface;service-health-status-indicator",
+        "keyword": "Scenario",
+        "line": 84,
+        "name": "Service health status indicator",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 138268708
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I navigate to \"http://localhost:5173\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1597642540
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "the app loads successfully",
+            "match": {
+              "location": "features/steps/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 16340916
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 85,
+            "name": "I am in Settings",
+            "match": {
+              "location": "features/steps/ui.steps.ts:198"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 516190332
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 86,
+            "name": "I configure valid credentials",
+            "match": {
+              "location": "features/steps/ui.steps.ts:411"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1639533958
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Service",
+                      "Status"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Immich",
+                      "✓ Connected"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Paperless",
+                      "✓ Connected"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Meilisearch",
+                      "✓ Connected"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 87,
+            "name": "each service should show connection status:",
+            "match": {
+              "location": "features/steps/ui.steps.ts:456"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3438374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 92,
+            "name": "I configure invalid credentials",
+            "match": {
+              "location": "features/steps/ui.steps.ts:430"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 42258833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 93,
+            "name": "services should show error status with HTTP error codes",
+            "match": {
+              "location": "features/steps/ui.steps.ts:440"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 1300624,
+              "error_message": "Error: Error status with HTTP code not found\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:444:11)"
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 13861208
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-interface;documents-page-shows-0-documents-when-not-configured",
+        "keyword": "Scenario",
+        "line": 95,
+        "name": "Documents page shows 0 documents when not configured",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 124331332
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I navigate to \"http://localhost:5173\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1576274499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "the app loads successfully",
+            "match": {
+              "location": "features/steps/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 16462916
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 96,
+            "name": "credentials are not configured",
+            "match": {
+              "location": "features/steps/ui.steps.ts:113"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 54464416
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 97,
+            "name": "I navigate to Documents",
+            "match": {
+              "location": "features/steps/ui.steps.ts:157"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2501070165
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 98,
+            "name": "page should display \"Documents\" heading",
+            "match": {
+              "location": "features/steps/ui.steps.ts:265"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 3576499,
+              "error_message": "Error: Heading \"Documents\" not found\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:269:11)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 99,
+            "name": "I should see message \"Please configure Paperless API token in settings\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:403"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 100,
+            "name": "document count should show \"0 documents\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:164"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 101,
+            "name": "document list should be empty",
+            "match": {
+              "location": "features/steps/ui.steps.ts:180"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 19325666
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-interface;end-to-end-credential-configuration-flow",
+        "keyword": "Scenario",
+        "line": 103,
+        "name": "End-to-end credential configuration flow",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 170779582
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I navigate to \"http://localhost:5173\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1576584791
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 4,
+            "name": "the app loads successfully",
+            "match": {
+              "location": "features/steps/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 19445374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 104,
+            "name": "I navigate to \"http://localhost:5173\"",
+            "match": {
+              "location": "features/steps/ui.steps.ts:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1521785541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 105,
+            "name": "the app loads successfully",
+            "match": {
+              "location": "features/steps/ui.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 13788833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 106,
+            "name": "page should display \"Dashboard\" heading",
+            "match": {
+              "location": "features/steps/ui.steps.ts:265"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 2403416,
+              "error_message": "Error: Heading \"Dashboard\" not found\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:269:11)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 108,
+            "name": "I navigate to Settings",
+            "match": {
+              "location": "features/steps/ui.steps.ts:64"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 109,
+            "name": "I enter the Immich API key",
+            "match": {
+              "location": "features/steps/ui.steps.ts:70"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 110,
+            "name": "I enter the Paperless API token",
+            "match": {
+              "location": "features/steps/ui.steps.ts:76"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 111,
+            "name": "I enter the Meilisearch master key",
+            "match": {
+              "location": "features/steps/ui.steps.ts:82"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 112,
+            "name": "I click Save buttons",
+            "match": {
+              "location": "features/steps/ui.steps.ts:88"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 113,
+            "name": "success message should appear",
+            "match": {
+              "location": "features/steps/ui.steps.ts:98"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 114,
+            "name": "service status should show \"✓ Connected\" for each service",
+            "match": {
+              "location": "features/steps/ui.steps.ts:104"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 116,
+            "name": "I navigate to Photos",
+            "match": {
+              "location": "features/steps/ui.steps.ts:122"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 117,
+            "name": "page should display \"Photos\" heading",
+            "match": {
+              "location": "features/steps/ui.steps.ts:265"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 118,
+            "name": "photos should load and display count",
+            "match": {
+              "location": "features/steps/ui.steps.ts:293"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 120,
+            "name": "I navigate to Documents",
+            "match": {
+              "location": "features/steps/ui.steps.ts:157"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 121,
+            "name": "page should display \"Documents\" heading",
+            "match": {
+              "location": "features/steps/ui.steps.ts:265"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 122,
+            "name": "document list should display items",
+            "match": {
+              "location": "features/steps/ui.steps.ts:189"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 124,
+            "name": "I navigate to Search",
+            "match": {
+              "location": "features/steps/ui.steps.ts:205"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 125,
+            "name": "page should display \"Search\" heading",
+            "match": {
+              "location": "features/steps/ui.steps.ts:265"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 126,
+            "name": "search bar should be visible",
+            "match": {
+              "location": "features/steps/ui.steps.ts:448"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 17910374
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "user-interface",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "User Interface",
+    "tags": [],
+    "uri": "features/ui.feature"
   }
 ]

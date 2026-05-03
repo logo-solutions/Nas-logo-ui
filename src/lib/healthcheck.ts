@@ -1,5 +1,3 @@
-import { useAuth } from '../store/auth'
-
 export interface HealthStatus {
   immich: {
     configured: boolean
@@ -18,8 +16,7 @@ export interface HealthStatus {
   }
 }
 
-export async function checkHealth(): Promise<HealthStatus> {
-  const { immichApiKey, paperlessToken, meilisearchKey } = useAuth()
+export async function checkHealth(immichApiKey: string, paperlessToken: string, meilisearchKey: string): Promise<HealthStatus> {
 
   const status: HealthStatus = {
     immich: {

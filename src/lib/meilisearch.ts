@@ -90,6 +90,78 @@ export async function searchIndex(
   }
 }
 
+export async function indexDocuments(documents: any[]): Promise<void> {
+  if (!MASTER_KEY) {
+    console.warn('Meilisearch master key not configured, skipping indexing')
+    return
+  }
+
+  const formattedDocs = documents.map((doc) => ({
+    id: doc.id,
+    type: 'document',
+    title: doc.title || doc.filename || '',
+    content: doc.content || doc.title || '',
+    fileName: doc.filename || '',
+    created: doc.created,
+    document_type: doc.document_type,
+    correspondent: doc.correspondent?.name || '',
+    tags: doc.tags?.map((t: any) => t.name || '').join(' ') || '',
+  }))
+
+  const headers: HeadersInit = { 'Content-Type': 'application/json' }
+  headers['Authorization'] = `Bearer ${MASTER_KEY}`
+
+  try {
+    const res = await fetch(`${API_BASE}/indexes/documents/documents`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(formattedDocs),
+    })
+
+    if (!res.ok) {
+      const errorData = await res.text()
+      console.warn(`Failed to index documents: HTTP ${res.status}. ${errorData.slice(0, 100)}`)
+    }
+  } catch (error) {
+    console.warn('Error indexing documents:', error)
+  }
+}
+
+export async function indexPhotos(photos: any[]): Promise<void> {
+  if (!MASTER_KEY) {
+    console.warn('Meilisearch master key not configured, skipping indexing')
+    return
+  }
+
+  const formattedPhotos = photos.map((photo) => ({
+    id: photo.id,
+    type: 'photo',
+    title: photo.fileName || '',
+    content: `${photo.fileName} ${photo.smartInfo?.tags?.join(' ') || ''} ${photo.smartInfo?.objects?.join(' ') || ''}`,
+    fileName: photo.fileName || '',
+    fileCreatedAt: photo.fileCreatedAt,
+    exif: photo.exifInfo ? JSON.stringify(photo.exifInfo) : '',
+  }))
+
+  const headers: HeadersInit = { 'Content-Type': 'application/json' }
+  headers['Authorization'] = `Bearer ${MASTER_KEY}`
+
+  try {
+    const res = await fetch(`${API_BASE}/indexes/photos/documents`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(formattedPhotos),
+    })
+
+    if (!res.ok) {
+      const errorData = await res.text()
+      console.warn(`Failed to index photos: HTTP ${res.status}. ${errorData.slice(0, 100)}`)
+    }
+  } catch (error) {
+    console.warn('Error indexing photos:', error)
+  }
+}
+
 export async function getStats(): Promise<{ indexes: Record<string, any> }> {
   const headers: HeadersInit = {}
   if (MASTER_KEY) {

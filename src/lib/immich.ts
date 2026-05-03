@@ -77,6 +77,9 @@ export async function getServerInfo(): Promise<ImmichServerInfo> {
 export async function getPhotos(
   skip = 0,
   take = 50,
+  sortBy: 'newest' | 'oldest' = 'newest',
+  startDate?: string,
+  endDate?: string,
 ): Promise<ImmichPhoto[]> {
   if (!API_KEY) {
     throw new Error('Immich API key not configured')
@@ -124,8 +127,26 @@ export async function getPhotos(
       albumPage++
     }
 
+    // Filter by date range if provided
+    let filtered = allAssets
+    if (startDate || endDate) {
+      filtered = allAssets.filter((asset) => {
+        const date = new Date(asset.fileCreatedAt)
+        if (startDate && date < new Date(startDate)) return false
+        if (endDate && date > new Date(endDate)) return false
+        return true
+      })
+    }
+
+    // Sort by date
+    const sorted = [...filtered].sort((a, b) => {
+      const dateA = new Date(a.fileCreatedAt).getTime()
+      const dateB = new Date(b.fileCreatedAt).getTime()
+      return sortBy === 'newest' ? dateB - dateA : dateA - dateB
+    })
+
     // Apply pagination
-    return allAssets.slice(skip, skip + take)
+    return sorted.slice(skip, skip + take)
   } catch (error) {
     if (error instanceof TypeError) {
       throw new Error(
@@ -153,7 +174,7 @@ export async function getAlbum(id: string): Promise<ImmichAlbum> {
 }
 
 export function getPhotoThumbnailUrl(photoId: string, size = 'preview'): string {
-  return `${API_BASE}/assets/${photoId}/thumbnail?size=${size}&key=${API_KEY}`
+  return `${API_BASE}/assets/${photoId}/thumbnail?size=${size}`
 }
 
 export async function login(email: string, password: string): Promise<{ accessToken: string }> {
@@ -166,4 +187,43 @@ export async function login(email: string, password: string): Promise<{ accessTo
   const data = await res.json()
   localStorage.setItem('immich_api_key', data.accessToken)
   return data
+}
+
+export async function getAllPhotos(): Promise<ImmichPhoto[]> {
+  if (!API_KEY) {
+    throw new Error('Immich API key not configured')
+  }
+
+  const allAssets: ImmichPhoto[] = []
+  let albumPage = 0
+  const albumsPerPage = 100
+
+  while (true) {
+    const albumRes = await fetch(
+      `${API_BASE}/albums?skip=${albumPage * albumsPerPage}&take=${albumsPerPage}`,
+      {
+        headers: headers(),
+      },
+    )
+    if (!albumRes.ok) break
+
+    const albums = await albumRes.json()
+    if (!Array.isArray(albums) || albums.length === 0) break
+
+    for (const album of albums) {
+      const assetRes = await fetch(`${API_BASE}/albums/${album.id}`, {
+        headers: headers(),
+      })
+      if (assetRes.ok) {
+        const albumData = await assetRes.json()
+        const assets = albumData.assets || []
+        allAssets.push(...assets)
+      }
+    }
+
+    if (albums.length < albumsPerPage) break
+    albumPage++
+  }
+
+  return allAssets
 }

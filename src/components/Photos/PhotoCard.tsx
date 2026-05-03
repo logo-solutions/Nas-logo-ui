@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react'
 import { getPhotoThumbnailUrl, type ImmichPhoto } from '../../lib/immich'
+import { useAuth } from '../../store/auth'
 
 interface PhotoCardProps {
   photo: ImmichPhoto
@@ -6,8 +8,32 @@ interface PhotoCardProps {
 }
 
 export default function PhotoCard({ photo, onClick }: PhotoCardProps) {
-  const thumbnailUrl = getPhotoThumbnailUrl(photo.id, 'preview')
+  const { immichApiKey } = useAuth()
+  const [imageUrl, setImageUrl] = useState<string>('')
+  const [imageError, setImageError] = useState(false)
   const date = new Date(photo.fileCreatedAt).toLocaleDateString()
+
+  useEffect(() => {
+    const loadImage = async () => {
+      try {
+        const res = await fetch(getPhotoThumbnailUrl(photo.id, 'preview'), {
+          headers: { 'x-api-key': immichApiKey },
+        })
+        if (res.ok) {
+          const blob = await res.blob()
+          setImageUrl(URL.createObjectURL(blob))
+        } else {
+          setImageError(true)
+        }
+      } catch (error) {
+        setImageError(true)
+      }
+    }
+
+    if (immichApiKey) {
+      loadImage()
+    }
+  }, [immichApiKey, photo.id])
 
   return (
     <button
@@ -15,11 +41,17 @@ export default function PhotoCard({ photo, onClick }: PhotoCardProps) {
       className="group relative aspect-square rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-700 hover:shadow-lg transition-all duration-300"
       aria-label={`Photo from ${date}`}
     >
-      <img
-        src={thumbnailUrl}
-        alt={photo.fileName}
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-      />
+      {!imageError && imageUrl ? (
+        <img
+          src={imageUrl}
+          alt={photo.fileName}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center text-gray-400">
+          ✕
+        </div>
+      )}
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 

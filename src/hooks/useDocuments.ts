@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import { getDocuments, getCorrespondents, getTags } from '../lib/paperless'
+import { getDocuments, getCorrespondents, getTags, searchDocuments } from '../lib/paperless'
 
-export function useDocuments(page = 1) {
+export function useDocuments(page = 1, searchQuery?: string) {
   return useQuery({
-    queryKey: ['documents', page],
-    queryFn: () => getDocuments(page, 50),
+    queryKey: ['documents', page, searchQuery],
+    queryFn: () => searchQuery ? searchDocuments(searchQuery) : getDocuments(page, 50),
     enabled: !!localStorage.getItem('paperless_token'),
   })
 }

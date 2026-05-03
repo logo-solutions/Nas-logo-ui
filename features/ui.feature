@@ -1,6 +1,6 @@
 Feature: User Interface
   Background:
-    Given I navigate to http://100.113.214.55:5173
+    Given I navigate to "http://localhost:5173"
     And the app loads successfully
 
   Scenario: Dashboard displays service cards
@@ -24,6 +24,15 @@ Feature: User Interface
     And photos should load and display count
     And pagination controls should be visible
     And each photo should have thumbnail image
+
+  Scenario: Photos pagination works with Next button
+    Given API credentials are configured
+    And I navigate to Photos
+    When I click the Next button
+    Then page should display "Photos" heading
+    And new photos should load on the next page
+    And Previous button should be enabled
+    And page counter should show "Page 2"
 
   Scenario: Photos page shows 0 photos when not configured
     When credentials are not configured
@@ -92,7 +101,7 @@ Feature: User Interface
     And document list should be empty
 
   Scenario: End-to-end credential configuration flow
-    When I navigate to http://100.113.214.55:5173
+    When I navigate to "http://localhost:5173"
     And the app loads successfully
     Then page should display "Dashboard" heading
 

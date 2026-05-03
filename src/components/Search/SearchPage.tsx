@@ -12,7 +12,7 @@ export default function SearchPage() {
     if (meilisearchKey) {
       setMeilisearchKey(meilisearchKey)
     }
-  }, [meilisearchKey])
+  }, [])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()

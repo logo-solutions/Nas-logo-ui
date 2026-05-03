@@ -1,10 +1,16 @@
 import { useQuery } from '@tanstack/react-query'
 import { getPhotos } from '../lib/immich'
 
-export function usePhotos(skip = 0, take = 50) {
+export function usePhotos(
+  skip = 0,
+  take = 50,
+  sortBy: 'newest' | 'oldest' = 'newest',
+  startDate?: string,
+  endDate?: string,
+) {
   return useQuery({
-    queryKey: ['photos', skip, take],
-    queryFn: () => getPhotos(skip, take),
+    queryKey: ['photos', skip, take, sortBy, startDate, endDate],
+    queryFn: () => getPhotos(skip, take, sortBy, startDate, endDate),
     enabled: !!localStorage.getItem('immich_api_key'),
   })
 }

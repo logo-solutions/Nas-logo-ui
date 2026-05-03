@@ -7,15 +7,16 @@ import DocumentList from './DocumentList'
 export default function DocumentsPage() {
   const [page, setPage] = useState(1)
   const [searchQuery, setSearchQuery] = useState('')
+  const [activeSearch, setActiveSearch] = useState('')
   const { paperlessToken } = useAuth()
-  const { data: documentsData, isLoading, error } = useDocuments(page)
+  const { data: documentsData, isLoading, error } = useDocuments(page, activeSearch)
   const { data: correspondentsData } = useCorrespondents()
 
   useEffect(() => {
     if (paperlessToken) {
       setPaperlessToken(paperlessToken)
     }
-  }, [paperlessToken])
+  }, [])
 
   const hasToken = !!paperlessToken
   const documents = documentsData?.results || []
@@ -59,11 +60,35 @@ export default function DocumentsPage() {
           placeholder="Search documents..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              setActiveSearch(searchQuery)
+              setPage(1)
+            }
+          }}
           className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+        <button
+          onClick={() => {
+            setActiveSearch(searchQuery)
+            setPage(1)
+          }}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        >
           Search
         </button>
+        {activeSearch && (
+          <button
+            onClick={() => {
+              setActiveSearch('')
+              setSearchQuery('')
+              setPage(1)
+            }}
+            className="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition-colors"
+          >
+            Clear
+          </button>
+        )}
       </div>
 
       {/* Filters */}

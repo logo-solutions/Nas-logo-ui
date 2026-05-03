@@ -44,35 +44,53 @@ Given('services are running on 100.113.214.55', async function () {
 })
 
 When('I fetch photos from Immich', async function () {
-  const albumRes = await fetch(`${BASE_URLS.immich}/albums?skip=0&take=1`, {
-    headers: { 'x-api-key': CREDENTIALS.immich },
-  })
-  const albums = await albumRes.json()
-  const albumId = albums[0].id
+  const allAssets: any[] = []
+  let albumPage = 0
+  const albumsPerPage = 100
 
-  lastResponse = await fetch(`${BASE_URLS.immich}/albums/${albumId}`, {
-    headers: { 'x-api-key': CREDENTIALS.immich },
-  })
-  lastData = await lastResponse.json()
+  while (true) {
+    const albumRes = await fetch(
+      `${BASE_URLS.immich}/albums?skip=${albumPage * albumsPerPage}&take=${albumsPerPage}`,
+      { headers: { 'x-api-key': CREDENTIALS.immich } }
+    )
+    const albums = await albumRes.json()
+    if (!Array.isArray(albums) || albums.length === 0) break
+
+    for (const album of albums) {
+      const assetRes = await fetch(`${BASE_URLS.immich}/albums/${album.id}`, {
+        headers: { 'x-api-key': CREDENTIALS.immich },
+      })
+      if (assetRes.ok) {
+        const albumData = await assetRes.json()
+        const assets = albumData.assets || []
+        allAssets.push(...assets)
+      }
+    }
+
+    if (albums.length < albumsPerPage) break
+    albumPage++
+  }
+
+  lastResponse = new Response(JSON.stringify(allAssets), { status: 200 })
+  lastData = allAssets
 })
 
 Then('I should receive {int} photos', function (count: number) {
-  // For API tests, we're testing the first batch (50 photos)
-  // but total count should be at least count
   if (!Array.isArray(lastData)) {
     throw new Error('Expected array response from Immich')
   }
 
-  if (lastData.length < Math.min(count, 50)) {
+  const diff = Math.abs(lastData.length - count)
+  if (diff > 50) {
     throw new Error(
-      `Expected at least ${Math.min(count, 50)} photos, got ${lastData.length}`,
+      `Expected ~${count} photos, got ${lastData.length}`,
     )
   }
 })
 
 Then('each photo has required fields id, fileName, fileCreatedAt', function () {
   const requiredFields = ['id', 'originalFileName', 'fileCreatedAt']
-  const assets = lastData.assets || []
+  const assets = Array.isArray(lastData) ? lastData : (lastData.assets || [])
   if (assets.length === 0) throw new Error('No assets to validate')
 
   const asset = assets[0]

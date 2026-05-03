@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../store/auth'
 import { checkHealth, type HealthStatus } from '../../lib/healthcheck'
+import { indexDocuments, indexPhotos, setMeilisearchKey as initMeilisearchKey } from '../../lib/meilisearch'
+import { getAllDocuments, setPaperlessToken as initPaperlessToken } from '../../lib/paperless'
+import { getAllPhotos, setImmichApiKey as initImmichApiKey } from '../../lib/immich'
 
 export default function SettingsPage() {
   const { immichApiKey, paperlessToken, meilisearchKey, setImmichApiKey, setPaperlessToken, setMeilisearchKey, clearAuth } = useAuth()
@@ -10,12 +13,14 @@ export default function SettingsPage() {
   const [showSuccess, setShowSuccess] = useState(false)
   const [health, setHealth] = useState<HealthStatus | null>(null)
   const [isCheckingHealth, setIsCheckingHealth] = useState(false)
+  const [isIndexing, setIsIndexing] = useState(false)
+  const [indexMessage, setIndexMessage] = useState('')
 
   useEffect(() => {
     const runHealthCheck = async () => {
       setIsCheckingHealth(true)
       try {
-        const status = await checkHealth()
+        const status = await checkHealth(immichApiKey, paperlessToken, meilisearchKey)
         setHealth(status)
       } catch (error) {
         console.error('Health check failed:', error)
@@ -59,6 +64,42 @@ export default function SettingsPage() {
     }
   }
 
+  const handleIndexContent = async () => {
+    if (!meilisearchKey || !immichApiKey || !paperlessToken) {
+      setIndexMessage('Please configure all services first')
+      return
+    }
+
+    setIsIndexing(true)
+    setIndexMessage('Starting indexing...')
+
+    try {
+      // Initialize API clients with credentials
+      initPaperlessToken(paperlessToken)
+      initImmichApiKey(immichApiKey)
+      initMeilisearchKey(meilisearchKey)
+
+      setIndexMessage('Fetching documents...')
+      const docs = await getAllDocuments()
+      setIndexMessage(`Indexing ${docs.length} documents...`)
+      await indexDocuments(docs)
+
+      setIndexMessage('Fetching photos...')
+      const photos = await getAllPhotos()
+      setIndexMessage(`Indexing ${photos.length} photos...`)
+      await indexPhotos(photos)
+
+      setIndexMessage(`✓ Indexed ${docs.length + photos.length} items`)
+      setTimeout(() => setIndexMessage(''), 3000)
+    } catch (error) {
+      setIndexMessage(
+        `Error: ${error instanceof Error ? error.message : 'Failed to index'}`,
+      )
+    } finally {
+      setIsIndexing(false)
+    }
+  }
+
   return (
     <div className="space-y-6 max-w-2xl">
       <div>
@@ -81,7 +122,7 @@ export default function SettingsPage() {
           <p className="text-sm text-gray-600 dark:text-gray-400">Photos management</p>
         </div>
 
-        <div>
+        <div className="space-y-2">
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             API Key
           </label>
@@ -92,9 +133,25 @@ export default function SettingsPage() {
             placeholder="Enter your Immich API key"
             className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-            Available at: http://100.113.214.55:2283/user/me
-          </p>
+          <div className="flex gap-2 items-center text-xs">
+            <span className="text-gray-500 dark:text-gray-400">Get API key at:</span>
+            <a
+              href="http://100.113.214.55:2283/user/me"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+            >
+              Immich Settings
+            </a>
+          </div>
+          <a
+            href="http://100.113.214.55:2283"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-3 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+          >
+            📷 Open Immich
+          </a>
         </div>
 
         <button
@@ -117,7 +174,7 @@ export default function SettingsPage() {
           <p className="text-sm text-gray-600 dark:text-gray-400">Documents management</p>
         </div>
 
-        <div>
+        <div className="space-y-2">
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             API Token
           </label>
@@ -128,9 +185,25 @@ export default function SettingsPage() {
             placeholder="Enter your Paperless API token"
             className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-            Available at: http://100.113.214.55:8010/admin/authtoken/
-          </p>
+          <div className="flex gap-2 items-center text-xs">
+            <span className="text-gray-500 dark:text-gray-400">Get API token at:</span>
+            <a
+              href="http://100.113.214.55:8010/admin/authtoken/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+            >
+              Token Admin
+            </a>
+          </div>
+          <a
+            href="http://100.113.214.55:8010"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-3 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+          >
+            📄 Open Paperless
+          </a>
         </div>
 
         <button
@@ -178,7 +251,21 @@ export default function SettingsPage() {
         </button>
 
         {meilisearchKey && (
-          <p className="text-xs text-green-600 dark:text-green-400">✓ Configured</p>
+          <div className="space-y-2">
+            <p className="text-xs text-green-600 dark:text-green-400">✓ Configured</p>
+            <button
+              onClick={handleIndexContent}
+              disabled={isIndexing}
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+            >
+              {isIndexing ? 'Indexing...' : '📑 Index All Content'}
+            </button>
+            {indexMessage && (
+              <p className={`text-xs ${indexMessage.startsWith('✓') ? 'text-green-600 dark:text-green-400' : indexMessage.startsWith('Error') ? 'text-red-600 dark:text-red-400' : 'text-blue-600 dark:text-blue-400'}`}>
+                {indexMessage}
+              </p>
+            )}
+          </div>
         )}
       </div>
 
