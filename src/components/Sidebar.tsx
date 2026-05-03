@@ -12,10 +12,10 @@ export default function Sidebar({ open }: SidebarProps) {
     { icon: '🏠', label: 'Dashboard', page: 'dashboard' },
     { icon: '📷', label: 'Photos', page: 'photos' },
     { icon: '📄', label: 'Documents', page: 'documents' },
-    { icon: '⚙️', label: 'Workflows', page: 'workflows' },
+    { icon: '🔄', label: 'Workflows', page: 'workflows' },
     { icon: '🔍', label: 'Search', page: 'search' },
     { icon: '📊', label: 'Monitoring', page: 'monitoring' },
-    { icon: '⚡', label: 'Settings', page: 'settings' },
+    { icon: '⚙️', label: 'Settings', page: 'settings' },
   ]
 
   return (

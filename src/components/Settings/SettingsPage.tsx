@@ -4,12 +4,14 @@ import { checkHealth, type HealthStatus } from '../../lib/healthcheck'
 import { indexDocuments, indexPhotos, setMeilisearchKey as initMeilisearchKey } from '../../lib/meilisearch'
 import { getAllDocuments, setPaperlessToken as initPaperlessToken } from '../../lib/paperless'
 import { getAllPhotos, setImmichApiKey as initImmichApiKey } from '../../lib/immich'
+import { setN8nApiKey as initN8nApiKey } from '../../lib/n8n'
 
 export default function SettingsPage() {
-  const { immichApiKey, paperlessToken, meilisearchKey, setImmichApiKey, setPaperlessToken, setMeilisearchKey, clearAuth } = useAuth()
+  const { immichApiKey, paperlessToken, meilisearchKey, n8nApiKey, setImmichApiKey, setPaperlessToken, setMeilisearchKey, setN8nApiKey, clearAuth } = useAuth()
   const [immichKey, setImmichKey] = useState(immichApiKey)
   const [paperlessTokenInput, setPaperlessTokenInput] = useState(paperlessToken)
   const [meilisearchKeyInput, setMeilisearchKeyInput] = useState(meilisearchKey)
+  const [n8nKeyInput, setN8nKeyInput] = useState(n8nApiKey)
   const [showSuccess, setShowSuccess] = useState(false)
   const [health, setHealth] = useState<HealthStatus | null>(null)
   const [isCheckingHealth, setIsCheckingHealth] = useState(false)
@@ -20,7 +22,7 @@ export default function SettingsPage() {
     const runHealthCheck = async () => {
       setIsCheckingHealth(true)
       try {
-        const status = await checkHealth(immichApiKey, paperlessToken, meilisearchKey)
+        const status = await checkHealth(immichApiKey, paperlessToken, meilisearchKey, n8nApiKey)
         setHealth(status)
       } catch (error) {
         console.error('Health check failed:', error)
@@ -29,7 +31,7 @@ export default function SettingsPage() {
       }
     }
     runHealthCheck()
-  }, [immichApiKey, paperlessToken, meilisearchKey])
+  }, [immichApiKey, paperlessToken, meilisearchKey, n8nApiKey])
 
   const handleSaveImmich = () => {
     if (immichKey.trim()) {
@@ -55,12 +57,21 @@ export default function SettingsPage() {
     }
   }
 
+  const handleSaveN8n = () => {
+    if (n8nKeyInput.trim()) {
+      setN8nApiKey(n8nKeyInput)
+      setShowSuccess(true)
+      setTimeout(() => setShowSuccess(false), 3000)
+    }
+  }
+
   const handleClearAll = () => {
     if (confirm('Are you sure? This will clear all API credentials.')) {
       clearAuth()
       setImmichKey('')
       setPaperlessTokenInput('')
       setMeilisearchKeyInput('')
+      setN8nKeyInput('')
     }
   }
 
@@ -78,6 +89,7 @@ export default function SettingsPage() {
       initPaperlessToken(paperlessToken)
       initImmichApiKey(immichApiKey)
       initMeilisearchKey(meilisearchKey)
+      initN8nApiKey(n8nApiKey)
 
       setIndexMessage('Fetching documents...')
       const docs = await getAllDocuments()
@@ -269,6 +281,42 @@ export default function SettingsPage() {
         )}
       </div>
 
+      {/* n8n Settings */}
+      <div className="card space-y-4">
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">n8n</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Workflow automation</p>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            API Key
+          </label>
+          <input
+            type="password"
+            value={n8nKeyInput}
+            onChange={(e) => setN8nKeyInput(e.target.value)}
+            placeholder="Enter your n8n API key"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+            Get from: http://100.113.214.55:5679/ → Account → API Tokens
+          </p>
+        </div>
+
+        <button
+          onClick={handleSaveN8n}
+          disabled={!n8nKeyInput.trim()}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          Save n8n Credentials
+        </button>
+
+        {n8nApiKey && (
+          <p className="text-xs text-green-600 dark:text-green-400">✓ Configured</p>
+        )}
+      </div>
+
       {/* Service Status */}
       <div className="card space-y-4">
         <div className="flex items-center justify-between">
@@ -358,9 +406,31 @@ export default function SettingsPage() {
             )}
           </div>
 
-          <div className="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded">
-            <span>n8n</span>
-            <span className="text-gray-500">○ Coming soon</span>
+          {/* n8n */}
+          <div className="p-3 bg-gray-100 dark:bg-gray-700 rounded">
+            <div className="flex items-center justify-between mb-1">
+              <span className="font-medium text-gray-900 dark:text-white">n8n</span>
+              <span
+                className={
+                  !n8nApiKey
+                    ? 'text-gray-500 text-sm'
+                    : health?.n8n.accessible
+                      ? 'text-green-600 dark:text-green-400 text-sm'
+                      : 'text-red-600 dark:text-red-400 text-sm'
+                }
+              >
+                {!n8nApiKey
+                  ? '○ Not configured'
+                  : health?.n8n.accessible
+                    ? '✓ Connected'
+                    : `✗ ${health?.n8n.error || 'Unreachable'}`}
+              </span>
+            </div>
+            {n8nApiKey && !health?.n8n.accessible && health?.n8n.error && (
+              <p className="text-xs text-red-600 dark:text-red-400">
+                {health.n8n.error}
+              </p>
+            )}
           </div>
 
           <div className="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded">

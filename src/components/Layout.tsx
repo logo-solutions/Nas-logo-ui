@@ -7,6 +7,7 @@ import PhotosPage from './Photos/PhotosPage'
 import DocumentsPage from './Documents/DocumentsPage'
 import SearchPage from './Search/SearchPage'
 import MonitoringPage from './Monitoring/MonitoringPage'
+import WorkflowsPage from './Workflows/WorkflowsPage'
 import SettingsPage from './Settings/SettingsPage'
 
 export default function Layout() {
@@ -26,11 +27,7 @@ export default function Layout() {
       case 'settings':
         return <SettingsPage />
       case 'workflows':
-        return (
-          <div className="text-center py-12">
-            <p className="text-gray-500 dark:text-gray-400">Coming soon...</p>
-          </div>
-        )
+        return <WorkflowsPage />
       default:
         return <Dashboard />
     }

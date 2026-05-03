@@ -14,9 +14,14 @@ export interface HealthStatus {
     accessible: boolean
     error?: string
   }
+  n8n: {
+    configured: boolean
+    accessible: boolean
+    error?: string
+  }
 }
 
-export async function checkHealth(immichApiKey: string, paperlessToken: string, meilisearchKey: string): Promise<HealthStatus> {
+export async function checkHealth(immichApiKey: string, paperlessToken: string, meilisearchKey: string, n8nApiKey?: string): Promise<HealthStatus> {
 
   const status: HealthStatus = {
     immich: {
@@ -29,6 +34,10 @@ export async function checkHealth(immichApiKey: string, paperlessToken: string, 
     },
     meilisearch: {
       configured: !!meilisearchKey,
+      accessible: false,
+    },
+    n8n: {
+      configured: !!n8nApiKey,
       accessible: false,
     },
   }
@@ -84,6 +93,22 @@ export async function checkHealth(immichApiKey: string, paperlessToken: string, 
     } catch (e) {
       status.meilisearch.accessible = false
       status.meilisearch.error = e instanceof Error ? e.message : 'Unknown error'
+    }
+  }
+
+  // Check n8n
+  if (n8nApiKey) {
+    try {
+      const res = await fetch('/api/n8n/api/v1/workflows', {
+        headers: { 'X-N8N-API-KEY': n8nApiKey },
+      })
+      status.n8n.accessible = res.ok
+      if (!res.ok) {
+        status.n8n.error = `HTTP ${res.status}`
+      }
+    } catch (e) {
+      status.n8n.accessible = false
+      status.n8n.error = e instanceof Error ? e.message : 'Unknown error'
     }
   }
 

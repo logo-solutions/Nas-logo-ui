@@ -23,6 +23,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/meilisearch/, ''),
       },
+      '/api/n8n': {
+        target: 'http://100.113.214.55:5679',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/n8n/, ''),
+      },
     },
   },
 })
