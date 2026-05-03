@@ -28,6 +28,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/n8n/, ''),
       },
+      '/api/grafana': {
+        target: 'http://100.113.214.55:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/grafana/, ''),
+      },
     },
   },
 })

@@ -7,11 +7,12 @@ import { getAllPhotos, setImmichApiKey as initImmichApiKey } from '../../lib/imm
 import { setN8nApiKey as initN8nApiKey } from '../../lib/n8n'
 
 export default function SettingsPage() {
-  const { immichApiKey, paperlessToken, meilisearchKey, n8nApiKey, setImmichApiKey, setPaperlessToken, setMeilisearchKey, setN8nApiKey, clearAuth } = useAuth()
+  const { immichApiKey, paperlessToken, meilisearchKey, n8nApiKey, grafanaApiKey, setImmichApiKey, setPaperlessToken, setMeilisearchKey, setN8nApiKey, setGrafanaApiKey, clearAuth } = useAuth()
   const [immichKey, setImmichKey] = useState(immichApiKey)
   const [paperlessTokenInput, setPaperlessTokenInput] = useState(paperlessToken)
   const [meilisearchKeyInput, setMeilisearchKeyInput] = useState(meilisearchKey)
   const [n8nKeyInput, setN8nKeyInput] = useState(n8nApiKey)
+  const [grafanaKeyInput, setGrafanaKeyInput] = useState(grafanaApiKey)
   const [showSuccess, setShowSuccess] = useState(false)
   const [health, setHealth] = useState<HealthStatus | null>(null)
   const [isCheckingHealth, setIsCheckingHealth] = useState(false)
@@ -22,7 +23,7 @@ export default function SettingsPage() {
     const runHealthCheck = async () => {
       setIsCheckingHealth(true)
       try {
-        const status = await checkHealth(immichApiKey, paperlessToken, meilisearchKey, n8nApiKey)
+        const status = await checkHealth(immichApiKey, paperlessToken, meilisearchKey, n8nApiKey, grafanaApiKey)
         setHealth(status)
       } catch (error) {
         console.error('Health check failed:', error)
@@ -31,7 +32,7 @@ export default function SettingsPage() {
       }
     }
     runHealthCheck()
-  }, [immichApiKey, paperlessToken, meilisearchKey, n8nApiKey])
+  }, [immichApiKey, paperlessToken, meilisearchKey, n8nApiKey, grafanaApiKey])
 
   const handleSaveImmich = () => {
     if (immichKey.trim()) {
@@ -65,6 +66,14 @@ export default function SettingsPage() {
     }
   }
 
+  const handleSaveGrafana = () => {
+    if (grafanaKeyInput.trim()) {
+      setGrafanaApiKey(grafanaKeyInput)
+      setShowSuccess(true)
+      setTimeout(() => setShowSuccess(false), 3000)
+    }
+  }
+
   const handleClearAll = () => {
     if (confirm('Are you sure? This will clear all API credentials.')) {
       clearAuth()
@@ -72,6 +81,7 @@ export default function SettingsPage() {
       setPaperlessTokenInput('')
       setMeilisearchKeyInput('')
       setN8nKeyInput('')
+      setGrafanaKeyInput('')
     }
   }
 
@@ -317,6 +327,58 @@ export default function SettingsPage() {
         )}
       </div>
 
+      {/* Grafana Settings */}
+      <div className="card space-y-4">
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Grafana</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400">System monitoring & metrics</p>
+        </div>
+
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            API Key
+          </label>
+          <input
+            type="password"
+            value={grafanaKeyInput}
+            onChange={(e) => setGrafanaKeyInput(e.target.value)}
+            placeholder="Enter your Grafana API key"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <div className="flex gap-2 items-center text-xs">
+            <span className="text-gray-500 dark:text-gray-400">Get API key at:</span>
+            <a
+              href="http://100.113.214.55:3000/org/serviceaccounts"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+            >
+              Service Accounts
+            </a>
+          </div>
+          <a
+            href="http://100.113.214.55:3000"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-3 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+          >
+            📊 Open Grafana
+          </a>
+        </div>
+
+        <button
+          onClick={handleSaveGrafana}
+          disabled={!grafanaKeyInput.trim()}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          Save Grafana Credentials
+        </button>
+
+        {grafanaApiKey && (
+          <p className="text-xs text-green-600 dark:text-green-400">✓ Configured</p>
+        )}
+      </div>
+
       {/* Service Status */}
       <div className="card space-y-4">
         <div className="flex items-center justify-between">
@@ -433,9 +495,31 @@ export default function SettingsPage() {
             )}
           </div>
 
-          <div className="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded">
-            <span>Grafana</span>
-            <span className="text-gray-500">○ Coming soon</span>
+          {/* Grafana */}
+          <div className="p-3 bg-gray-100 dark:bg-gray-700 rounded">
+            <div className="flex items-center justify-between mb-1">
+              <span className="font-medium text-gray-900 dark:text-white">Grafana</span>
+              <span
+                className={
+                  !grafanaApiKey
+                    ? 'text-gray-500 text-sm'
+                    : health?.grafana.accessible
+                      ? 'text-green-600 dark:text-green-400 text-sm'
+                      : 'text-red-600 dark:text-red-400 text-sm'
+                }
+              >
+                {!grafanaApiKey
+                  ? '○ Not configured'
+                  : health?.grafana.accessible
+                    ? '✓ Connected'
+                    : `✗ ${health?.grafana.error || 'Unreachable'}`}
+              </span>
+            </div>
+            {grafanaApiKey && !health?.grafana.accessible && health?.grafana.error && (
+              <p className="text-xs text-red-600 dark:text-red-400">
+                {health.grafana.error}
+              </p>
+            )}
           </div>
         </div>
       </div>

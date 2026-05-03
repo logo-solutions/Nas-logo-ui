@@ -6,10 +6,12 @@ interface AuthStore {
   paperlessToken: string
   meilisearchKey: string
   n8nApiKey: string
+  grafanaApiKey: string
   setImmichApiKey: (key: string) => void
   setPaperlessToken: (token: string) => void
   setMeilisearchKey: (key: string) => void
   setN8nApiKey: (key: string) => void
+  setGrafanaApiKey: (key: string) => void
   clearAuth: () => void
 }
 
@@ -20,6 +22,7 @@ export const useAuth = create<AuthStore>()(
       paperlessToken: '',
       meilisearchKey: '',
       n8nApiKey: '',
+      grafanaApiKey: '',
       setImmichApiKey: (key) => {
         set({ immichApiKey: key })
         localStorage.setItem('immich_api_key', key)
@@ -36,12 +39,17 @@ export const useAuth = create<AuthStore>()(
         set({ n8nApiKey: key })
         localStorage.setItem('n8n_api_key', key)
       },
+      setGrafanaApiKey: (key) => {
+        set({ grafanaApiKey: key })
+        localStorage.setItem('grafana_api_key', key)
+      },
       clearAuth: () => {
-        set({ immichApiKey: '', paperlessToken: '', meilisearchKey: '', n8nApiKey: '' })
+        set({ immichApiKey: '', paperlessToken: '', meilisearchKey: '', n8nApiKey: '', grafanaApiKey: '' })
         localStorage.removeItem('immich_api_key')
         localStorage.removeItem('paperless_token')
         localStorage.removeItem('meilisearch_key')
         localStorage.removeItem('n8n_api_key')
+        localStorage.removeItem('grafana_api_key')
       },
     }),
     {
@@ -51,6 +59,7 @@ export const useAuth = create<AuthStore>()(
         paperlessToken: state.paperlessToken,
         meilisearchKey: state.meilisearchKey,
         n8nApiKey: state.n8nApiKey,
+        grafanaApiKey: state.grafanaApiKey,
       }),
     },
   ),

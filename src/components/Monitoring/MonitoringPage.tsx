@@ -1,4 +1,7 @@
+import { useAuth } from '../../store/auth'
+
 export default function MonitoringPage() {
+  const { grafanaApiKey } = useAuth()
   const metrics = [
     { label: 'CPU Usage', value: '45%', trend: 'stable' },
     { label: 'Memory Usage', value: '62%', trend: 'up' },
@@ -28,22 +31,56 @@ export default function MonitoringPage() {
         ))}
       </div>
 
-      {/* Grafana Embed Notice */}
+      {/* Grafana Dashboard */}
       <div className="card space-y-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          Full Monitoring Dashboard
-        </h3>
-        <p className="text-gray-600 dark:text-gray-400">
-          For detailed metrics and visualizations, open Grafana:
-        </p>
-        <a
-          href="http://100.113.214.55:3000"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          Open Grafana Dashboard →
-        </a>
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              Full Monitoring Dashboard
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {grafanaApiKey ? 'Detailed metrics and visualizations' : 'Configure Grafana API key in Settings'}
+            </p>
+          </div>
+          <a
+            href="http://100.113.214.55:3000"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+          >
+            📊 Open Grafana →
+          </a>
+        </div>
+
+        {grafanaApiKey && (
+          <div className="space-y-4">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Note: iframes require <code className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">allow_embedding = true</code> in grafana.ini
+            </p>
+
+            {/* Grafana Home Dashboard */}
+            <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+              <iframe
+                src="http://100.113.214.55:3000/d/eHyB3-pVk/home?orgId=1&kiosk=1&refresh=30s"
+                width="100%"
+                height="400"
+                frameBorder="0"
+                className="bg-white dark:bg-gray-800"
+              />
+            </div>
+
+            {/* Node Exporter Dashboard */}
+            <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+              <iframe
+                src="http://100.113.214.55:3000/d/rYdddlPWk/node-exporter-full?orgId=1&kiosk=1&refresh=30s"
+                width="100%"
+                height="400"
+                frameBorder="0"
+                className="bg-white dark:bg-gray-800"
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Recent Alerts */}

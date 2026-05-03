@@ -19,9 +19,14 @@ export interface HealthStatus {
     accessible: boolean
     error?: string
   }
+  grafana: {
+    configured: boolean
+    accessible: boolean
+    error?: string
+  }
 }
 
-export async function checkHealth(immichApiKey: string, paperlessToken: string, meilisearchKey: string, n8nApiKey?: string): Promise<HealthStatus> {
+export async function checkHealth(immichApiKey: string, paperlessToken: string, meilisearchKey: string, n8nApiKey?: string, grafanaApiKey?: string): Promise<HealthStatus> {
 
   const status: HealthStatus = {
     immich: {
@@ -38,6 +43,10 @@ export async function checkHealth(immichApiKey: string, paperlessToken: string, 
     },
     n8n: {
       configured: !!n8nApiKey,
+      accessible: false,
+    },
+    grafana: {
+      configured: !!grafanaApiKey,
       accessible: false,
     },
   }
@@ -109,6 +118,22 @@ export async function checkHealth(immichApiKey: string, paperlessToken: string, 
     } catch (e) {
       status.n8n.accessible = false
       status.n8n.error = e instanceof Error ? e.message : 'Unknown error'
+    }
+  }
+
+  // Check Grafana
+  if (grafanaApiKey) {
+    try {
+      const res = await fetch('/api/grafana/api/user', {
+        headers: { 'Authorization': `Bearer ${grafanaApiKey}` },
+      })
+      status.grafana.accessible = res.ok
+      if (!res.ok) {
+        status.grafana.error = `HTTP ${res.status}`
+      }
+    } catch (e) {
+      status.grafana.accessible = false
+      status.grafana.error = e instanceof Error ? e.message : 'Unknown error'
     }
   }
 
