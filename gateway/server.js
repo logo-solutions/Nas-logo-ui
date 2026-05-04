@@ -257,8 +257,8 @@ function generateGalleryHTML(album, shareToken) {
     id: asset.id,
     fileName: asset.fileName,
     date: new Date(asset.fileCreatedAt).toLocaleDateString(),
-    thumbnailUrl: `/gallery/${shareToken}/asset/${asset.id}?size=preview`,
-    fullUrl: `/gallery/${shareToken}/asset/${asset.id}?size=original`,
+    thumbnailUrl: `/api/gallery/${shareToken}/asset/${asset.id}?size=preview`,
+    fullUrl: `/api/gallery/${shareToken}/asset/${asset.id}?size=original`,
   }))
 
   return `<!DOCTYPE html>
