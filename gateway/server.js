@@ -200,6 +200,40 @@ app.get('/gallery/:shareToken', async (req, res) => {
   }
 })
 
+// Get gallery asset (proxy image with authentication)
+app.get('/gallery/:shareToken/asset/:assetId', async (req, res) => {
+  const { shareToken, assetId } = req.params
+  const size = req.query.size || 'preview'
+
+  const tokenData = galleryTokens.get(shareToken)
+
+  if (!tokenData) {
+    return res.status(404).json({ error: 'Gallery not found' })
+  }
+
+  if (new Date() > tokenData.expiresAt) {
+    galleryTokens.delete(shareToken)
+    return res.status(410).json({ error: 'Gallery share link has expired' })
+  }
+
+  try {
+    const assetRes = await fetch(
+      `${IMMICH_URL}/api/assets/${assetId}/${size === 'preview' ? 'thumbnail' : 'original'}?size=${size}`,
+      { headers: { 'x-api-key': IMMICH_API_KEY } }
+    )
+
+    if (!assetRes.ok) {
+      return res.status(assetRes.status).json({ error: 'Asset not found' })
+    }
+
+    res.setHeader('Content-Type', assetRes.headers.get('content-type'))
+    res.setHeader('Cache-Control', 'public, max-age=31536000')
+    res.send(Buffer.from(await assetRes.arrayBuffer()))
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch asset', details: error.message })
+  }
+})
+
 // Helper to parse duration strings (e.g., '30d', '24h')
 function parseDuration(duration) {
   const units = {
@@ -223,8 +257,8 @@ function generateGalleryHTML(album, shareToken) {
     id: asset.id,
     fileName: asset.fileName,
     date: new Date(asset.fileCreatedAt).toLocaleDateString(),
-    thumbnailUrl: `${IMMICH_URL}/api/assets/${asset.id}/thumbnail?size=preview`,
-    fullUrl: `${IMMICH_URL}/api/assets/${asset.id}/original`,
+    thumbnailUrl: `/gallery/${shareToken}/asset/${asset.id}?size=preview`,
+    fullUrl: `/gallery/${shareToken}/asset/${asset.id}?size=original`,
   }))
 
   return `<!DOCTYPE html>
