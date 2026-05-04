@@ -267,6 +267,8 @@ function generateGalleryHTML(album, shareToken) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${escapeHtml(album.albumName)} - Gallery</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -618,32 +620,44 @@ function generateGalleryHTML(album, shareToken) {
       a.click();
     }
 
-    function downloadAllImages() {
+    async function downloadAllImages() {
       if (images.length === 0) {
         alert('No images to download');
         return;
       }
 
-      if (images.length > 50) {
-        const confirmed = confirm('Download ' + images.length + ' images? This may take a while.');
-        if (!confirmed) return;
+      if (!window.JSZip) {
+        alert('Loading ZIP library... please wait');
+        return;
       }
 
-      let downloaded = 0;
-      const total = images.length;
+      const confirmed = confirm('Download ' + images.length + ' images as ZIP?');
+      if (!confirmed) return;
 
-      images.forEach((img, idx) => {
-        setTimeout(() => {
-          const a = document.createElement('a');
-          a.href = img.fullUrl;
-          a.download = img.fileName || ('image-' + idx);
-          a.click();
+      const zip = new JSZip();
+      let downloaded = 0;
+
+      for (let i = 0; i < images.length; i++) {
+        const img = images[i];
+        try {
+          const response = await fetch(img.fullUrl);
+          const blob = await response.blob();
+          const filename = img.fileName || ('image-' + i);
+          zip.file(filename, blob);
           downloaded++;
-          if (downloaded === total) {
-            alert('Downloaded ' + total + ' images');
-          }
-        }, idx * 300);
-      });
+          console.log('Downloaded ' + downloaded + ' of ' + images.length);
+        } catch (error) {
+          console.error('Failed to download ' + img.fileName, error);
+        }
+      }
+
+      try {
+        const zipBlob = await zip.generateAsync({type: 'blob'});
+        saveAs(zipBlob, '${escapeHtml(album.albumName)}-images.zip');
+        alert('Downloaded ' + downloaded + ' images as ZIP!');
+      } catch (error) {
+        alert('Error creating ZIP: ' + error.message);
+      }
     }
   </script>
 </body>
