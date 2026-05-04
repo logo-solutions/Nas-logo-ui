@@ -10,6 +10,7 @@ import MonitoringPage from './Monitoring/MonitoringPage'
 import WorkflowsPage from './Workflows/WorkflowsPage'
 import SettingsPage from './Settings/SettingsPage'
 import NtfyPage from './Ntfy/NtfyPage'
+import GalleryGeneratorPage from './Gallery/GalleryGeneratorPage'
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -31,6 +32,8 @@ export default function Layout() {
         return <SettingsPage />
       case 'workflows':
         return <WorkflowsPage />
+      case 'gallery':
+        return <GalleryGeneratorPage />
       default:
         return <Dashboard />
     }

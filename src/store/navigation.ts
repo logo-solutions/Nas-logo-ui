@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-export type Page = 'dashboard' | 'photos' | 'documents' | 'workflows' | 'search' | 'monitoring' | 'settings' | 'ntfy'
+export type Page = 'dashboard' | 'photos' | 'documents' | 'workflows' | 'search' | 'monitoring' | 'settings' | 'ntfy' | 'gallery'
 
 interface NavigationStore {
   currentPage: Page

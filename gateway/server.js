@@ -2,10 +2,14 @@ import express from 'express'
 import jwt from 'jsonwebtoken'
 import cors from 'cors'
 import httpProxy from 'http-proxy'
+import crypto from 'crypto'
 
 const app = express()
 const PORT = process.env.PORT || 8000
 const JWT_SECRET = process.env.JWT_SECRET || 'nas-logo-dev-secret-key-change-in-prod'
+
+// Store for gallery share tokens (in-memory, add DB for production)
+const galleryTokens = new Map()
 
 app.use(cors())
 app.use(express.json())
@@ -133,6 +137,437 @@ app.get('/health/services', verifyToken, async (req, res) => {
 
   res.json(services)
 })
+
+// Generate gallery share token
+app.post('/gallery/share', verifyToken, (req, res) => {
+  const { albumId, expiresIn = '30d' } = req.body
+
+  if (!albumId) {
+    return res.status(400).json({ error: 'albumId is required' })
+  }
+
+  const shareToken = crypto.randomBytes(16).toString('hex')
+  const expiresAt = new Date(Date.now() + parseDuration(expiresIn))
+
+  galleryTokens.set(shareToken, {
+    albumId,
+    createdAt: new Date(),
+    expiresAt,
+  })
+
+  res.json({
+    shareToken,
+    expiresAt,
+    galleryUrl: `/gallery/${shareToken}`,
+  })
+})
+
+// Get gallery HTML (public endpoint, no auth required)
+app.get('/gallery/:shareToken', async (req, res) => {
+  const { shareToken } = req.params
+  const tokenData = galleryTokens.get(shareToken)
+
+  if (!tokenData) {
+    return res.status(404).json({ error: 'Gallery not found' })
+  }
+
+  if (new Date() > tokenData.expiresAt) {
+    galleryTokens.delete(shareToken)
+    return res.status(410).json({ error: 'Gallery share link has expired' })
+  }
+
+  try {
+    // Fetch album data from Immich using internal gateway token
+    const internalToken = jwt.sign({ iss: 'nas-logo-gateway' }, JWT_SECRET)
+    const albumRes = await fetch(`${IMMICH_URL}/api/albums/${tokenData.albumId}`, {
+      headers: { 'Authorization': `Bearer ${internalToken}` },
+    })
+
+    if (!albumRes.ok) {
+      return res.status(404).json({ error: 'Album not found' })
+    }
+
+    const album = await albumRes.json()
+    const html = generateGalleryHTML(album, shareToken)
+
+    res.setHeader('Content-Type', 'text/html; charset=utf-8')
+    res.send(html)
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to generate gallery', details: error.message })
+  }
+})
+
+// Helper to parse duration strings (e.g., '30d', '24h')
+function parseDuration(duration) {
+  const units = {
+    d: 24 * 60 * 60 * 1000,
+    h: 60 * 60 * 1000,
+    m: 60 * 1000,
+    s: 1000,
+  }
+
+  const match = duration.match(/^(\d+)([dhms])$/)
+  if (!match) throw new Error('Invalid duration format')
+
+  const [, value, unit] = match
+  return parseInt(value) * units[unit]
+}
+
+// Generate standalone HTML gallery
+function generateGalleryHTML(album, shareToken) {
+  const assets = album.assets || []
+  const images = assets.map((asset) => ({
+    id: asset.id,
+    fileName: asset.fileName,
+    date: new Date(asset.fileCreatedAt).toLocaleDateString(),
+    thumbnailUrl: `${IMMICH_URL}/api/assets/${asset.id}/thumbnail?size=preview`,
+    fullUrl: `${IMMICH_URL}/api/assets/${asset.id}/original`,
+  }))
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escapeHtml(album.albumName)} - Gallery</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .header {
+      background: white;
+      padding: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      padding: 0 2rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-item-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: white;
+      padding: 1rem 0.5rem 0.5rem;
+      font-size: 0.85rem;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .gallery-item:hover .gallery-item-info {
+      opacity: 1;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      width: 90%;
+      height: 90%;
+      max-width: 900px;
+      max-height: 800px;
+    }
+
+    .lightbox-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -2.5rem;
+      right: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0;
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 1rem;
+      z-index: 1001;
+    }
+
+    .lightbox-prev {
+      left: 0;
+    }
+
+    .lightbox-next {
+      right: 0;
+    }
+
+    .lightbox-counter {
+      position: absolute;
+      bottom: -2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    /* Controls */
+    .controls {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-direction: column;
+    }
+
+    .btn {
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 4px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: #0056b3;
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+    }
+
+    .btn-secondary:hover {
+      background: #5a6268;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 1rem;
+      }
+
+      .header h1 {
+        font-size: 1.5rem;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        padding: 0 1rem 1rem;
+        gap: 0.75rem;
+      }
+
+      .controls {
+        bottom: 1rem;
+        right: 1rem;
+        flex-direction: row;
+        gap: 0.25rem;
+      }
+
+      .btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+      }
+
+      .lightbox-nav {
+        padding: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>${escapeHtml(album.albumName)}</h1>
+    ${album.description ? `<p>${escapeHtml(album.description)}</p>` : ''}
+    <p style="margin-top: 0.5rem; color: #999; font-size: 0.85rem;">${images.length} photos</p>
+  </div>
+
+  <div class="gallery">
+    ${images.map((img, idx) => `
+      <div class="gallery-item" data-index="${idx}">
+        <img src="${img.thumbnailUrl}" alt="${escapeHtml(img.fileName)}" loading="lazy">
+        <div class="gallery-item-info">
+          <div>${escapeHtml(img.fileName)}</div>
+          <div>${img.date}</div>
+        </div>
+      </div>
+    `).join('')}
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+    <div class="lightbox-content">
+      <img class="lightbox-image" id="lightboxImage" src="" alt="">
+      <button class="lightbox-nav lightbox-prev" onclick="prevImage()">❮</button>
+      <button class="lightbox-nav lightbox-next" onclick="nextImage()">❯</button>
+      <div class="lightbox-counter">
+        <span id="lightboxCounter">1 / 1</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="btn" onclick="downloadHTML()">📥 Download HTML</button>
+    <button class="btn btn-secondary" onclick="copyLink()">🔗 Copy Link</button>
+  </div>
+
+  <script>
+    const images = ${JSON.stringify(images)};
+    let currentIndex = 0;
+
+    // Gallery click to open lightbox
+    document.querySelectorAll('.gallery-item').forEach((item, idx) => {
+      item.addEventListener('click', () => {
+        currentIndex = idx;
+        openLightbox(idx);
+      });
+    });
+
+    function openLightbox(index) {
+      currentIndex = index;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateLightbox();
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      updateLightbox();
+    }
+
+    function updateLightbox() {
+      const img = images[currentIndex];
+      document.getElementById('lightboxImage').src = img.fullUrl;
+      document.getElementById('lightboxCounter').textContent = (currentIndex + 1) + ' / ' + images.length;
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (!document.getElementById('lightbox').classList.contains('active')) return;
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    function downloadHTML() {
+      const element = document.documentElement.outerHTML;
+      const blob = new Blob([element], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '${escapeHtml(album.albumName)}.html';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function copyLink() {
+      const url = window.location.href;
+      navigator.clipboard.writeText(url).then(() => {
+        alert('Link copied to clipboard!');
+      });
+    }
+  </script>
+</body>
+</html>`
+}
+
+function escapeHtml(text) {
+  if (!text) return ''
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  }
+  return text.replace(/[&<>"']/g, m => map[m])
+}
 
 app.listen(PORT, () => {
   console.log(`🚀 NAS-logo API Gateway running on port ${PORT}`)
