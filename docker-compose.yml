@@ -1,6 +1,23 @@
 version: '3.8'
 
 services:
+  caddy:
+    image: caddy:latest
+    container_name: nas-logo-caddy
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+    networks:
+      - nas-network
+    depends_on:
+      - ui
+
   gateway:
     build: ./gateway
     container_name: nas-logo-gateway
@@ -37,3 +54,7 @@ services:
 networks:
   nas-network:
     driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:

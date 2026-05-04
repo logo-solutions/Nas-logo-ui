@@ -1,0 +1,17 @@
+nas.logo-solutions.fr {
+    tls internal
+
+    # Matcher pour les requêtes /api
+    @api path /api /api/*
+
+    # Route /api vers gateway avec strip prefix
+    handle @api {
+        uri strip_prefix /api
+        reverse_proxy nas-logo-gateway:8000
+    }
+
+    # Route tout le reste vers UI
+    handle {
+        reverse_proxy nas-logo-ui:8080
+    }
+}
