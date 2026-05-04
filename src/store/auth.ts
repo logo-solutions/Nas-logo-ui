@@ -2,65 +2,38 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 interface AuthStore {
-  immichApiKey: string
-  paperlessToken: string
-  meilisearchKey: string
-  n8nApiKey: string
-  grafanaApiKey: string
-  setImmichApiKey: (key: string) => void
-  setPaperlessToken: (token: string) => void
-  setMeilisearchKey: (key: string) => void
-  setN8nApiKey: (key: string) => void
-  setGrafanaApiKey: (key: string) => void
+  gatewayToken: string
+  isHydrated: boolean
+  setGatewayToken: (token: string) => void
   clearAuth: () => void
+  setHydrated: (hydrated: boolean) => void
 }
 
 export const useAuth = create<AuthStore>()(
   persist(
     (set) => ({
-      immichApiKey: '',
-      paperlessToken: '',
-      meilisearchKey: '',
-      n8nApiKey: '',
-      grafanaApiKey: '',
-      setImmichApiKey: (key) => {
-        set({ immichApiKey: key })
-        localStorage.setItem('immich_api_key', key)
-      },
-      setPaperlessToken: (token) => {
-        set({ paperlessToken: token })
-        localStorage.setItem('paperless_token', token)
-      },
-      setMeilisearchKey: (key) => {
-        set({ meilisearchKey: key })
-        localStorage.setItem('meilisearch_key', key)
-      },
-      setN8nApiKey: (key) => {
-        set({ n8nApiKey: key })
-        localStorage.setItem('n8n_api_key', key)
-      },
-      setGrafanaApiKey: (key) => {
-        set({ grafanaApiKey: key })
-        localStorage.setItem('grafana_api_key', key)
+      gatewayToken: '',
+      isHydrated: false,
+      setGatewayToken: (token) => {
+        set({ gatewayToken: token })
       },
       clearAuth: () => {
-        set({ immichApiKey: '', paperlessToken: '', meilisearchKey: '', n8nApiKey: '', grafanaApiKey: '' })
-        localStorage.removeItem('immich_api_key')
-        localStorage.removeItem('paperless_token')
-        localStorage.removeItem('meilisearch_key')
-        localStorage.removeItem('n8n_api_key')
-        localStorage.removeItem('grafana_api_key')
+        set({ gatewayToken: '' })
+      },
+      setHydrated: (hydrated) => {
+        set({ isHydrated: hydrated })
       },
     }),
     {
-      name: 'auth-storage',
+      name: 'auth-storage-v2',
       partialize: (state) => ({
-        immichApiKey: state.immichApiKey,
-        paperlessToken: state.paperlessToken,
-        meilisearchKey: state.meilisearchKey,
-        n8nApiKey: state.n8nApiKey,
-        grafanaApiKey: state.grafanaApiKey,
+        gatewayToken: state.gatewayToken,
       }),
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state.setHydrated(true)
+        }
+      },
     },
   ),
 )

@@ -10,7 +10,7 @@ interface GalleryShare {
 }
 
 export default function GalleryGeneratorPage() {
-  const { gatewayToken } = useAuth()
+  const { gatewayToken, isHydrated } = useAuth()
   const [albums, setAlbums] = useState<ImmichAlbum[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -21,10 +21,16 @@ export default function GalleryGeneratorPage() {
   const [copied, setCopied] = useState<string | null>(null)
 
   useEffect(() => {
+    if (!isHydrated) {
+      setLoading(true)
+      return
+    }
     if (gatewayToken) {
       loadAlbums()
+    } else {
+      setLoading(false)
     }
-  }, [gatewayToken])
+  }, [isHydrated, gatewayToken])
 
   const loadAlbums = async () => {
     try {
