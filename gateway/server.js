@@ -7,6 +7,7 @@ import crypto from 'crypto'
 const app = express()
 const PORT = process.env.PORT || 8000
 const JWT_SECRET = process.env.JWT_SECRET || 'nas-logo-dev-secret-key-change-in-prod'
+const IMMICH_API_KEY = process.env.IMMICH_API_KEY || ''
 
 // Store for gallery share tokens (in-memory, add DB for production)
 const galleryTokens = new Map()
@@ -95,6 +96,9 @@ function createServiceProxy(target, shouldRewritePath = false) {
     if (shouldRewritePath) {
       const originalPath = req.url
       req.url = '/api' + originalPath
+      // Add Immich API key to headers
+      req.headers['x-api-key'] = IMMICH_API_KEY
+      delete req.headers.authorization
     }
 
     proxy.on('error', (err) => {
@@ -177,10 +181,9 @@ app.get('/gallery/:shareToken', async (req, res) => {
   }
 
   try {
-    // Fetch album data from Immich using internal gateway token
-    const internalToken = jwt.sign({ iss: 'nas-logo-gateway' }, JWT_SECRET)
+    // Fetch album data from Immich using API key
     const albumRes = await fetch(`${IMMICH_URL}/api/albums/${tokenData.albumId}`, {
-      headers: { 'Authorization': `Bearer ${internalToken}` },
+      headers: { 'x-api-key': IMMICH_API_KEY },
     })
 
     if (!albumRes.ok) {

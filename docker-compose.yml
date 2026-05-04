@@ -27,6 +27,7 @@ services:
     environment:
       - NODE_ENV=production
       - JWT_SECRET=nas-logo-dev-secret-key-change-in-prod
+      - IMMICH_API_KEY=yaspQn6sAuhFmH3Cjv6oH8E4x6V7PysRbGg3rx3SOwg
       - IMMICH_URL=http://immich_server:2283
       - PAPERLESS_URL=http://paperless:8000
       - MEILISEARCH_URL=http://meilisearch:7700
