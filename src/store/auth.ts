@@ -32,6 +32,7 @@ export const useAuth = create<AuthStore>()(
       onRehydrateStorage: () => (state) => {
         if (state) {
           state.setHydrated(true)
+          console.log('Auth store hydrated, token:', state.gatewayToken ? '✓' : '✗')
         }
       },
     },

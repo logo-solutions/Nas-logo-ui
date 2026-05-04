@@ -35,16 +35,23 @@ export default function GalleryGeneratorPage() {
   const loadAlbums = async () => {
     try {
       setLoading(true)
+      setError(null)
+
       if (!gatewayToken) {
-        setError('Please login first')
+        console.error('No gateway token available')
+        setError('Please configure your API Gateway token in Settings')
         setLoading(false)
         return
       }
+
+      console.log('Loading albums with token:', gatewayToken.substring(0, 20) + '...')
       const data = await getAlbums()
+      console.log('Albums loaded:', data.length)
       setAlbums(data)
-      setError(null)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load albums')
+      const errorMsg = err instanceof Error ? err.message : 'Failed to load albums'
+      console.error('Error loading albums:', errorMsg, err)
+      setError(errorMsg)
     } finally {
       setLoading(false)
     }
