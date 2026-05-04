@@ -118,27 +118,25 @@ export default function GalleryGeneratorPage() {
         </p>
       </div>
 
-      {!gatewayToken && (
-        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-          <p className="text-blue-700 dark:text-blue-400 mb-2">
-            Please configure your API Gateway token first
-          </p>
-          <button
-            onClick={() => setCurrentPage('settings')}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium transition-colors"
-          >
-            Go to Settings
-          </button>
-        </div>
-      )}
-
       {error && (
         <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
           <p className="text-red-700 dark:text-red-400">{error}</p>
+          {!gatewayToken && (
+            <button
+              onClick={() => setCurrentPage('settings')}
+              className="mt-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium transition-colors"
+            >
+              Configure Token in Settings
+            </button>
+          )}
         </div>
       )}
 
-      {!gatewayToken ? null : loading ? (
+      {!isHydrated ? (
+        <div className="flex items-center justify-center py-12">
+          <p className="text-gray-600 dark:text-gray-400">Initializing...</p>
+        </div>
+      ) : loading ? (
         <div className="flex items-center justify-center py-12">
           <p className="text-gray-600 dark:text-gray-400">Loading albums...</p>
         </div>
