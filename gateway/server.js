@@ -422,6 +422,24 @@ function generateGalleryHTML(album, shareToken) {
       font-size: 0.9rem;
     }
 
+    .lightbox-download {
+      position: absolute;
+      bottom: -3.5rem;
+      right: 0;
+      background: #4CAF50;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .lightbox-download:hover {
+      background: #45a049;
+    }
+
     /* Controls */
     .controls {
       position: fixed;
@@ -517,12 +535,14 @@ function generateGalleryHTML(album, shareToken) {
       <div class="lightbox-counter">
         <span id="lightboxCounter">1 / 1</span>
       </div>
+      <button class="lightbox-download" onclick="downloadCurrentImage()">📥 Download</button>
     </div>
   </div>
 
   <!-- Controls -->
   <div class="controls">
     <button class="btn" onclick="downloadHTML()">📥 Download HTML</button>
+    <button class="btn" onclick="downloadAllImages()">🖼️ Download All Images</button>
     <button class="btn btn-secondary" onclick="copyLink()">🔗 Copy Link</button>
   </div>
 
@@ -587,6 +607,42 @@ function generateGalleryHTML(album, shareToken) {
       const url = window.location.href;
       navigator.clipboard.writeText(url).then(() => {
         alert('Link copied to clipboard!');
+      });
+    }
+
+    function downloadCurrentImage() {
+      const img = images[currentIndex];
+      const a = document.createElement('a');
+      a.href = img.fullUrl;
+      a.download = img.fileName || 'image';
+      a.click();
+    }
+
+    function downloadAllImages() {
+      if (images.length === 0) {
+        alert('No images to download');
+        return;
+      }
+
+      if (images.length > 50) {
+        const confirmed = confirm('Download ' + images.length + ' images? This may take a while.');
+        if (!confirmed) return;
+      }
+
+      let downloaded = 0;
+      const total = images.length;
+
+      images.forEach((img, idx) => {
+        setTimeout(() => {
+          const a = document.createElement('a');
+          a.href = img.fullUrl;
+          a.download = img.fileName || ('image-' + idx);
+          a.click();
+          downloaded++;
+          if (downloaded === total) {
+            alert('Downloaded ' + total + ' images');
+          }
+        }, idx * 300);
       });
     }
   </script>
