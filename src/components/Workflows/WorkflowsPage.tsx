@@ -1,6 +1,3 @@
-import { useEffect } from 'react'
-import { useAuth } from '../../store/auth'
-import { setN8nApiKey } from '../../lib/n8n'
 import {
   useWorkflows,
   useExecutions,
@@ -10,33 +7,11 @@ import {
 } from '../../hooks/useWorkflows'
 
 export default function WorkflowsPage() {
-  const { n8nApiKey } = useAuth()
   const { data: workflows = [], isLoading, error } = useWorkflows()
   const { data: executions = [] } = useExecutions()
   const { mutate: activate, isPending: isActivating } = useActivateWorkflow()
   const { mutate: deactivate, isPending: isDeactivating } = useDeactivateWorkflow()
   const { mutate: execute, isPending: isExecuting } = useExecuteWorkflow()
-
-  useEffect(() => {
-    if (n8nApiKey) {
-      setN8nApiKey(n8nApiKey)
-    }
-  }, [])
-
-  if (!n8nApiKey) {
-    return (
-      <div className="space-y-6">
-        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
-          <p className="text-amber-800 dark:text-amber-200">
-            Please configure n8n API key in{' '}
-            <button className="font-semibold hover:underline" onClick={() => window.location.hash = '#settings'}>
-              Settings
-            </button>
-          </p>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="space-y-6">

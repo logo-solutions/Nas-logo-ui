@@ -8,7 +8,7 @@ interface PhotoCardProps {
 }
 
 export default function PhotoCard({ photo, onClick }: PhotoCardProps) {
-  const { immichApiKey } = useAuth()
+  const { gatewayToken } = useAuth()
   const [imageUrl, setImageUrl] = useState<string>('')
   const [imageError, setImageError] = useState(false)
   const date = new Date(photo.fileCreatedAt).toLocaleDateString()
@@ -17,7 +17,7 @@ export default function PhotoCard({ photo, onClick }: PhotoCardProps) {
     const loadImage = async () => {
       try {
         const res = await fetch(getPhotoThumbnailUrl(photo.id, 'preview'), {
-          headers: { 'x-api-key': immichApiKey },
+          headers: { 'Authorization': `Bearer ${gatewayToken}` },
         })
         if (res.ok) {
           const blob = await res.blob()
@@ -30,10 +30,10 @@ export default function PhotoCard({ photo, onClick }: PhotoCardProps) {
       }
     }
 
-    if (immichApiKey) {
+    if (gatewayToken) {
       loadImage()
     }
-  }, [immichApiKey, photo.id])
+  }, [gatewayToken, photo.id])
 
   return (
     <button

@@ -6,21 +6,24 @@ import {
   deactivateWorkflow,
   executeWorkflow,
 } from '../lib/n8n'
+import { useAuth } from '../store/auth'
 
 export function useWorkflows() {
+  const { gatewayToken } = useAuth()
   return useQuery({
     queryKey: ['workflows'],
     queryFn: getWorkflows,
-    enabled: !!localStorage.getItem('n8n_api_key'),
+    enabled: !!gatewayToken,
     refetchInterval: 30000,
   })
 }
 
 export function useExecutions() {
+  const { gatewayToken } = useAuth()
   return useQuery({
     queryKey: ['executions'],
     queryFn: () => getExecutions(10),
-    enabled: !!localStorage.getItem('n8n_api_key'),
+    enabled: !!gatewayToken,
     refetchInterval: 15000,
   })
 }

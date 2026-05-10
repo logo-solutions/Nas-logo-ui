@@ -1,4 +1,27 @@
+import { gatewayFetch } from '../../lib/gateway'
+
 export default function NtfyPage() {
+  const sendTestNotification = async () => {
+    try {
+      const response = await gatewayFetch('/ntfy/publish', {
+        method: 'POST',
+        body: JSON.stringify({
+          topic: 'nas-logo',
+          message: 'Test notification from NAS-logo UI',
+          title: 'Test',
+        }),
+      })
+      if (response.ok) {
+        alert('✓ Notification sent!')
+      } else {
+        alert('✗ Failed to send notification')
+      }
+    } catch (error) {
+      console.error('Failed to send notification:', error)
+      alert('✗ Failed to send notification')
+    }
+  }
+
   return (
     <div className="space-y-6">
       <div>
@@ -47,21 +70,7 @@ export default function NtfyPage() {
             Send a test notification to verify your subscription
           </p>
           <button
-            onClick={async () => {
-              try {
-                const response = await fetch('http://100.113.214.55:8090/nas-logo', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'text/plain' },
-                  body: 'Test notification from NAS-logo UI',
-                })
-                if (response.ok) {
-                  alert('✓ Notification sent!')
-                }
-              } catch (error) {
-                console.error('Failed to send notification:', error)
-                alert('✗ Failed to send notification')
-              }
-            }}
+            onClick={sendTestNotification}
             className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
           >
             Send Test

@@ -1,9 +1,6 @@
-const API_BASE = '/api/n8n/api/v1'
-let API_KEY = ''
+import { gatewayFetch } from './gateway'
 
-export function setN8nApiKey(key: string) {
-  API_KEY = key
-}
+const API_BASE = '/n8n/api/v1'
 
 export interface N8nTag {
   name: string
@@ -31,19 +28,9 @@ export interface N8nListResponse<T> {
   nextCursor?: string
 }
 
-function headers() {
-  if (!API_KEY) throw new Error('n8n API key not configured')
-  return {
-    'X-N8N-API-KEY': API_KEY,
-    'Content-Type': 'application/json',
-  }
-}
-
 export async function getWorkflows(): Promise<N8nWorkflow[]> {
   try {
-    const response = await fetch(`${API_BASE}/workflows`, {
-      headers: headers(),
-    })
+    const response = await gatewayFetch(`${API_BASE}/workflows`)
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`)
     }
@@ -59,9 +46,8 @@ export async function getWorkflows(): Promise<N8nWorkflow[]> {
 
 export async function activateWorkflow(id: string): Promise<N8nWorkflow> {
   try {
-    const response = await fetch(`${API_BASE}/workflows/${id}/activate`, {
+    const response = await gatewayFetch(`${API_BASE}/workflows/${id}/activate`, {
       method: 'PATCH',
-      headers: headers(),
     })
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`)
@@ -77,9 +63,8 @@ export async function activateWorkflow(id: string): Promise<N8nWorkflow> {
 
 export async function deactivateWorkflow(id: string): Promise<N8nWorkflow> {
   try {
-    const response = await fetch(`${API_BASE}/workflows/${id}/deactivate`, {
+    const response = await gatewayFetch(`${API_BASE}/workflows/${id}/deactivate`, {
       method: 'PATCH',
-      headers: headers(),
     })
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`)
@@ -95,9 +80,8 @@ export async function deactivateWorkflow(id: string): Promise<N8nWorkflow> {
 
 export async function executeWorkflow(id: string): Promise<N8nExecution> {
   try {
-    const response = await fetch(`${API_BASE}/workflows/${id}/run`, {
+    const response = await gatewayFetch(`${API_BASE}/workflows/${id}/run`, {
       method: 'POST',
-      headers: headers(),
     })
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`)
@@ -113,9 +97,7 @@ export async function executeWorkflow(id: string): Promise<N8nExecution> {
 
 export async function getExecutions(limit = 10): Promise<N8nExecution[]> {
   try {
-    const response = await fetch(`${API_BASE}/executions?limit=${limit}`, {
-      headers: headers(),
-    })
+    const response = await gatewayFetch(`${API_BASE}/executions?limit=${limit}`)
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`)
     }

@@ -1,5 +1,4 @@
-// Paperless-ngx API client
-// Base: http://100.113.214.55:8010/api/
+import { gatewayFetch } from './gateway'
 
 export interface PaperlessDocument {
   id: number
@@ -49,36 +48,15 @@ export interface PaperlessListResponse<T> {
   results: T[]
 }
 
-const API_BASE = '/api/paperless'
-let API_TOKEN = ''
-
-export function setPaperlessToken(token: string) {
-  API_TOKEN = token
-}
-
-const headers = () => {
-  const h: Record<string, string> = {
-    'Content-Type': 'application/json',
-  }
-  if (API_TOKEN) {
-    h['Authorization'] = `Token ${API_TOKEN}`
-  }
-  return h
-}
+const API_BASE = '/paperless'
 
 export async function getDocuments(
   page = 1,
   pageSize = 50,
 ): Promise<PaperlessListResponse<PaperlessDocument>> {
-  if (!API_TOKEN) {
-    throw new Error('Paperless API token not configured')
-  }
-
   const url = `${API_BASE}/documents/?page=${page}&page_size=${pageSize}`
   try {
-    const res = await fetch(url, {
-      headers: headers(),
-    })
+    const res = await gatewayFetch(url)
     if (!res.ok) {
       const errorData = await res.text()
       throw new Error(
@@ -89,7 +67,7 @@ export async function getDocuments(
   } catch (error) {
     if (error instanceof TypeError) {
       throw new Error(
-        `Network error fetching documents. Check if Paperless is accessible at ${API_BASE}`,
+        `Network error fetching documents. Check if API gateway is accessible.`,
       )
     }
     throw error
@@ -97,41 +75,33 @@ export async function getDocuments(
 }
 
 export async function getDocument(id: number): Promise<PaperlessDocument> {
-  const res = await fetch(`${API_BASE}/documents/${id}/`, {
-    headers: headers(),
-  })
+  const res = await gatewayFetch(`${API_BASE}/documents/${id}/`)
   if (!res.ok) throw new Error('Failed to fetch document')
   return res.json()
 }
 
 export async function getCorrespondents(): Promise<PaperlessListResponse<PaperlessCorrespondent>> {
-  const res = await fetch(`${API_BASE}/correspondents/`, {
-    headers: headers(),
-  })
+  const res = await gatewayFetch(`${API_BASE}/correspondents/`)
   if (!res.ok) throw new Error('Failed to fetch correspondents')
   return res.json()
 }
 
 export async function getTags(): Promise<PaperlessListResponse<PaperlessTag>> {
-  const res = await fetch(`${API_BASE}/tags/`, {
-    headers: headers(),
-  })
+  const res = await gatewayFetch(`${API_BASE}/tags/`)
   if (!res.ok) throw new Error('Failed to fetch tags')
   return res.json()
 }
 
 export async function getDocumentTypes(): Promise<PaperlessListResponse<PaperlessDocumentType>> {
-  const res = await fetch(`${API_BASE}/document_types/`, {
-    headers: headers(),
-  })
+  const res = await gatewayFetch(`${API_BASE}/document_types/`)
   if (!res.ok) throw new Error('Failed to fetch document types')
   return res.json()
 }
 
 export async function searchDocuments(query: string): Promise<PaperlessListResponse<PaperlessDocument>> {
-  const res = await fetch(`${API_BASE}/documents/?search=${encodeURIComponent(query)}`, {
-    headers: headers(),
-  })
+  const res = await gatewayFetch(
+    `${API_BASE}/documents/?search=${encodeURIComponent(query)}`,
+  )
   if (!res.ok) throw new Error('Failed to search documents')
   return res.json()
 }
@@ -141,12 +111,9 @@ export async function uploadDocument(file: File, title?: string): Promise<Paperl
   formData.append('document', file)
   if (title) formData.append('title', title)
 
-  const h = headers()
-  delete h['Content-Type']
-
-  const res = await fetch(`${API_BASE}/documents/post_document/`, {
+  const res = await gatewayFetch(`${API_BASE}/documents/post_document/`, {
     method: 'POST',
-    headers: h,
+    headers: {},
     body: formData,
   })
   if (!res.ok) throw new Error('Failed to upload document')
@@ -154,18 +121,14 @@ export async function uploadDocument(file: File, title?: string): Promise<Paperl
 }
 
 export async function getAllDocuments(): Promise<PaperlessDocument[]> {
-  if (!API_TOKEN) {
-    throw new Error('Paperless API token not configured')
-  }
-
   const allDocs: PaperlessDocument[] = []
   let page = 1
   const pageSize = 100
 
   while (true) {
-    const res = await fetch(`${API_BASE}/documents/?page=${page}&page_size=${pageSize}`, {
-      headers: headers(),
-    })
+    const res = await gatewayFetch(
+      `${API_BASE}/documents/?page=${page}&page_size=${pageSize}`,
+    )
     if (!res.ok) break
 
     const data: PaperlessListResponse<PaperlessDocument> = await res.json()

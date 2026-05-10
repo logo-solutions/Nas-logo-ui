@@ -1,141 +1,27 @@
 export interface HealthStatus {
-  immich: {
-    configured: boolean
-    accessible: boolean
-    error?: string
-  }
-  paperless: {
-    configured: boolean
-    accessible: boolean
-    error?: string
-  }
-  meilisearch: {
-    configured: boolean
-    accessible: boolean
-    error?: string
-  }
-  n8n: {
-    configured: boolean
-    accessible: boolean
-    error?: string
-  }
-  grafana: {
-    configured: boolean
-    accessible: boolean
-    error?: string
-  }
+  immich?: { accessible: boolean }
+  paperless?: { accessible: boolean }
+  meilisearch?: { accessible: boolean }
+  n8n?: { accessible: boolean }
+  grafana?: { accessible: boolean }
+  ntfy?: { accessible: boolean }
 }
 
-export async function checkHealth(immichApiKey: string, paperlessToken: string, meilisearchKey: string, n8nApiKey?: string, grafanaApiKey?: string): Promise<HealthStatus> {
-
-  const status: HealthStatus = {
-    immich: {
-      configured: !!immichApiKey,
-      accessible: false,
-    },
-    paperless: {
-      configured: !!paperlessToken,
-      accessible: false,
-    },
-    meilisearch: {
-      configured: !!meilisearchKey,
-      accessible: false,
-    },
-    n8n: {
-      configured: !!n8nApiKey,
-      accessible: false,
-    },
-    grafana: {
-      configured: !!grafanaApiKey,
-      accessible: false,
-    },
-  }
-
-  // Check Immich
-  if (immichApiKey) {
-    try {
-      const res = await fetch(
-        '/api/immich/server/version',
-        {
-          headers: { 'x-api-key': immichApiKey },
-        },
-      )
-      status.immich.accessible = res.ok
-      if (!res.ok) {
-        status.immich.error = `HTTP ${res.status}`
-      }
-    } catch (e) {
-      status.immich.accessible = false
-      status.immich.error = e instanceof Error ? e.message : 'Unknown error'
+export async function checkHealth(): Promise<HealthStatus> {
+  try {
+    const res = await fetch('/api/health')
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`)
+    }
+    return await res.json()
+  } catch (e) {
+    return {
+      immich: { accessible: false },
+      paperless: { accessible: false },
+      meilisearch: { accessible: false },
+      n8n: { accessible: false },
+      grafana: { accessible: false },
+      ntfy: { accessible: false },
     }
   }
-
-  // Check Paperless
-  if (paperlessToken) {
-    try {
-      const res = await fetch(
-        '/api/paperless/documents/?page=1&page_size=1',
-        {
-          headers: { 'Authorization': `Token ${paperlessToken}` },
-        },
-      )
-      status.paperless.accessible = res.ok
-      if (!res.ok) {
-        status.paperless.error = `HTTP ${res.status}`
-      }
-    } catch (e) {
-      status.paperless.accessible = false
-      status.paperless.error = e instanceof Error ? e.message : 'Unknown error'
-    }
-  }
-
-  // Check Meilisearch
-  if (meilisearchKey) {
-    try {
-      const res = await fetch('/api/meilisearch/health', {
-        headers: { 'Authorization': `Bearer ${meilisearchKey}` },
-      })
-      status.meilisearch.accessible = res.ok
-      if (!res.ok) {
-        status.meilisearch.error = `HTTP ${res.status}`
-      }
-    } catch (e) {
-      status.meilisearch.accessible = false
-      status.meilisearch.error = e instanceof Error ? e.message : 'Unknown error'
-    }
-  }
-
-  // Check n8n
-  if (n8nApiKey) {
-    try {
-      const res = await fetch('/api/n8n/api/v1/workflows', {
-        headers: { 'X-N8N-API-KEY': n8nApiKey },
-      })
-      status.n8n.accessible = res.ok
-      if (!res.ok) {
-        status.n8n.error = `HTTP ${res.status}`
-      }
-    } catch (e) {
-      status.n8n.accessible = false
-      status.n8n.error = e instanceof Error ? e.message : 'Unknown error'
-    }
-  }
-
-  // Check Grafana
-  if (grafanaApiKey) {
-    try {
-      const res = await fetch('/api/grafana/api/user', {
-        headers: { 'Authorization': `Bearer ${grafanaApiKey}` },
-      })
-      status.grafana.accessible = res.ok
-      if (!res.ok) {
-        status.grafana.error = `HTTP ${res.status}`
-      }
-    } catch (e) {
-      status.grafana.accessible = false
-      status.grafana.error = e instanceof Error ? e.message : 'Unknown error'
-    }
-  }
-
-  return status
 }

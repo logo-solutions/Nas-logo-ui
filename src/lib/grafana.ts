@@ -1,13 +1,10 @@
-const GRAFANA_URL = '/api/grafana'
-let apiKey = ''
+import { gatewayFetch } from './gateway'
 
-export function setGrafanaApiKey(key: string) {
-  apiKey = key
-}
+const GRAFANA_URL = '/grafana'
 
 export async function checkGrafanaHealth(): Promise<{ accessible: boolean; error?: string }> {
   try {
-    const response = await fetch(`${GRAFANA_URL}/api/health`)
+    const response = await gatewayFetch(`${GRAFANA_URL}/api/health`)
     if (!response.ok) {
       return { accessible: false, error: `HTTP ${response.status}` }
     }
@@ -18,16 +15,8 @@ export async function checkGrafanaHealth(): Promise<{ accessible: boolean; error
 }
 
 export async function checkGrafanaAuth(): Promise<{ accessible: boolean; error?: string }> {
-  if (!apiKey) {
-    return { accessible: false, error: 'No API key configured' }
-  }
-
   try {
-    const response = await fetch(`${GRAFANA_URL}/api/user`, {
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-      },
-    })
+    const response = await gatewayFetch(`${GRAFANA_URL}/api/user`)
     if (!response.ok) {
       return { accessible: false, error: `Auth failed: HTTP ${response.status}` }
     }

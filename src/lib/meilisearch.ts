@@ -1,5 +1,4 @@
-// Meilisearch API client
-// Base: http://100.113.214.55:7700
+import { gatewayFetch } from './gateway'
 
 export interface MeilisearchDocument {
   id: string | number
@@ -15,16 +14,9 @@ export interface MeilisearchSearchResult<T = any> {
   estimatedTotalHits: number
 }
 
-const API_BASE = '/api/meilisearch'
-let MASTER_KEY = ''
-
-export function setMeilisearchKey(key: string) {
-  MASTER_KEY = key
-}
+const API_BASE = '/meilisearch'
 
 export async function searchAll(query: string): Promise<MeilisearchSearchResult> {
-  // Search across all indexed documents (photos, documents, etc)
-  // Returns unified results from all indexes
   const indexes = ['photos', 'documents']
   const allResults: MeilisearchSearchResult['hits'] = []
 
@@ -53,18 +45,10 @@ export async function searchIndex(
   limit = 50,
   offset = 0,
 ): Promise<MeilisearchSearchResult> {
-  if (!MASTER_KEY) {
-    throw new Error('Meilisearch master key not configured')
-  }
-
-  const headers: HeadersInit = { 'Content-Type': 'application/json' }
-  headers['Authorization'] = `Bearer ${MASTER_KEY}`
-
   const url = `${API_BASE}/indexes/${index}/search`
   try {
-    const res = await fetch(url, {
+    const res = await gatewayFetch(url, {
       method: 'POST',
-      headers,
       body: JSON.stringify({
         q: query,
         limit,
@@ -83,7 +67,7 @@ export async function searchIndex(
   } catch (error) {
     if (error instanceof TypeError) {
       throw new Error(
-        `Network error searching ${index}. Check if Meilisearch is accessible at ${API_BASE}`,
+        `Network error searching ${index}. Check if API gateway is accessible.`,
       )
     }
     throw error
@@ -91,11 +75,6 @@ export async function searchIndex(
 }
 
 export async function indexDocuments(documents: any[]): Promise<void> {
-  if (!MASTER_KEY) {
-    console.warn('Meilisearch master key not configured, skipping indexing')
-    return
-  }
-
   const formattedDocs = documents.map((doc) => ({
     id: doc.id,
     type: 'document',
@@ -108,13 +87,9 @@ export async function indexDocuments(documents: any[]): Promise<void> {
     tags: doc.tags?.map((t: any) => t.name || '').join(' ') || '',
   }))
 
-  const headers: HeadersInit = { 'Content-Type': 'application/json' }
-  headers['Authorization'] = `Bearer ${MASTER_KEY}`
-
   try {
-    const res = await fetch(`${API_BASE}/indexes/documents/documents`, {
+    const res = await gatewayFetch(`${API_BASE}/indexes/documents/documents`, {
       method: 'POST',
-      headers,
       body: JSON.stringify(formattedDocs),
     })
 
@@ -128,11 +103,6 @@ export async function indexDocuments(documents: any[]): Promise<void> {
 }
 
 export async function indexPhotos(photos: any[]): Promise<void> {
-  if (!MASTER_KEY) {
-    console.warn('Meilisearch master key not configured, skipping indexing')
-    return
-  }
-
   const formattedPhotos = photos.map((photo) => ({
     id: photo.id,
     type: 'photo',
@@ -143,13 +113,9 @@ export async function indexPhotos(photos: any[]): Promise<void> {
     exif: photo.exifInfo ? JSON.stringify(photo.exifInfo) : '',
   }))
 
-  const headers: HeadersInit = { 'Content-Type': 'application/json' }
-  headers['Authorization'] = `Bearer ${MASTER_KEY}`
-
   try {
-    const res = await fetch(`${API_BASE}/indexes/photos/documents`, {
+    const res = await gatewayFetch(`${API_BASE}/indexes/photos/documents`, {
       method: 'POST',
-      headers,
       body: JSON.stringify(formattedPhotos),
     })
 
@@ -163,12 +129,7 @@ export async function indexPhotos(photos: any[]): Promise<void> {
 }
 
 export async function getStats(): Promise<{ indexes: Record<string, any> }> {
-  const headers: HeadersInit = {}
-  if (MASTER_KEY) {
-    headers['Authorization'] = `Bearer ${MASTER_KEY}`
-  }
-
-  const res = await fetch(`${API_BASE}/stats`, { headers })
+  const res = await gatewayFetch(`${API_BASE}/stats`)
   if (!res.ok) throw new Error('Failed to get stats')
   return res.json()
 }
