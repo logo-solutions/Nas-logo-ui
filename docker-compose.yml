@@ -27,17 +27,15 @@ services:
     environment:
       - NODE_ENV=production
       - JWT_SECRET=nas-logo-dev-secret-key-change-in-prod
-      - IMMICH_API_KEY=yaspQn6sAuhFmH3Cjv6oH8E4x6V7PysRbGg3rx3SOwg
-      - IMMICH_URL=http://immich_server:2283
-      - PAPERLESS_URL=http://paperless:8000
-      - MEILISEARCH_URL=http://meilisearch:7700
-      - N8N_URL=http://n8n:5678
-      - GRAFANA_URL=http://grafana:3000
-      - NTFY_URL=http://ntfy:80
+      - IMMICH_API_KEY=dg46m83TgQBP4r8pxPloTnagaNUl2wWcgmNlB7Wk
+      - IMMICH_URL=http://100.113.214.55:2283
+      - PAPERLESS_URL=http://100.113.214.55:8010
+      - MEILISEARCH_URL=http://100.113.214.55:7700
+      - N8N_URL=http://100.113.214.55:5679
+      - GRAFANA_URL=http://100.113.214.55:3000
+      - NTFY_URL=http://100.113.214.55:80
     networks:
       - nas-network
-    depends_on:
-      - ui
 
   ui:
     build: .
