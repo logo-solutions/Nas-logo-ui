@@ -251,15 +251,38 @@ function parseDuration(duration) {
 }
 
 // Generate standalone HTML gallery
+function getFileExtension(mimeType) {
+  const mimeMap = {
+    'image/jpeg': '.jpg',
+    'image/png': '.png',
+    'image/webp': '.webp',
+    'image/gif': '.gif',
+    'image/heic': '.heic',
+    'image/heif': '.heif',
+    'video/mp4': '.mp4',
+    'video/quicktime': '.mov',
+    'video/x-msvideo': '.avi',
+  }
+  return mimeMap[mimeType] || '.jpg'
+}
+
 function generateGalleryHTML(album, shareToken) {
   const assets = album.assets || []
-  const images = assets.map((asset) => ({
-    id: asset.id,
-    fileName: asset.fileName,
-    date: new Date(asset.fileCreatedAt).toLocaleDateString(),
-    thumbnailUrl: `/api/gallery/${shareToken}/asset/${asset.id}?size=preview`,
-    fullUrl: `/api/gallery/${shareToken}/asset/${asset.id}?size=original`,
-  }))
+  const images = assets.map((asset) => {
+    // Ensure filename has extension
+    let fileName = asset.fileName || `photo-${asset.id}`
+    if (!fileName.includes('.')) {
+      const ext = getFileExtension(asset.mimeType)
+      fileName = `${fileName}${ext}`
+    }
+    return {
+      id: asset.id,
+      fileName,
+      date: new Date(asset.fileCreatedAt).toLocaleDateString(),
+      thumbnailUrl: `/api/gallery/${shareToken}/asset/${asset.id}?size=preview`,
+      fullUrl: `/api/gallery/${shareToken}/asset/${asset.id}?size=original`,
+    }
+  })
 
   return `<!DOCTYPE html>
 <html lang="en">
