@@ -17,7 +17,7 @@ export default function Sidebar({ open }: SidebarProps) {
 
   const menuItems: MenuItem[] = [
     { icon: '🏠', label: 'Dashboard', page: 'dashboard' },
-    { icon: '📷', label: 'Photos', href: 'http://100.113.214.55:2283' },
+    { icon: '📷', label: 'Photos', href: 'https://immich.logo-solutions.fr' },
     { icon: '📄', label: 'Documents', href: 'http://100.113.214.55:8010' },
     { icon: '🎨', label: 'Gallery', page: 'gallery' },
     { icon: '🔄', label: 'Workflows', page: 'workflows' },

@@ -1,5 +1,5 @@
 nas.logo-solutions.fr {
-    tls internal
+    tls /etc/caddy/certs/nas.crt /etc/caddy/certs/nas.key
 
     # Matcher pour les requêtes /api
     @api path /api /api/*
@@ -12,6 +12,25 @@ nas.logo-solutions.fr {
 
     # Route tout le reste vers UI
     handle {
-        reverse_proxy nas-logo-ui:8080
+        reverse_proxy nas-logo-ui:8080 {
+            header_up Host {host}
+            header_up X-Forwarded-For {remote}
+            header_up X-Forwarded-Proto https
+            header_up X-Forwarded-Host {host}
+        }
+    }
+}
+
+immich.nas-logo-solutions.fr {
+    tls internal
+    reverse_proxy 100.113.214.55:2283 {
+        header_up Host 100.113.214.55:2283
+    }
+}
+
+immich.logo-solutions.fr {
+    tls internal
+    reverse_proxy 100.113.214.55:2283 {
+        header_up Host 100.113.214.55:2283
     }
 }
