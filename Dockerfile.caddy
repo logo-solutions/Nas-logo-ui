@@ -1,10 +1,16 @@
-FROM caddy:latest as builder
+FROM golang:latest as builder
 
-RUN apk add --no-cache xcaddy go bash
+RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
 
-RUN xcaddy build \
-    --with github.com/caddy-dns/cloudflare
+RUN xcaddy build --with github.com/caddy-dns/cloudflare@latest
 
-FROM caddy:latest
+FROM debian:bookworm-slim
 
-COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /go/caddy /usr/bin/caddy
+
+EXPOSE 80 443
+
+ENTRYPOINT ["/usr/bin/caddy"]
+CMD ["run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]

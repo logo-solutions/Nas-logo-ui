@@ -1,5 +1,5 @@
 nas.logo-solutions.fr {
-    tls /etc/caddy/certs/nas.crt /etc/caddy/certs/nas.key
+    tls /etc/caddy/certs/nas-chain.crt /etc/caddy/certs/nas-leaf.key
 
     # Matcher pour les requêtes /api
     @api path /api /api/*
