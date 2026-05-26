@@ -10,9 +10,9 @@ nas.logo-solutions.fr {
         reverse_proxy nas-logo-gateway:8000
     }
 
-    # Route tout le reste vers UI
+    # Route tout le reste vers UI (en dev: Vite sur 5173, en prod: nas-logo-ui:8080)
     handle {
-        reverse_proxy nas-logo-ui:8080 {
+        reverse_proxy host.docker.internal:5173 {
             header_up Host {host}
             header_up X-Forwarded-For {remote}
             header_up X-Forwarded-Proto https
@@ -32,5 +32,32 @@ immich.logo-solutions.fr {
     tls internal
     reverse_proxy 100.113.214.55:2283 {
         header_up Host 100.113.214.55:2283
+    }
+}
+
+alo.logo-solutions.fr {
+    tls /etc/caddy/certs/nas-chain.crt /etc/caddy/certs/nas-leaf.key
+
+    # Matcher pour les requêtes /api
+    @api path /api /api/*
+
+    # Route /api vers backend FastAPI sur port 8000
+    handle @api {
+        reverse_proxy host.docker.internal:8000 {
+            header_up Host {host}
+            header_up X-Forwarded-For {remote}
+            header_up X-Forwarded-Proto https
+            header_up X-Forwarded-Host {host}
+        }
+    }
+
+    # Route tout le reste vers frontend React sur port 8001
+    handle {
+        reverse_proxy host.docker.internal:8001 {
+            header_up Host {host}
+            header_up X-Forwarded-For {remote}
+            header_up X-Forwarded-Proto https
+            header_up X-Forwarded-Host {host}
+        }
     }
 }

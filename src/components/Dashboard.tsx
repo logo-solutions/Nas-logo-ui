@@ -1,9 +1,13 @@
 import { useNavigation } from '../store/navigation'
 
+type Service =
+  | { icon: string; label: string; page: 'photos' | 'documents' | 'workflows' | 'search' | 'monitoring' | 'settings'; description: string; color: string }
+  | { icon: string; label: string; url: string; description: string; color: string }
+
 export default function Dashboard() {
   const { setCurrentPage } = useNavigation()
 
-  const services = [
+  const services: Service[] = [
     {
       icon: '📷',
       label: 'Photos',
@@ -46,6 +50,13 @@ export default function Dashboard() {
       description: 'Configure and manage your NAS',
       color: 'from-gray-500 to-slate-500',
     },
+    {
+      icon: '👤',
+      label: 'Comptes ALO',
+      url: 'https://alo.logo-solutions.fr',
+      description: 'Access ALO accounts',
+      color: 'from-teal-500 to-cyan-500',
+    },
   ]
 
   return (
@@ -60,35 +71,43 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {services.map((service) => (
-          <button
-            key={service.label}
-            onClick={() => setCurrentPage(service.page)}
-            className="group relative overflow-hidden rounded-lg p-6 text-left transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-          >
-            {/* Background gradient */}
-            <div
-              className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`}
-            />
+        {services.map((service) => {
+          const isExternal = 'url' in service
+          const Component = isExternal ? 'a' : 'button'
+          const props = isExternal
+            ? { href: service.url, target: '_blank', rel: 'noopener noreferrer' }
+            : { onClick: () => setCurrentPage(service.page) }
 
-            {/* Border */}
-            <div className="absolute inset-0 rounded-lg border border-gray-200 dark:border-gray-700 group-hover:border-current opacity-50 transition-all duration-300" />
+          return (
+            <Component
+              key={service.label}
+              {...props}
+              className="group relative overflow-hidden rounded-lg p-6 text-left transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+            >
+              {/* Background gradient */}
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`}
+              />
 
-            {/* Content */}
-            <div className="relative space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-4xl">{service.icon}</span>
-                <span className="text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  →
-                </span>
+              {/* Border */}
+              <div className="absolute inset-0 rounded-lg border border-gray-200 dark:border-gray-700 group-hover:border-current opacity-50 transition-all duration-300" />
+
+              {/* Content */}
+              <div className="relative space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-4xl">{service.icon}</span>
+                  <span className="text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    →
+                  </span>
+                </div>
+                <h3 className="font-bold text-gray-900 dark:text-white">{service.label}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {service.description}
+                </p>
               </div>
-              <h3 className="font-bold text-gray-900 dark:text-white">{service.label}</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {service.description}
-              </p>
-            </div>
-          </button>
-        ))}
+            </Component>
+          )
+        })}
       </div>
 
       <div className="card space-y-4">
