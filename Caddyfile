@@ -10,9 +10,9 @@ nas.logo-solutions.fr {
         reverse_proxy nas-logo-gateway:8000
     }
 
-    # Route tout le reste vers UI (en dev: Vite sur 5173, en prod: nas-logo-ui:8080)
+    # Route tout le reste vers UI
     handle {
-        reverse_proxy host.docker.internal:5173 {
+        reverse_proxy nas-logo-ui:8080 {
             header_up Host {host}
             header_up X-Forwarded-For {remote}
             header_up X-Forwarded-Proto https
