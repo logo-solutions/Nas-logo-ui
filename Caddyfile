@@ -1,101 +1,38 @@
-nas.logo-solutions.fr {
-    tls /etc/caddy/certs/nas-chain.crt /etc/caddy/certs/nas-leaf.key
-
-    # Matcher pour les requêtes /api
+# Simple default configuration - routes all requests appropriately
+:80 {
     @api path /api /api/*
-
-    # Matcher pour les requêtes d'authentification
     @auth path /auth /auth/*
 
-    # Route /api vers gateway avec strip prefix
+    handle @auth {
+        reverse_proxy localhost:8000
+    }
+
     handle @api {
         uri strip_prefix /api
-        reverse_proxy nas-logo-gateway:8000
+        reverse_proxy localhost:8000
     }
 
-    # Route /auth vers gateway
-    handle @auth {
-        reverse_proxy nas-logo-gateway:8000
-    }
-
-    # Route tout le reste vers UI
     handle {
-        reverse_proxy nas-logo-ui:8080 {
-            header_up Host {host}
-            header_up X-Forwarded-For {remote}
-            header_up X-Forwarded-Proto https
-            header_up X-Forwarded-Host {host}
-        }
+        reverse_proxy localhost:5173
     }
 }
 
-immich.nas-logo-solutions.fr {
+:443 {
     tls internal
-    reverse_proxy 100.113.214.55:2283 {
-        header_up Host 100.113.214.55:2283
-    }
-}
 
-immich.logo-solutions.fr {
-    tls internal
-    reverse_proxy 100.113.214.55:2283 {
-        header_up Host 100.113.214.55:2283
-    }
-}
-
-# Support accès via IP Tailscale (100.113.214.55)
-100.113.214.55 {
-    tls /etc/caddy/certs/nas-chain.crt /etc/caddy/certs/nas-leaf.key
-
-    # Matcher pour les requêtes /api
     @api path /api /api/*
-
-    # Matcher pour les requêtes d'authentification
     @auth path /auth /auth/*
 
-    # Route /api vers gateway avec strip prefix
+    handle @auth {
+        reverse_proxy localhost:8000
+    }
+
     handle @api {
         uri strip_prefix /api
-        reverse_proxy nas-logo-gateway:8000
+        reverse_proxy localhost:8000
     }
 
-    # Route /auth vers gateway
-    handle @auth {
-        reverse_proxy nas-logo-gateway:8000
-    }
-
-    # Route tout le reste vers UI
     handle {
-        reverse_proxy nas-logo-ui:8080 {
-            header_up Host {host}
-            header_up X-Forwarded-Proto https
-        }
-    }
-}
-
-alo.logo-solutions.fr {
-    tls /etc/caddy/certs/nas-chain.crt /etc/caddy/certs/nas-leaf.key
-
-    # Matcher pour les requêtes /api
-    @api path /api /api/*
-
-    # Route /api vers backend FastAPI sur port 8000
-    handle @api {
-        reverse_proxy host.docker.internal:8000 {
-            header_up Host {host}
-            header_up X-Forwarded-For {remote}
-            header_up X-Forwarded-Proto https
-            header_up X-Forwarded-Host {host}
-        }
-    }
-
-    # Route tout le reste vers frontend React sur port 8001
-    handle {
-        reverse_proxy host.docker.internal:8001 {
-            header_up Host {host}
-            header_up X-Forwarded-For {remote}
-            header_up X-Forwarded-Proto https
-            header_up X-Forwarded-Host {host}
-        }
+        reverse_proxy localhost:5173
     }
 }
