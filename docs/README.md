@@ -312,18 +312,33 @@ ALO API:
   https://alo.logo-solutions.fr/api/periods
 ```
 
-### **URLs via Tailscale VPN** (depuis NAS-logo distant)
-```
-NAS-logo-UI (Frontend):
-  http://100.113.214.55:5173/
+### **URLs via Tailscale VPN** (depuis MacBook Air/ordinateur distant)
 
-Services sur NAS:
-  Immich:      http://100.113.214.55:2283/
-  Paperless:   http://100.113.214.55:8010/
-  Grafana:     http://100.113.214.55:3000/
-  ntfy:        http://100.113.214.55:8090/
-  Meilisearch: http://100.113.214.55:7700/
-  Prometheus:  http://100.113.214.55:9090/
+**Option 1: Via Caddy (HTTPS - Recommandé)**
+```
+https://100.113.214.55/
+OU
+https://nas.logo-solutions.fr/
+```
+- Token JWT génère automatiquement ✅
+- Routes `/api/*` et `/auth/*` fonctionnent
+- Certificat auto-signé (accepter l'avertissement SSL)
+
+**Option 2: Frontend direct (HTTP)**
+```
+http://100.113.214.55:5173/
+```
+- Frontend seulement (pas Caddy)
+- Token JWT génère automatiquement ✅
+
+**Services sur NAS (via Tailscale):**
+```
+Immich:      http://100.113.214.55:2283/
+Paperless:   http://100.113.214.55:8010/
+Grafana:     http://100.113.214.55:3000/
+ntfy:        http://100.113.214.55:8090/
+Meilisearch: http://100.113.214.55:7700/
+Prometheus:  http://100.113.214.55:9090/
 ```
 
 ### Frontend Settings & Gateway Token

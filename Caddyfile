@@ -4,9 +4,17 @@ nas.logo-solutions.fr {
     # Matcher pour les requêtes /api
     @api path /api /api/*
 
+    # Matcher pour les requêtes d'authentification
+    @auth path /auth /auth/*
+
     # Route /api vers gateway avec strip prefix
     handle @api {
         uri strip_prefix /api
+        reverse_proxy nas-logo-gateway:8000
+    }
+
+    # Route /auth vers gateway
+    handle @auth {
         reverse_proxy nas-logo-gateway:8000
     }
 
@@ -32,6 +40,36 @@ immich.logo-solutions.fr {
     tls internal
     reverse_proxy 100.113.214.55:2283 {
         header_up Host 100.113.214.55:2283
+    }
+}
+
+# Support accès via IP Tailscale (100.113.214.55)
+100.113.214.55 {
+    tls /etc/caddy/certs/nas-chain.crt /etc/caddy/certs/nas-leaf.key
+
+    # Matcher pour les requêtes /api
+    @api path /api /api/*
+
+    # Matcher pour les requêtes d'authentification
+    @auth path /auth /auth/*
+
+    # Route /api vers gateway avec strip prefix
+    handle @api {
+        uri strip_prefix /api
+        reverse_proxy nas-logo-gateway:8000
+    }
+
+    # Route /auth vers gateway
+    handle @auth {
+        reverse_proxy nas-logo-gateway:8000
+    }
+
+    # Route tout le reste vers UI
+    handle {
+        reverse_proxy nas-logo-ui:8080 {
+            header_up Host {host}
+            header_up X-Forwarded-Proto https
+        }
     }
 }
 
