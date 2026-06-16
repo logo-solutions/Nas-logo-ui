@@ -106,6 +106,93 @@ Endpoints clés:
   - GET /api/reequilibrage/{periodId}
 ```
 
+## 🔑 Services Intégrés
+
+Le NAS héberge ces services (accessibles via API gateway ou Tailscale):
+
+| Service | Port | Purpose | Auth |
+|---------|------|---------|------|
+| **Immich** | 2283 | Photo management & backup | API Key (vault) |
+| **Paperless** | 8010 | Document scanning & OCR | Token (vault) |
+| **Meilisearch** | 7700 | Full-text search indexing | Master Key (vault) |
+| **Grafana** | 3000 | Dashboards & monitoring | Admin credentials (vault) |
+| **n8n** | 5679 | Workflow automation | API Key (vault) |
+| **Prometheus** | 9090 | Metrics collection | None (localhost only) |
+| **ntfy** | 8090 | Push notifications | None |
+
+**Comment les utiliser dans NAS-logo-UI:**
+1. Ajouter la clé API dans Settings panel
+2. Frontend envoie les requêtes via `/api/*` (proxied par Caddy)
+3. API Gateway (`nas-logo-gateway:8000`) authentifie et redirige vers le NAS
+
+## 🔐 Token JWT Automatique
+
+Le frontend obtient automatiquement un **JWT Token** depuis le gateway au chargement initial.
+
+### Fonctionnement
+
+**Au démarrage:**
+1. Frontend appelle: `GET /auth/simple-token`
+2. Gateway génère un JWT valide 365 jours
+3. Token sauvegardé dans localStorage (`auth-storage-v2`)
+4. Tous les services sont automatiquement accessibles
+
+```typescript
+// Hook: src/hooks/useAutoToken.ts
+// S'exécute au chargement de Layout.tsx
+// Génère un token s'il n'existe pas
+```
+
+### Properties & Configuration
+
+**Environnement Gateway (docker-compose.yml):**
+```yaml
+gateway:
+  environment:
+    - JWT_SECRET=nas-logo-dev-secret-key-change-in-prod
+    # Clé utilisée pour signer les tokens JWT
+```
+
+**localStorage (Frontend):**
+```javascript
+// Clé: auth-storage-v2
+// Contient: { state: { gatewayToken: "eyJ...", isHydrated: true }, version: 0 }
+```
+
+### Mettre à Jour le Token
+
+**Option 1: Automatique (Recommandé)**
+```bash
+# Vider le localStorage et recharger la page
+# Le frontend générera automatiquement un nouveau token
+```
+
+**Option 2: Via Console Navigateur**
+```javascript
+// Ouvrir DevTools (F12) > Console
+localStorage.removeItem('auth-storage-v2');
+location.reload();
+```
+
+**Option 3: Via API directement**
+```bash
+curl http://localhost:8000/auth/simple-token | jq '.token'
+# Copier le token dans Settings > Gateway Token (si formulaire existe)
+```
+
+**Option 4: Changer la clé JWT (production)**
+```bash
+# Éditer docker-compose.yml
+gateway:
+  environment:
+    - JWT_SECRET=votre-clé-sécurisée-très-longue
+
+# Redémarrer le gateway
+docker-compose restart gateway
+
+# Les anciens tokens deviennent invalides
+```
+
 ## 🛠️ Lancer les Services
 
 ### **Option 1: Développement (Recommandé)**
@@ -150,6 +237,48 @@ docker-compose up -d
 docker-compose up -d --build
 ```
 
+## 🏗️ Infrastructure NAS (Guide d'Administration)
+
+Pour plus d'informations sur l'administration complète du NAS, voir: `/Volumes/logousb/SSD/Projects/NAS-logo/docs/guide-administration.md`
+
+### Architecture NAS
+```
+Mac Mini (Apple Silicon)
+├── Colima (runtime Docker)
+│   ├── immich_server        :2283  — serveur photos
+│   ├── paperless            :8010  — GED documents
+│   ├── grafana              :3000  — dashboards monitoring
+│   ├── prometheus           :9090  — métriques
+│   ├── cadvisor             :8080  — métriques Docker
+│   ├── node_exporter        :9100  — métriques système
+│   ├── ntfy                 :8090  — push notifications
+│   ├── meilisearch          :7700  — moteur de recherche
+│   └── n8n                  :5679  — workflows automation
+│
+├── SSD données chaudes → /Volumes/logousb/SSD/NAS-LOGO-VOLUME/
+│   ├── immich/              — photos uploadées
+│   ├── immich-db/           — données PostgreSQL
+│   ├── paperless/           — documents
+│   ├── meilisearch/         — index de recherche
+│   └── monitoring/          — données Prometheus + Grafana
+│
+├── HDD données volumineuses → /Volumes/NAS-LOGO-DATA/ (5,5 To)
+│   └── Archives et backups
+│
+└── Tailscale VPN → IP : 100.113.214.55
+```
+
+### Variables d'environnement Docker (SSH sur NAS)
+```bash
+export DOCKER_HOST=unix://$HOME/.colima/default/docker.sock
+export PATH="/opt/homebrew/bin:$PATH"
+```
+
+### SSH au serveur
+```bash
+ssh logo@100.113.214.55
+```
+
 ## 📡 Accès aux Services
 
 ### **URLs Locales**
@@ -183,17 +312,53 @@ ALO API:
   https://alo.logo-solutions.fr/api/periods
 ```
 
-### **URLs via Tailscale VPN**
+### **URLs via Tailscale VPN** (depuis NAS-logo distant)
 ```
-NAS-logo-UI:
+NAS-logo-UI (Frontend):
   http://100.113.214.55:5173/
 
-ALO Frontend:
-  http://100.113.214.55:8001/
-
-ALO Backend API:
-  http://100.113.214.55:8000/api/periods
+Services sur NAS:
+  Immich:      http://100.113.214.55:2283/
+  Paperless:   http://100.113.214.55:8010/
+  Grafana:     http://100.113.214.55:3000/
+  ntfy:        http://100.113.214.55:8090/
+  Meilisearch: http://100.113.214.55:7700/
+  Prometheus:  http://100.113.214.55:9090/
 ```
+
+### Frontend Settings & Gateway Token
+
+**Settings Panel** (`⚙️` en haut à droite):
+
+| Section | What | Auto? | Manual? |
+|---------|------|-------|---------|
+| **API Gateway** | JWT Token | ✅ Auto-generated | ❌ Non (lecture seule) |
+| **Service Status** | Health check | ✅ Auto-verified | ✅ Refresh button |
+| **Immich** | Connection status | ✅ Auto-detected | — |
+| **Paperless** | Connection status | ✅ Auto-detected | — |
+| **Meilisearch** | Connection status | ✅ Auto-detected | — |
+
+**Statut "✓ Auto-connected":**
+- Token JWT généré automatiquement ✅
+- Pas besoin de le copier/coller
+- Valide 365 jours (ou jusqu'à redémarrage gateway)
+
+### Credentials & Vault
+
+**⚠️ Toutes les clés API et mots de passe sont stockés dans le vault NAS:**
+
+```bash
+# Éditer le vault (demande le vault password)
+ansible-vault edit /Volumes/logousb/SSD/Projects/NAS-logo/inventory/group_vars/all/vault.yml --vault-password-file ~/.nas-logo-vault-pass
+```
+
+**Clés essentielles pour NAS-logo-UI:**
+- `vault_immich_api_key` — API key pour les requêtes Immich
+- `vault_paperless_api_token` — Token pour les requêtes Paperless
+- `vault_meilisearch_master_key` — Master key Meilisearch
+- `vault_grafana_admin_password` — Admin password Grafana
+
+Voir: `/Volumes/logousb/SSD/Projects/NAS-logo/docs/VAULT-PASSWORDS.md` pour la liste complète
 
 ## 🔧 Configuration Caddy (Caddyfile)
 
@@ -241,6 +406,20 @@ alo.logo-solutions.fr {
 # À la racine du projet
 VITE_API_URL=/api
 ```
+
+### Clés API & Secrets
+
+**Immich API Key**
+- **Stockée dans:** Vault de nas-logo (voir `/Volumes/logousb/SSD/Projects/NAS-LOGO`)
+- **Où la trouver:** http://100.113.214.55:2283/user/me (onglet "API Keys")
+- **Où la configurer:** Settings panel dans l'app (pour que le frontend authentifie les requêtes)
+- **Utilisée par:** 
+  - `nas-logo-gateway` (node.js) — pour proxier les requêtes Immich
+  - Frontend Settings panel — stockée localement dans le navigateur
+
+**Autres clés (Paperless, n8n, etc.)**
+- Voir le vault de nas-logo pour toutes les clés de service
+- Configurer dans Settings panel du frontend
 
 ### ALO Frontend (env détection dynamique)
 ```
@@ -325,17 +504,86 @@ docker-compose logs -f gateway
 docker-compose logs -f ui
 ```
 
+## 🐳 Colima Setup
+
+Ce projet utilise **Colima** (container runtime compatible Docker sur macOS) au lieu de Docker Desktop.
+
+### Démarrer Colima
+```bash
+# Vérifier le statut
+colima status
+
+# Si Colima n'est pas en cours d'exécution, démarrer:
+colima start
+
+# Afficher les informations
+colima info
+```
+
+### Commandes Utiles
+```bash
+# Vérifier que Docker fonctionne (via Colima)
+docker ps
+
+# Voir les conteneurs Colima
+docker ps -a
+
+# Logs de Colima lui-même
+colima logs
+
+# Arrêter Colima (recommandé quand on ne dev pas)
+colima stop
+
+# Redémarrer Colima complètement
+colima restart
+
+# Supprimer Colima (attention: efface les volumes/images)
+colima delete
+```
+
+### Dépannage Colima
+
+**Problème: "Cannot connect to the Docker daemon"**
+```bash
+# Vérifier que Colima est actif
+colima status
+
+# Si arrêté, redémarrer
+colima start
+
+# Si problème persiste, redémarrer complètement
+colima restart
+```
+
+**Vérifier que le socket Docker est accessible**
+```bash
+# Vérifier le socket
+ls -la /var/run/docker.sock
+
+# Si Colima ne trouve pas le socket:
+colima start --force-config
+```
+
+**Voir les logs détaillés**
+```bash
+colima logs --follow
+```
+
 ## 🚨 Dépannage
 
 ### Caddy ne démarre pas
 ```bash
-# Vérifier la syntaxe du Caddyfile
+# 1. Vérifier que Colima est en cours d'exécution
+colima status
+colima start  # Si nécessaire
+
+# 2. Vérifier la syntaxe du Caddyfile
 docker run -v $(pwd)/Caddyfile:/etc/caddy/Caddyfile caddy caddy validate
 
-# Vérifier les logs
+# 3. Vérifier les logs
 docker logs nas-logo-caddy
 
-# Redémarrer
+# 4. Redémarrer
 docker restart nas-logo-caddy
 ```
 
@@ -368,6 +616,46 @@ Solution:
 1. Vérifier que WebSocket est configuré dans Caddy
 2. Rajouter header: upgrade, connection
 3. Redémarrer Caddy
+```
+
+### Token JWT ne se génère pas
+```
+Symptôme: Settings affiche "No token", galerie vide
+
+Solution:
+1. Vérifier que le gateway fonctionne:
+   curl http://localhost:8000/health
+   # Doit répondre: {"status":"ok",...}
+
+2. Tester l'endpoint token manuellement:
+   curl http://localhost:8000/auth/simple-token | jq '.token'
+   # Doit retourner un JWT valide
+
+3. Vérifier les logs du gateway:
+   docker logs nas-logo-gateway | tail -20
+   # Chercher les erreurs au démarrage
+
+4. Forcer la régénération:
+   # Console navigateur (F12):
+   localStorage.removeItem('auth-storage-v2'); location.reload();
+
+5. Si toujours bloqué:
+   docker-compose restart gateway
+   npm run dev  # Redémarrer frontend
+```
+
+### Erreur "CORS" sur les requêtes
+```
+Erreur: Access to XMLHttpRequest blocked by CORS
+
+Solution:
+1. Vérifier que Caddy fonctionne (reverse proxy HTTPS)
+2. Vérifier que le gateway a CORS enabled:
+   gateway/server.js ligne 15: app.use(cors())
+3. Si développement local:
+   - Frontend: http://localhost:5173
+   - Gateway: http://localhost:8000
+   - Doivent être sur le même réseau (CORS non requis en localhost)
 ```
 
 ## 📁 Structure des Répertoires

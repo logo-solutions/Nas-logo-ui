@@ -2,15 +2,15 @@ version: '3.8'
 
 services:
   caddy:
-    image: caddy:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.caddy
     container_name: nas-logo-caddy
     ports:
       - "80:80"
       - "443:443"
       - "443:443/udp"
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - ./certs:/etc/caddy/certs:ro
       - caddy_data:/data
       - caddy_config:/config
     restart: unless-stopped

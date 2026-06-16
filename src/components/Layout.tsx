@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigation } from '../store/navigation'
+import { useAutoToken } from '../hooks/useAutoToken'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import Dashboard from './Dashboard'
@@ -15,6 +16,7 @@ import GalleryGeneratorPage from './Gallery/GalleryGeneratorPage'
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const { currentPage } = useNavigation()
+  useAutoToken()
 
   const renderPage = () => {
     switch (currentPage) {
