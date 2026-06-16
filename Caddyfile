@@ -5,26 +5,18 @@
 nas.logo-solutions.fr {
     tls /etc/caddy/certs/nas-chain.crt /etc/caddy/certs/nas-leaf.key
 
-    @auth {
-        path /auth
-        path /auth/*
-    }
-
-    @api {
-        path /api
-        path /api/*
-    }
-
+    @auth path /auth /auth/*
     handle @auth {
         reverse_proxy nas-logo-gateway:8000
     }
 
+    @api path /api /api/*
     handle @api {
         uri strip_prefix /api
         reverse_proxy nas-logo-gateway:8000
     }
 
-    handle {
+    handle * {
         reverse_proxy nas-logo-ui:8080
     }
 }

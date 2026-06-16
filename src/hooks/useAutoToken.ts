@@ -11,10 +11,18 @@ export function useAutoToken() {
     // Obtenir un token automatiquement
     const fetchToken = async () => {
       try {
-        // Appeler directement le gateway sur le port 8000
         const protocol = window.location.protocol
         const hostname = window.location.hostname
-        const tokenUrl = `${protocol}//${hostname}:8000/auth/simple-token`
+
+        // Déterminer l'URL du token endpoint
+        let tokenUrl: string
+        if (protocol === 'https:' && hostname !== 'localhost' && hostname !== '127.0.0.1') {
+          // HTTPS via domaine - utiliser Caddy proxy
+          tokenUrl = `/auth/simple-token`
+        } else {
+          // HTTP local - appeler gateway directement sur port 8000
+          tokenUrl = `${protocol}//${hostname}:8000/auth/simple-token`
+        }
 
         const response = await fetch(tokenUrl, {
           method: 'GET',

@@ -14,7 +14,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 1898834083
+              "duration": 515460958
             }
           },
           {
@@ -23,11 +23,11 @@
             "line": 3,
             "name": "API credentials are valid",
             "match": {
-              "location": "features/steps/api.steps.ts:18"
+              "location": "features/steps/api.steps.ts:26"
             },
             "result": {
               "status": "passed",
-              "duration": 255874
+              "duration": 248374
             }
           },
           {
@@ -36,11 +36,12 @@
             "line": 4,
             "name": "services are running on 100.113.214.55",
             "match": {
-              "location": "features/steps/api.steps.ts:23"
+              "location": "features/steps/api.steps.ts:31"
             },
             "result": {
-              "status": "passed",
-              "duration": 290702124
+              "status": "failed",
+              "duration": 57133083,
+              "error_message": "Error: API Gateway error: Error: API Gateway not accessible: HTTP 404\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/api.steps.ts:43:11)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)"
             }
           },
           {
@@ -49,11 +50,11 @@
             "line": 7,
             "name": "I fetch photos from Immich",
             "match": {
-              "location": "features/steps/api.steps.ts:46"
+              "location": "features/steps/api.steps.ts:48"
             },
             "result": {
-              "status": "passed",
-              "duration": 792066542
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -62,11 +63,11 @@
             "line": 8,
             "name": "I should receive 1995 photos",
             "match": {
-              "location": "features/steps/api.steps.ts:78"
+              "location": "features/steps/api.steps.ts:57"
             },
             "result": {
-              "status": "passed",
-              "duration": 132083
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -75,11 +76,11 @@
             "line": 9,
             "name": "each photo has required fields id, fileName, fileCreatedAt",
             "match": {
-              "location": "features/steps/api.steps.ts:91"
+              "location": "features/steps/api.steps.ts:70"
             },
             "result": {
-              "status": "passed",
-              "duration": 50165
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -88,11 +89,11 @@
             "line": 10,
             "name": "Immich API should respond with HTTP 200",
             "match": {
-              "location": "features/steps/api.steps.ts:104"
+              "location": "features/steps/api.steps.ts:83"
             },
             "result": {
-              "status": "passed",
-              "duration": 39292
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -100,7 +101,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 18365625
+              "duration": 22463917
             }
           }
         ],
@@ -119,7 +120,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 115342333
+              "duration": 132352792
             }
           },
           {
@@ -128,11 +129,11 @@
             "line": 3,
             "name": "API credentials are valid",
             "match": {
-              "location": "features/steps/api.steps.ts:18"
+              "location": "features/steps/api.steps.ts:26"
             },
             "result": {
               "status": "passed",
-              "duration": 176666
+              "duration": 113541
             }
           },
           {
@@ -141,11 +142,12 @@
             "line": 4,
             "name": "services are running on 100.113.214.55",
             "match": {
-              "location": "features/steps/api.steps.ts:23"
+              "location": "features/steps/api.steps.ts:31"
             },
             "result": {
-              "status": "passed",
-              "duration": 139624624
+              "status": "failed",
+              "duration": 1867166,
+              "error_message": "Error: API Gateway error: Error: API Gateway not accessible: HTTP 404\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/api.steps.ts:43:11)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)"
             }
           },
           {
@@ -154,11 +156,11 @@
             "line": 13,
             "name": "I fetch documents from Paperless",
             "match": {
-              "location": "features/steps/api.steps.ts:112"
+              "location": "features/steps/api.steps.ts:91"
             },
             "result": {
-              "status": "passed",
-              "duration": 91385291
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -167,11 +169,11 @@
             "line": 14,
             "name": "I should receive 3463 documents",
             "match": {
-              "location": "features/steps/api.steps.ts:119"
+              "location": "features/steps/api.steps.ts:98"
             },
             "result": {
-              "status": "passed",
-              "duration": 124042
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -180,11 +182,11 @@
             "line": 15,
             "name": "each document has required fields id, title, created",
             "match": {
-              "location": "features/steps/api.steps.ts:131"
+              "location": "features/steps/api.steps.ts:110"
             },
             "result": {
-              "status": "passed",
-              "duration": 62791
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -193,11 +195,11 @@
             "line": 16,
             "name": "Paperless API should respond with HTTP 200",
             "match": {
-              "location": "features/steps/api.steps.ts:144"
+              "location": "features/steps/api.steps.ts:123"
             },
             "result": {
-              "status": "passed",
-              "duration": 150333
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -205,7 +207,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 22673249
+              "duration": 15403291
             }
           }
         ],
@@ -224,7 +226,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 158730042
+              "duration": 121792791
             }
           },
           {
@@ -233,11 +235,11 @@
             "line": 3,
             "name": "API credentials are valid",
             "match": {
-              "location": "features/steps/api.steps.ts:18"
+              "location": "features/steps/api.steps.ts:26"
             },
             "result": {
               "status": "passed",
-              "duration": 461249
+              "duration": 220250
             }
           },
           {
@@ -246,11 +248,12 @@
             "line": 4,
             "name": "services are running on 100.113.214.55",
             "match": {
-              "location": "features/steps/api.steps.ts:23"
+              "location": "features/steps/api.steps.ts:31"
             },
             "result": {
-              "status": "passed",
-              "duration": 127891708
+              "status": "failed",
+              "duration": 2156166,
+              "error_message": "Error: API Gateway error: Error: API Gateway not accessible: HTTP 404\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/api.steps.ts:43:11)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)"
             }
           },
           {
@@ -259,11 +262,11 @@
             "line": 19,
             "name": "I check Meilisearch health",
             "match": {
-              "location": "features/steps/api.steps.ts:152"
+              "location": "features/steps/api.steps.ts:131"
             },
             "result": {
-              "status": "passed",
-              "duration": 8549041
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -272,11 +275,11 @@
             "line": 20,
             "name": "Meilisearch should respond with HTTP 200",
             "match": {
-              "location": "features/steps/api.steps.ts:159"
+              "location": "features/steps/api.steps.ts:138"
             },
             "result": {
-              "status": "passed",
-              "duration": 91625
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -285,11 +288,11 @@
             "line": 21,
             "name": "I should be able to search for \"test\"",
             "match": {
-              "location": "features/steps/api.steps.ts:167"
+              "location": "features/steps/api.steps.ts:146"
             },
             "result": {
-              "status": "passed",
-              "duration": 7931375
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -298,11 +301,11 @@
             "line": 22,
             "name": "search results should return documents",
             "match": {
-              "location": "features/steps/api.steps.ts:184"
+              "location": "features/steps/api.steps.ts:164"
             },
             "result": {
-              "status": "passed",
-              "duration": 3587749
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -310,7 +313,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 11330791
+              "duration": 12273417
             }
           }
         ],
@@ -329,7 +332,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 115688167
+              "duration": 124469708
             }
           },
           {
@@ -338,11 +341,11 @@
             "line": 3,
             "name": "API credentials are valid",
             "match": {
-              "location": "features/steps/api.steps.ts:18"
+              "location": "features/steps/api.steps.ts:26"
             },
             "result": {
               "status": "passed",
-              "duration": 104834
+              "duration": 192833
             }
           },
           {
@@ -351,11 +354,12 @@
             "line": 4,
             "name": "services are running on 100.113.214.55",
             "match": {
-              "location": "features/steps/api.steps.ts:23"
+              "location": "features/steps/api.steps.ts:31"
             },
             "result": {
-              "status": "passed",
-              "duration": 102343957
+              "status": "failed",
+              "duration": 3779832,
+              "error_message": "Error: API Gateway error: Error: API Gateway not accessible: HTTP 404\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/api.steps.ts:43:11)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)"
             }
           },
           {
@@ -364,11 +368,11 @@
             "line": 25,
             "name": "I fetch a photo thumbnail",
             "match": {
-              "location": "features/steps/api.steps.ts:202"
+              "location": "features/steps/api.steps.ts:183"
             },
             "result": {
-              "status": "passed",
-              "duration": 1430771166
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -377,11 +381,11 @@
             "line": 26,
             "name": "thumbnail should respond with HTTP 200",
             "match": {
-              "location": "features/steps/api.steps.ts:223"
+              "location": "features/steps/api.steps.ts:189"
             },
             "result": {
-              "status": "passed",
-              "duration": 203750
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -390,11 +394,11 @@
             "line": 27,
             "name": "response should have image content-type",
             "match": {
-              "location": "features/steps/api.steps.ts:231"
+              "location": "features/steps/api.steps.ts:197"
             },
             "result": {
-              "status": "passed",
-              "duration": 259374
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -402,7 +406,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 22700166
+              "duration": 14405624
             }
           }
         ],
@@ -421,7 +425,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 159530249
+              "duration": 124249583
             }
           },
           {
@@ -430,11 +434,11 @@
             "line": 3,
             "name": "API credentials are valid",
             "match": {
-              "location": "features/steps/api.steps.ts:18"
+              "location": "features/steps/api.steps.ts:26"
             },
             "result": {
               "status": "passed",
-              "duration": 124832
+              "duration": 124208
             }
           },
           {
@@ -443,11 +447,12 @@
             "line": 4,
             "name": "services are running on 100.113.214.55",
             "match": {
-              "location": "features/steps/api.steps.ts:23"
+              "location": "features/steps/api.steps.ts:31"
             },
             "result": {
-              "status": "passed",
-              "duration": 219882042
+              "status": "failed",
+              "duration": 1648833,
+              "error_message": "Error: API Gateway error: Error: API Gateway not accessible: HTTP 404\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/api.steps.ts:43:11)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)"
             }
           },
           {
@@ -456,11 +461,11 @@
             "line": 30,
             "name": "I try to fetch photos with invalid key",
             "match": {
-              "location": "features/steps/api.steps.ts:240"
+              "location": "features/steps/api.steps.ts:206"
             },
             "result": {
-              "status": "passed",
-              "duration": 7050166
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -469,11 +474,11 @@
             "line": 31,
             "name": "API should respond with HTTP 401 or 403",
             "match": {
-              "location": "features/steps/api.steps.ts:247"
+              "location": "features/steps/api.steps.ts:211"
             },
             "result": {
-              "status": "passed",
-              "duration": 107041
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -482,11 +487,11 @@
             "line": 32,
             "name": "error message should indicate authentication failure",
             "match": {
-              "location": "features/steps/api.steps.ts:258"
+              "location": "features/steps/api.steps.ts:222"
             },
             "result": {
-              "status": "passed",
-              "duration": 204334
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -494,7 +499,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 17492750
+              "duration": 12689665
             }
           }
         ],
@@ -524,7 +529,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 171796290
+              "duration": 122550499
             }
           },
           {
@@ -536,8 +541,9 @@
               "location": "features/steps/ui.steps.ts:3"
             },
             "result": {
-              "status": "passed",
-              "duration": 1619658584
+              "status": "failed",
+              "duration": 12437957,
+              "error_message": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:8:21)"
             }
           },
           {
@@ -549,8 +555,8 @@
               "location": "features/steps/ui.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 25244375
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -562,9 +568,8 @@
               "location": "features/steps/ui.steps.ts:25"
             },
             "result": {
-              "status": "failed",
-              "duration": 10858333,
-              "error_message": "locator.click: Error: strict mode violation: locator('text=Dashboard') resolved to 2 elements:\n    1) <span class=\"text-sm\">Dashboard</span> aka getByRole('button', { name: '🏠 Dashboard' })\n    2) <p class=\"text-lg text-gray-600 dark:text-gray-400 mt-2\">Unified dashboard for your personal NAS infrastru…</p> aka getByText('Unified dashboard for your')\n\nCall log:\n\u001b[2m  - waiting for locator('text=Dashboard')\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:29:16)"
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -573,7 +578,7 @@
             "line": 8,
             "name": "I should see service cards for Photos, Documents, Search, Monitoring, Settings",
             "match": {
-              "location": "features/steps/ui.steps.ts:45"
+              "location": "features/steps/ui.steps.ts:46"
             },
             "result": {
               "status": "skipped",
@@ -586,7 +591,7 @@
             "line": 9,
             "name": "each card should have a title and description",
             "match": {
-              "location": "features/steps/ui.steps.ts:56"
+              "location": "features/steps/ui.steps.ts:57"
             },
             "result": {
               "status": "skipped",
@@ -598,7 +603,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 14961792
+              "duration": 15106583
             }
           }
         ],
@@ -617,7 +622,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 114190083
+              "duration": 128453417
             }
           },
           {
@@ -629,8 +634,9 @@
               "location": "features/steps/ui.steps.ts:3"
             },
             "result": {
-              "status": "passed",
-              "duration": 1564314625
+              "status": "failed",
+              "duration": 4487541,
+              "error_message": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:8:21)"
             }
           },
           {
@@ -642,8 +648,8 @@
               "location": "features/steps/ui.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 19362250
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -652,11 +658,11 @@
             "line": 12,
             "name": "I navigate to Settings",
             "match": {
-              "location": "features/steps/ui.steps.ts:64"
+              "location": "features/steps/ui.steps.ts:65"
             },
             "result": {
-              "status": "passed",
-              "duration": 70489583
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -665,11 +671,11 @@
             "line": 13,
             "name": "I enter the Immich API key",
             "match": {
-              "location": "features/steps/ui.steps.ts:70"
+              "location": "features/steps/ui.steps.ts:73"
             },
             "result": {
-              "status": "passed",
-              "duration": 9171083
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -678,11 +684,11 @@
             "line": 14,
             "name": "I enter the Paperless API token",
             "match": {
-              "location": "features/steps/ui.steps.ts:76"
+              "location": "features/steps/ui.steps.ts:82"
             },
             "result": {
-              "status": "passed",
-              "duration": 10731041
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -691,11 +697,11 @@
             "line": 15,
             "name": "I enter the Meilisearch master key",
             "match": {
-              "location": "features/steps/ui.steps.ts:82"
+              "location": "features/steps/ui.steps.ts:88"
             },
             "result": {
-              "status": "passed",
-              "duration": 8358833
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -704,11 +710,11 @@
             "line": 16,
             "name": "I click Save buttons",
             "match": {
-              "location": "features/steps/ui.steps.ts:88"
+              "location": "features/steps/ui.steps.ts:95"
             },
             "result": {
-              "status": "passed",
-              "duration": 1608175750
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -717,11 +723,11 @@
             "line": 17,
             "name": "success message should appear",
             "match": {
-              "location": "features/steps/ui.steps.ts:98"
+              "location": "features/steps/ui.steps.ts:105"
             },
             "result": {
-              "status": "passed",
-              "duration": 5452374
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -730,11 +736,11 @@
             "line": 18,
             "name": "service status should show \"✓ Connected\" for each service",
             "match": {
-              "location": "features/steps/ui.steps.ts:104"
+              "location": "features/steps/ui.steps.ts:111"
             },
             "result": {
-              "status": "passed",
-              "duration": 1997457
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -742,7 +748,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 19851791
+              "duration": 14852208
             }
           }
         ],
@@ -761,7 +767,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 181759708
+              "duration": 120443375
             }
           },
           {
@@ -773,8 +779,9 @@
               "location": "features/steps/ui.steps.ts:3"
             },
             "result": {
-              "status": "passed",
-              "duration": 1587334874
+              "status": "failed",
+              "duration": 3758332,
+              "error_message": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:8:21)"
             }
           },
           {
@@ -786,8 +793,8 @@
               "location": "features/steps/ui.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 17604541
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -796,11 +803,11 @@
             "line": 21,
             "name": "API credentials are configured",
             "match": {
-              "location": "features/steps/ui.steps.ts:212"
+              "location": "features/steps/ui.steps.ts:246"
             },
             "result": {
-              "status": "passed",
-              "duration": 552427708
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -809,11 +816,11 @@
             "line": 22,
             "name": "I navigate to Photos",
             "match": {
-              "location": "features/steps/ui.steps.ts:122"
+              "location": "features/steps/ui.steps.ts:132"
             },
             "result": {
-              "status": "passed",
-              "duration": 2082566957
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -822,11 +829,11 @@
             "line": 23,
             "name": "page should display \"Photos\" heading",
             "match": {
-              "location": "features/steps/ui.steps.ts:265"
+              "location": "features/steps/ui.steps.ts:299"
             },
             "result": {
-              "status": "passed",
-              "duration": 5105332
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -835,11 +842,11 @@
             "line": 24,
             "name": "photos should load and display count",
             "match": {
-              "location": "features/steps/ui.steps.ts:293"
+              "location": "features/steps/ui.steps.ts:336"
             },
             "result": {
-              "status": "passed",
-              "duration": 2028957
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -848,12 +855,11 @@
             "line": 25,
             "name": "pagination controls should be visible",
             "match": {
-              "location": "features/steps/ui.steps.ts:273"
+              "location": "features/steps/ui.steps.ts:316"
             },
             "result": {
-              "status": "failed",
-              "duration": 2738749,
-              "error_message": "Error: Pagination controls not found\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:280:11)"
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -862,7 +868,7 @@
             "line": 26,
             "name": "each photo should have thumbnail image",
             "match": {
-              "location": "features/steps/ui.steps.ts:284"
+              "location": "features/steps/ui.steps.ts:327"
             },
             "result": {
               "status": "skipped",
@@ -874,7 +880,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 13931000
+              "duration": 17090083
             }
           }
         ],
@@ -893,7 +899,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 120139040
+              "duration": 124408334
             }
           },
           {
@@ -905,8 +911,9 @@
               "location": "features/steps/ui.steps.ts:3"
             },
             "result": {
-              "status": "passed",
-              "duration": 1568822374
+              "status": "failed",
+              "duration": 3848250,
+              "error_message": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:8:21)"
             }
           },
           {
@@ -918,8 +925,8 @@
               "location": "features/steps/ui.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 19769625
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -928,11 +935,11 @@
             "line": 29,
             "name": "API credentials are configured",
             "match": {
-              "location": "features/steps/ui.steps.ts:212"
+              "location": "features/steps/ui.steps.ts:246"
             },
             "result": {
-              "status": "passed",
-              "duration": 552836917
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -941,11 +948,11 @@
             "line": 30,
             "name": "I navigate to Photos",
             "match": {
-              "location": "features/steps/ui.steps.ts:122"
+              "location": "features/steps/ui.steps.ts:132"
             },
             "result": {
-              "status": "passed",
-              "duration": 2067242207
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -954,12 +961,11 @@
             "line": 31,
             "name": "I click the Next button",
             "match": {
-              "location": "features/steps/ui.steps.ts:228"
+              "location": "features/steps/ui.steps.ts:262"
             },
             "result": {
-              "status": "failed",
-              "duration": 30002932750,
-              "error_message": "Error: function timed out, ensure the promise resolves within 30000 milliseconds\n    at Timeout.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/node_modules/@cucumber/cucumber/src/time.ts:52:14)\n    at listOnTimeout (node:internal/timers:581:17)\n    at processTimers (node:internal/timers:519:7)"
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -968,7 +974,7 @@
             "line": 32,
             "name": "page should display \"Photos\" heading",
             "match": {
-              "location": "features/steps/ui.steps.ts:265"
+              "location": "features/steps/ui.steps.ts:299"
             },
             "result": {
               "status": "skipped",
@@ -981,7 +987,7 @@
             "line": 33,
             "name": "new photos should load on the next page",
             "match": {
-              "location": "features/steps/ui.steps.ts:240"
+              "location": "features/steps/ui.steps.ts:274"
             },
             "result": {
               "status": "skipped",
@@ -994,7 +1000,7 @@
             "line": 34,
             "name": "Previous button should be enabled",
             "match": {
-              "location": "features/steps/ui.steps.ts:248"
+              "location": "features/steps/ui.steps.ts:282"
             },
             "result": {
               "status": "skipped",
@@ -1007,7 +1013,7 @@
             "line": 35,
             "name": "page counter should show \"Page 2\"",
             "match": {
-              "location": "features/steps/ui.steps.ts:257"
+              "location": "features/steps/ui.steps.ts:291"
             },
             "result": {
               "status": "skipped",
@@ -1019,7 +1025,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 20071624
+              "duration": 13757333
             }
           }
         ],
@@ -1038,7 +1044,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 128799582
+              "duration": 121205750
             }
           },
           {
@@ -1050,8 +1056,9 @@
               "location": "features/steps/ui.steps.ts:3"
             },
             "result": {
-              "status": "passed",
-              "duration": 1579640083
+              "status": "failed",
+              "duration": 3929125,
+              "error_message": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:8:21)"
             }
           },
           {
@@ -1063,8 +1070,8 @@
               "location": "features/steps/ui.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 23181124
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1073,11 +1080,11 @@
             "line": 38,
             "name": "credentials are not configured",
             "match": {
-              "location": "features/steps/ui.steps.ts:113"
+              "location": "features/steps/ui.steps.ts:123"
             },
             "result": {
-              "status": "passed",
-              "duration": 90115624
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1086,11 +1093,11 @@
             "line": 39,
             "name": "I navigate to Photos",
             "match": {
-              "location": "features/steps/ui.steps.ts:122"
+              "location": "features/steps/ui.steps.ts:132"
             },
             "result": {
-              "status": "passed",
-              "duration": 2498442875
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1099,12 +1106,11 @@
             "line": 40,
             "name": "page should display \"Photos\" heading",
             "match": {
-              "location": "features/steps/ui.steps.ts:265"
+              "location": "features/steps/ui.steps.ts:299"
             },
             "result": {
-              "status": "failed",
-              "duration": 3509375,
-              "error_message": "Error: Heading \"Photos\" not found\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:269:11)"
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1113,7 +1119,7 @@
             "line": 41,
             "name": "photo count should show \"0 photos\"",
             "match": {
-              "location": "features/steps/ui.steps.ts:129"
+              "location": "features/steps/ui.steps.ts:140"
             },
             "result": {
               "status": "skipped",
@@ -1126,7 +1132,7 @@
             "line": 42,
             "name": "I should see message \"Please configure Immich API key in settings\"",
             "match": {
-              "location": "features/steps/ui.steps.ts:403"
+              "location": "features/steps/ui.steps.ts:458"
             },
             "result": {
               "status": "skipped",
@@ -1139,7 +1145,7 @@
             "line": 43,
             "name": "no photo thumbnails should be displayed",
             "match": {
-              "location": "features/steps/ui.steps.ts:137"
+              "location": "features/steps/ui.steps.ts:158"
             },
             "result": {
               "status": "skipped",
@@ -1152,7 +1158,7 @@
             "line": 44,
             "name": "pagination controls should not be visible",
             "match": {
-              "location": "features/steps/ui.steps.ts:146"
+              "location": "features/steps/ui.steps.ts:167"
             },
             "result": {
               "status": "skipped",
@@ -1164,7 +1170,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 15493875
+              "duration": 17759583
             }
           }
         ],
@@ -1183,7 +1189,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 124442875
+              "duration": 112434209
             }
           },
           {
@@ -1195,8 +1201,9 @@
               "location": "features/steps/ui.steps.ts:3"
             },
             "result": {
-              "status": "passed",
-              "duration": 1569423458
+              "status": "failed",
+              "duration": 4220916,
+              "error_message": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:8:21)"
             }
           },
           {
@@ -1208,8 +1215,8 @@
               "location": "features/steps/ui.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 16283708
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1218,11 +1225,11 @@
             "line": 47,
             "name": "API credentials are configured",
             "match": {
-              "location": "features/steps/ui.steps.ts:212"
+              "location": "features/steps/ui.steps.ts:246"
             },
             "result": {
-              "status": "passed",
-              "duration": 539288791
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1231,11 +1238,11 @@
             "line": 48,
             "name": "I navigate to Documents",
             "match": {
-              "location": "features/steps/ui.steps.ts:157"
+              "location": "features/steps/ui.steps.ts:178"
             },
             "result": {
-              "status": "passed",
-              "duration": 2062228541
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1244,11 +1251,11 @@
             "line": 49,
             "name": "page should display \"Documents\" heading",
             "match": {
-              "location": "features/steps/ui.steps.ts:265"
+              "location": "features/steps/ui.steps.ts:299"
             },
             "result": {
-              "status": "passed",
-              "duration": 3709540
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1257,12 +1264,11 @@
             "line": 50,
             "name": "document count should show 3463",
             "match": {
-              "location": "features/steps/ui.steps.ts:172"
+              "location": "features/steps/ui.steps.ts:203"
             },
             "result": {
-              "status": "failed",
-              "duration": 5211082,
-              "error_message": "locator.textContent: Error: strict mode violation: locator('p:has-text(\"documents\")') resolved to 2 elements:\n    1) <p class=\"text-gray-600 dark:text-gray-400\">0 documents total</p> aka getByText('documents total')\n    2) <p class=\"text-gray-500 dark:text-gray-400\">No documents found</p> aka getByText('No documents found')\n\nCall log:\n\u001b[2m  - waiting for locator('p:has-text(\"documents\")')\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:174:75)"
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1271,7 +1277,7 @@
             "line": 51,
             "name": "search bar should be visible",
             "match": {
-              "location": "features/steps/ui.steps.ts:448"
+              "location": "features/steps/ui.steps.ts:517"
             },
             "result": {
               "status": "skipped",
@@ -1284,7 +1290,7 @@
             "line": 52,
             "name": "document list should display items",
             "match": {
-              "location": "features/steps/ui.steps.ts:189"
+              "location": "features/steps/ui.steps.ts:220"
             },
             "result": {
               "status": "skipped",
@@ -1296,7 +1302,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 15477375
+              "duration": 12861708
             }
           }
         ],
@@ -1315,7 +1321,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 171800625
+              "duration": 127162416
             }
           },
           {
@@ -1327,8 +1333,9 @@
               "location": "features/steps/ui.steps.ts:3"
             },
             "result": {
-              "status": "passed",
-              "duration": 1582556916
+              "status": "failed",
+              "duration": 5942208,
+              "error_message": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:8:21)"
             }
           },
           {
@@ -1340,8 +1347,8 @@
               "location": "features/steps/ui.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 19443416
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1350,11 +1357,11 @@
             "line": 55,
             "name": "API credentials are configured",
             "match": {
-              "location": "features/steps/ui.steps.ts:212"
+              "location": "features/steps/ui.steps.ts:246"
             },
             "result": {
-              "status": "passed",
-              "duration": 547257541
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1363,11 +1370,11 @@
             "line": 56,
             "name": "I navigate to Search",
             "match": {
-              "location": "features/steps/ui.steps.ts:205"
+              "location": "features/steps/ui.steps.ts:238"
             },
             "result": {
-              "status": "passed",
-              "duration": 1569520292
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1376,11 +1383,11 @@
             "line": 57,
             "name": "I enter \"test\" in search box",
             "match": {
-              "location": "features/steps/ui.steps.ts:301"
+              "location": "features/steps/ui.steps.ts:344"
             },
             "result": {
-              "status": "passed",
-              "duration": 10406540
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1389,12 +1396,11 @@
             "line": 58,
             "name": "I click Search button",
             "match": {
-              "location": "features/steps/ui.steps.ts:307"
+              "location": "features/steps/ui.steps.ts:350"
             },
             "result": {
-              "status": "failed",
-              "duration": 9018167,
-              "error_message": "locator.click: Error: strict mode violation: locator('button:has-text(\"Search\")') resolved to 2 elements:\n    1) <button class=\"w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-colors bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400\">…</button> aka getByRole('button', { name: '🔍 Search' })\n    2) <button type=\"submit\" class=\"px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors\">Search</button> aka getByRole('main').getByRole('button', { name: 'Search' })\n\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"Search\")')\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:310:19)"
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1403,7 +1409,7 @@
             "line": 59,
             "name": "results should appear",
             "match": {
-              "location": "features/steps/ui.steps.ts:314"
+              "location": "features/steps/ui.steps.ts:368"
             },
             "result": {
               "status": "skipped",
@@ -1416,7 +1422,7 @@
             "line": 60,
             "name": "each result should have title, description, and date",
             "match": {
-              "location": "features/steps/ui.steps.ts:323"
+              "location": "features/steps/ui.steps.ts:377"
             },
             "result": {
               "status": "skipped",
@@ -1429,7 +1435,7 @@
             "line": 61,
             "name": "results should include documents and photos",
             "match": {
-              "location": "features/steps/ui.steps.ts:331"
+              "location": "features/steps/ui.steps.ts:385"
             },
             "result": {
               "status": "skipped",
@@ -1441,7 +1447,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 17761417
+              "duration": 23189665
             }
           }
         ],
@@ -1460,7 +1466,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 146661749
+              "duration": 142402957
             }
           },
           {
@@ -1472,8 +1478,9 @@
               "location": "features/steps/ui.steps.ts:3"
             },
             "result": {
-              "status": "passed",
-              "duration": 1581513499
+              "status": "failed",
+              "duration": 4390957,
+              "error_message": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:8:21)"
             }
           },
           {
@@ -1485,8 +1492,8 @@
               "location": "features/steps/ui.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 21156707
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1495,11 +1502,11 @@
             "line": 64,
             "name": "I click the theme switcher button",
             "match": {
-              "location": "features/steps/ui.steps.ts:340"
+              "location": "features/steps/ui.steps.ts:394"
             },
             "result": {
-              "status": "passed",
-              "duration": 64999084
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1508,11 +1515,11 @@
             "line": 65,
             "name": "theme should cycle through System → Light → Dark",
             "match": {
-              "location": "features/steps/ui.steps.ts:346"
+              "location": "features/steps/ui.steps.ts:400"
             },
             "result": {
-              "status": "passed",
-              "duration": 17630958
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1521,12 +1528,11 @@
             "line": 66,
             "name": "theme preference should be persisted",
             "match": {
-              "location": "features/steps/ui.steps.ts:355"
+              "location": "features/steps/ui.steps.ts:409"
             },
             "result": {
-              "status": "failed",
-              "duration": 872040,
-              "error_message": "Error: Theme preference not persisted to localStorage\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:359:11)"
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1535,7 +1541,7 @@
             "line": 67,
             "name": "UI colors should update accordingly",
             "match": {
-              "location": "features/steps/ui.steps.ts:363"
+              "location": "features/steps/ui.steps.ts:417"
             },
             "result": {
               "status": "skipped",
@@ -1547,7 +1553,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 15342709
+              "duration": 19479084
             }
           }
         ],
@@ -1566,7 +1572,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 113154249
+              "duration": 120974083
             }
           },
           {
@@ -1578,8 +1584,9 @@
               "location": "features/steps/ui.steps.ts:3"
             },
             "result": {
-              "status": "passed",
-              "duration": 1565924874
+              "status": "failed",
+              "duration": 4182542,
+              "error_message": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:8:21)"
             }
           },
           {
@@ -1591,8 +1598,8 @@
               "location": "features/steps/ui.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 19827416
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1601,11 +1608,11 @@
             "line": 70,
             "name": "I click the menu button",
             "match": {
-              "location": "features/steps/ui.steps.ts:373"
+              "location": "features/steps/ui.steps.ts:427"
             },
             "result": {
-              "status": "passed",
-              "duration": 61054084
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1614,11 +1621,11 @@
             "line": 71,
             "name": "sidebar should toggle visibility",
             "match": {
-              "location": "features/steps/ui.steps.ts:379"
+              "location": "features/steps/ui.steps.ts:433"
             },
             "result": {
-              "status": "passed",
-              "duration": 2213292
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1627,12 +1634,11 @@
             "line": 72,
             "name": "current page should be highlighted",
             "match": {
-              "location": "features/steps/ui.steps.ts:387"
+              "location": "features/steps/ui.steps.ts:441"
             },
             "result": {
-              "status": "failed",
-              "duration": 2141875,
-              "error_message": "Error: Active navigation link not found\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:391:11)"
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1641,7 +1647,7 @@
             "line": 73,
             "name": "clicking a menu item should navigate to that page",
             "match": {
-              "location": "features/steps/ui.steps.ts:395"
+              "location": "features/steps/ui.steps.ts:450"
             },
             "result": {
               "status": "skipped",
@@ -1653,7 +1659,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 20697459
+              "duration": 16238916
             }
           }
         ],
@@ -1672,7 +1678,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 174805166
+              "duration": 117765541
             }
           },
           {
@@ -1684,8 +1690,9 @@
               "location": "features/steps/ui.steps.ts:3"
             },
             "result": {
-              "status": "passed",
-              "duration": 1585184416
+              "status": "failed",
+              "duration": 3729124,
+              "error_message": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:8:21)"
             }
           },
           {
@@ -1697,8 +1704,8 @@
               "location": "features/steps/ui.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 17340917
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1707,11 +1714,11 @@
             "line": 76,
             "name": "credentials are not configured",
             "match": {
-              "location": "features/steps/ui.steps.ts:113"
+              "location": "features/steps/ui.steps.ts:123"
             },
             "result": {
-              "status": "passed",
-              "duration": 36194166
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1720,11 +1727,11 @@
             "line": 77,
             "name": "I navigate to Photos",
             "match": {
-              "location": "features/steps/ui.steps.ts:122"
+              "location": "features/steps/ui.steps.ts:132"
             },
             "result": {
-              "status": "passed",
-              "duration": 2501939208
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1733,11 +1740,11 @@
             "line": 78,
             "name": "I should see message \"Please configure Immich API key in settings\"",
             "match": {
-              "location": "features/steps/ui.steps.ts:403"
+              "location": "features/steps/ui.steps.ts:458"
             },
             "result": {
-              "status": "passed",
-              "duration": 3161790
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1746,11 +1753,11 @@
             "line": 79,
             "name": "I navigate to Documents",
             "match": {
-              "location": "features/steps/ui.steps.ts:157"
+              "location": "features/steps/ui.steps.ts:178"
             },
             "result": {
-              "status": "passed",
-              "duration": 2027029999
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1759,11 +1766,11 @@
             "line": 80,
             "name": "I should see message \"Please configure Paperless API token in settings\"",
             "match": {
-              "location": "features/steps/ui.steps.ts:403"
+              "location": "features/steps/ui.steps.ts:458"
             },
             "result": {
-              "status": "passed",
-              "duration": 5144459
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1772,11 +1779,11 @@
             "line": 81,
             "name": "I navigate to Search",
             "match": {
-              "location": "features/steps/ui.steps.ts:205"
+              "location": "features/steps/ui.steps.ts:238"
             },
             "result": {
-              "status": "passed",
-              "duration": 1531301124
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1785,12 +1792,11 @@
             "line": 82,
             "name": "I should see message \"Meilisearch key not configured\"",
             "match": {
-              "location": "features/steps/ui.steps.ts:403"
+              "location": "features/steps/ui.steps.ts:458"
             },
             "result": {
-              "status": "failed",
-              "duration": 4281499,
-              "error_message": "Error: Message \"Meilisearch key not configured\" not found\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:407:11)"
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1798,7 +1804,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 16371624
+              "duration": 13061083
             }
           }
         ],
@@ -1817,7 +1823,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 138268708
+              "duration": 123775375
             }
           },
           {
@@ -1829,8 +1835,9 @@
               "location": "features/steps/ui.steps.ts:3"
             },
             "result": {
-              "status": "passed",
-              "duration": 1597642540
+              "status": "failed",
+              "duration": 3819667,
+              "error_message": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:8:21)"
             }
           },
           {
@@ -1842,8 +1849,8 @@
               "location": "features/steps/ui.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 16340916
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1852,11 +1859,11 @@
             "line": 85,
             "name": "I am in Settings",
             "match": {
-              "location": "features/steps/ui.steps.ts:198"
+              "location": "features/steps/ui.steps.ts:229"
             },
             "result": {
-              "status": "passed",
-              "duration": 516190332
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1865,11 +1872,11 @@
             "line": 86,
             "name": "I configure valid credentials",
             "match": {
-              "location": "features/steps/ui.steps.ts:411"
+              "location": "features/steps/ui.steps.ts:483"
             },
             "result": {
-              "status": "passed",
-              "duration": 1639533958
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1907,11 +1914,11 @@
             "line": 87,
             "name": "each service should show connection status:",
             "match": {
-              "location": "features/steps/ui.steps.ts:456"
+              "location": "features/steps/ui.steps.ts:525"
             },
             "result": {
-              "status": "passed",
-              "duration": 3438374
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1920,11 +1927,11 @@
             "line": 92,
             "name": "I configure invalid credentials",
             "match": {
-              "location": "features/steps/ui.steps.ts:430"
+              "location": "features/steps/ui.steps.ts:499"
             },
             "result": {
-              "status": "passed",
-              "duration": 42258833
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1933,12 +1940,11 @@
             "line": 93,
             "name": "services should show error status with HTTP error codes",
             "match": {
-              "location": "features/steps/ui.steps.ts:440"
+              "location": "features/steps/ui.steps.ts:509"
             },
             "result": {
-              "status": "failed",
-              "duration": 1300624,
-              "error_message": "Error: Error status with HTTP code not found\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:444:11)"
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -1946,7 +1952,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 13861208
+              "duration": 13671457
             }
           }
         ],
@@ -1965,7 +1971,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 124331332
+              "duration": 129438374
             }
           },
           {
@@ -1977,8 +1983,9 @@
               "location": "features/steps/ui.steps.ts:3"
             },
             "result": {
-              "status": "passed",
-              "duration": 1576274499
+              "status": "failed",
+              "duration": 4602375,
+              "error_message": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:8:21)"
             }
           },
           {
@@ -1990,8 +1997,8 @@
               "location": "features/steps/ui.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 16462916
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -2000,11 +2007,11 @@
             "line": 96,
             "name": "credentials are not configured",
             "match": {
-              "location": "features/steps/ui.steps.ts:113"
+              "location": "features/steps/ui.steps.ts:123"
             },
             "result": {
-              "status": "passed",
-              "duration": 54464416
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -2013,11 +2020,11 @@
             "line": 97,
             "name": "I navigate to Documents",
             "match": {
-              "location": "features/steps/ui.steps.ts:157"
+              "location": "features/steps/ui.steps.ts:178"
             },
             "result": {
-              "status": "passed",
-              "duration": 2501070165
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -2026,12 +2033,11 @@
             "line": 98,
             "name": "page should display \"Documents\" heading",
             "match": {
-              "location": "features/steps/ui.steps.ts:265"
+              "location": "features/steps/ui.steps.ts:299"
             },
             "result": {
-              "status": "failed",
-              "duration": 3576499,
-              "error_message": "Error: Heading \"Documents\" not found\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:269:11)"
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -2040,7 +2046,7 @@
             "line": 99,
             "name": "I should see message \"Please configure Paperless API token in settings\"",
             "match": {
-              "location": "features/steps/ui.steps.ts:403"
+              "location": "features/steps/ui.steps.ts:458"
             },
             "result": {
               "status": "skipped",
@@ -2053,7 +2059,7 @@
             "line": 100,
             "name": "document count should show \"0 documents\"",
             "match": {
-              "location": "features/steps/ui.steps.ts:164"
+              "location": "features/steps/ui.steps.ts:186"
             },
             "result": {
               "status": "skipped",
@@ -2066,7 +2072,7 @@
             "line": 101,
             "name": "document list should be empty",
             "match": {
-              "location": "features/steps/ui.steps.ts:180"
+              "location": "features/steps/ui.steps.ts:211"
             },
             "result": {
               "status": "skipped",
@@ -2078,7 +2084,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 19325666
+              "duration": 15466625
             }
           }
         ],
@@ -2097,7 +2103,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 170779582
+              "duration": 126164416
             }
           },
           {
@@ -2109,8 +2115,9 @@
               "location": "features/steps/ui.steps.ts:3"
             },
             "result": {
-              "status": "passed",
-              "duration": 1576584791
+              "status": "failed",
+              "duration": 3706874,
+              "error_message": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n    at Object.<anonymous> (/Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:8:21)"
             }
           },
           {
@@ -2122,8 +2129,8 @@
               "location": "features/steps/ui.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 19445374
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -2135,8 +2142,8 @@
               "location": "features/steps/ui.steps.ts:3"
             },
             "result": {
-              "status": "passed",
-              "duration": 1521785541
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -2148,8 +2155,8 @@
               "location": "features/steps/ui.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 13788833
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -2158,12 +2165,11 @@
             "line": 106,
             "name": "page should display \"Dashboard\" heading",
             "match": {
-              "location": "features/steps/ui.steps.ts:265"
+              "location": "features/steps/ui.steps.ts:299"
             },
             "result": {
-              "status": "failed",
-              "duration": 2403416,
-              "error_message": "Error: Heading \"Dashboard\" not found\n    at Object.<anonymous> (file:///Volumes/logousb/SSD/Projects/NAS-logo-UI/features/steps/ui.steps.ts:269:11)"
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -2172,7 +2178,7 @@
             "line": 108,
             "name": "I navigate to Settings",
             "match": {
-              "location": "features/steps/ui.steps.ts:64"
+              "location": "features/steps/ui.steps.ts:65"
             },
             "result": {
               "status": "skipped",
@@ -2185,7 +2191,7 @@
             "line": 109,
             "name": "I enter the Immich API key",
             "match": {
-              "location": "features/steps/ui.steps.ts:70"
+              "location": "features/steps/ui.steps.ts:73"
             },
             "result": {
               "status": "skipped",
@@ -2198,7 +2204,7 @@
             "line": 110,
             "name": "I enter the Paperless API token",
             "match": {
-              "location": "features/steps/ui.steps.ts:76"
+              "location": "features/steps/ui.steps.ts:82"
             },
             "result": {
               "status": "skipped",
@@ -2211,7 +2217,7 @@
             "line": 111,
             "name": "I enter the Meilisearch master key",
             "match": {
-              "location": "features/steps/ui.steps.ts:82"
+              "location": "features/steps/ui.steps.ts:88"
             },
             "result": {
               "status": "skipped",
@@ -2224,7 +2230,7 @@
             "line": 112,
             "name": "I click Save buttons",
             "match": {
-              "location": "features/steps/ui.steps.ts:88"
+              "location": "features/steps/ui.steps.ts:95"
             },
             "result": {
               "status": "skipped",
@@ -2237,7 +2243,7 @@
             "line": 113,
             "name": "success message should appear",
             "match": {
-              "location": "features/steps/ui.steps.ts:98"
+              "location": "features/steps/ui.steps.ts:105"
             },
             "result": {
               "status": "skipped",
@@ -2250,7 +2256,7 @@
             "line": 114,
             "name": "service status should show \"✓ Connected\" for each service",
             "match": {
-              "location": "features/steps/ui.steps.ts:104"
+              "location": "features/steps/ui.steps.ts:111"
             },
             "result": {
               "status": "skipped",
@@ -2263,7 +2269,7 @@
             "line": 116,
             "name": "I navigate to Photos",
             "match": {
-              "location": "features/steps/ui.steps.ts:122"
+              "location": "features/steps/ui.steps.ts:132"
             },
             "result": {
               "status": "skipped",
@@ -2276,7 +2282,7 @@
             "line": 117,
             "name": "page should display \"Photos\" heading",
             "match": {
-              "location": "features/steps/ui.steps.ts:265"
+              "location": "features/steps/ui.steps.ts:299"
             },
             "result": {
               "status": "skipped",
@@ -2289,7 +2295,7 @@
             "line": 118,
             "name": "photos should load and display count",
             "match": {
-              "location": "features/steps/ui.steps.ts:293"
+              "location": "features/steps/ui.steps.ts:336"
             },
             "result": {
               "status": "skipped",
@@ -2302,7 +2308,7 @@
             "line": 120,
             "name": "I navigate to Documents",
             "match": {
-              "location": "features/steps/ui.steps.ts:157"
+              "location": "features/steps/ui.steps.ts:178"
             },
             "result": {
               "status": "skipped",
@@ -2315,7 +2321,7 @@
             "line": 121,
             "name": "page should display \"Documents\" heading",
             "match": {
-              "location": "features/steps/ui.steps.ts:265"
+              "location": "features/steps/ui.steps.ts:299"
             },
             "result": {
               "status": "skipped",
@@ -2328,7 +2334,7 @@
             "line": 122,
             "name": "document list should display items",
             "match": {
-              "location": "features/steps/ui.steps.ts:189"
+              "location": "features/steps/ui.steps.ts:220"
             },
             "result": {
               "status": "skipped",
@@ -2341,7 +2347,7 @@
             "line": 124,
             "name": "I navigate to Search",
             "match": {
-              "location": "features/steps/ui.steps.ts:205"
+              "location": "features/steps/ui.steps.ts:238"
             },
             "result": {
               "status": "skipped",
@@ -2354,7 +2360,7 @@
             "line": 125,
             "name": "page should display \"Search\" heading",
             "match": {
-              "location": "features/steps/ui.steps.ts:265"
+              "location": "features/steps/ui.steps.ts:299"
             },
             "result": {
               "status": "skipped",
@@ -2367,7 +2373,7 @@
             "line": 126,
             "name": "search bar should be visible",
             "match": {
-              "location": "features/steps/ui.steps.ts:448"
+              "location": "features/steps/ui.steps.ts:517"
             },
             "result": {
               "status": "skipped",
@@ -2379,7 +2385,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 17910374
+              "duration": 22331458
             }
           }
         ],
