@@ -10,6 +10,7 @@ services:
       - "80:80"
       - "443:443"
       - "443:443/udp"
+      - "2019:2019"
     volumes:
       - caddy_data:/data
       - caddy_config:/config
@@ -17,7 +18,14 @@ services:
     networks:
       - nas-network
     depends_on:
-      - ui
+      ui:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
   gateway:
     build: ./gateway
@@ -26,17 +34,23 @@ services:
       - "8000:8000"
     restart: unless-stopped
     environment:
-      - NODE_ENV=production
-      - JWT_SECRET=nas-logo-dev-secret-key-change-in-prod
-      - IMMICH_API_KEY=dg46m83TgQBP4r8pxPloTnagaNUl2wWcgmNlB7Wk
-      - IMMICH_URL=http://100.113.214.55:2283
-      - PAPERLESS_URL=http://100.113.214.55:8010
-      - MEILISEARCH_URL=http://100.113.214.55:7700
-      - N8N_URL=http://100.113.214.55:5679
-      - GRAFANA_URL=http://100.113.214.55:3000
-      - NTFY_URL=http://100.113.214.55:80
+      - NODE_ENV=${NODE_ENV:-production}
+      - JWT_SECRET=${JWT_SECRET}
+      - IMMICH_API_KEY=${IMMICH_API_KEY}
+      - IMMICH_URL=${IMMICH_URL}
+      - PAPERLESS_URL=${PAPERLESS_URL}
+      - MEILISEARCH_URL=${MEILISEARCH_URL}
+      - N8N_URL=${N8N_URL}
+      - GRAFANA_URL=${GRAFANA_URL}
+      - NTFY_URL=${NTFY_URL}
     networks:
       - nas-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
   ui:
     build: .
@@ -45,11 +59,20 @@ services:
       - "8088:8080"
     restart: unless-stopped
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=${NODE_ENV:-production}
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL:-/api}
+      - VITE_GATEWAY_URL=${VITE_GATEWAY_URL:-http://localhost:8000}
     networks:
       - nas-network
     depends_on:
-      - gateway
+      gateway:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
 
 networks:
   nas-network:
