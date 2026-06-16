@@ -6,17 +6,10 @@ export function gatewayFetch(
 ): Promise<Response> {
   const token = useAuth.getState().gatewayToken
 
-  // Construire l'URL en fonction du contexte
-  let url: string
-
-  if (path.startsWith('http')) {
-    url = path
-  } else {
-    // Utiliser une URL relative - Caddy/serveur se charge du routage
-    // En local: Caddy → gateway sur port 8000
-    // En production: Caddy reverse proxy → gateway
-    url = path
-  }
+  // Appeler le gateway directement sur le port 8000
+  // Bypass Caddy pour éviter les problèmes de routing
+  const baseUrl = `http://${window.location.hostname}:8000`
+  const url = `${baseUrl}${path}`
 
   return fetch(url, {
     ...options,
