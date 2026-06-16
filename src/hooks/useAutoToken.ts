@@ -11,14 +11,10 @@ export function useAutoToken() {
     // Obtenir un token automatiquement
     const fetchToken = async () => {
       try {
-        // Construire l'URL absolue pour éviter les problèmes de CORS/redirects
+        // Appeler directement le gateway sur le port 8000
         const protocol = window.location.protocol
-        const host = window.location.host
-        const baseUrl = `${protocol}//${host}`
-
-        // Pour les URLs relatives, utiliser /auth/simple-token directement
-        // Pour HTTPS via IP, Caddy se charge du routage
-        const tokenUrl = '/auth/simple-token'
+        const hostname = window.location.hostname
+        const tokenUrl = `${protocol}//${hostname}:8000/auth/simple-token`
 
         const response = await fetch(tokenUrl, {
           method: 'GET',
