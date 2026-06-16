@@ -1,38 +1,19 @@
-# Simple default configuration - routes all requests appropriately
-:80 {
-    @api path /api /api/*
-    @auth path /auth /auth/*
-
-    handle @auth {
-        reverse_proxy localhost:8000
-    }
-
-    handle @api {
-        uri strip_prefix /api
-        reverse_proxy localhost:8000
-    }
-
-    handle {
-        reverse_proxy localhost:5173
-    }
-}
-
-:443 {
-    tls internal
+nas.logo-solutions.fr {
+    tls /etc/caddy/certs/nas-chain.crt /etc/caddy/certs/nas-leaf.key
 
     @api path /api /api/*
     @auth path /auth /auth/*
 
     handle @auth {
-        reverse_proxy localhost:8000
+        reverse_proxy nas-logo-gateway:8000
     }
 
     handle @api {
         uri strip_prefix /api
-        reverse_proxy localhost:8000
+        reverse_proxy nas-logo-gateway:8000
     }
 
     handle {
-        reverse_proxy localhost:5173
+        reverse_proxy nas-logo-ui:8080
     }
 }
