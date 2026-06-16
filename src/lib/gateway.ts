@@ -6,10 +6,10 @@ export function gatewayFetch(
 ): Promise<Response> {
   const token = useAuth.getState().gatewayToken
 
-  // Appeler le gateway directement sur le port 8000
-  // Bypass Caddy pour éviter les problèmes de routing
-  const baseUrl = `http://${window.location.hostname}:8000`
-  const url = `${baseUrl}${path}`
+  // Construire l'URL du gateway
+  const protocol = window.location.protocol
+  const host = window.location.hostname
+  const url = `${protocol}//${host}:8000${path}`
 
   return fetch(url, {
     ...options,
