@@ -16,6 +16,11 @@ nas.logo-solutions.fr {
         reverse_proxy nas-logo-gateway:8000
     }
 
+    @immich path /immich /immich/*
+    handle @immich {
+        reverse_proxy nas-logo-gateway:8000
+    }
+
     handle * {
         reverse_proxy nas-logo-ui:8080
     }
