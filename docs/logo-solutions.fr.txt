@@ -1,0 +1,104 @@
+;;
+;; Domain:     logo-solutions.fr.
+;; Exported:   2026-07-11 04:12:53
+;;
+;; This file is intended for use for informational and archival
+;; purposes ONLY and MUST be edited before use on a production
+;; DNS server.  In particular, you must:
+;;   -- update the SOA record with the correct authoritative name server
+;;   -- update the SOA record with the contact e-mail address information
+;;   -- update the NS record(s) with the authoritative name servers for this domain.
+;;
+;; For further information, please consult the BIND documentation
+;; located on the following website:
+;;
+;; http://www.isc.org/
+;;
+;; And RFC 1035:
+;;
+;; http://www.ietf.org/rfc/rfc1035.txt
+;;
+;; Please note that we do NOT offer technical support for any use
+;; of this zone data, the BIND name server, or any other third-party
+;; DNS software.
+;;
+;; Use at your own risk.
+;; SOA Record
+logo-solutions.fr	3600	IN	SOA	amos.ns.cloudflare.com. dns.cloudflare.com. 2053540977 10000 2400 604800 3600
+
+;; NS Records
+logo-solutions.fr.	86400	IN	NS	amos.ns.cloudflare.com.
+logo-solutions.fr.	86400	IN	NS	gemma.ns.cloudflare.com.
+
+;; A Records
+alo.logo-solutions.fr.	1	IN	A	100.113.214.55 ; cf_tags=cf-proxied:false
+devops.logo-solutions.fr.	1	IN	A	194.164.74.58 ; cf_tags=cf-proxied:false
+ftp.logo-solutions.fr.	1	IN	A	194.164.74.58 ; cf_tags=cf-proxied:true
+git.logo-solutions.fr.	1	IN	A	194.164.74.58 ; cf_tags=cf-proxied:false
+immich.logo-solutions.fr.	1	IN	A	100.113.214.55 ; cf_tags=cf-proxied:false
+logo-solutions.fr.	1	IN	A	91.98.16.184 ; cf_tags=cf-proxied:false
+nas.logo-solutions.fr.	1	IN	A	100.113.214.55 ; cf_tags=cf-proxied:false
+nudger.logo-solutions.fr.	1	IN	A	91.98.16.184 ; cf_tags=cf-proxied:false
+www.logo-solutions.fr.	1	IN	A	194.164.74.58 ; cf_tags=cf-proxied:true
+
+;; AAAA Records
+logo-solutions.fr.	1	IN	AAAA	2a02:4780:4a:6f1e:3afb:3b8e:cc15:eb4b ; cf_tags=cf-proxied:false
+logo-solutions.fr.	1	IN	AAAA	2a02:4780:4c:6cf5:9989:262d:8d19:2e04 ; cf_tags=cf-proxied:false
+
+;; CAA Records
+logo-solutions.fr.	1	IN	CAA	0 issue "comodoca.com"
+logo-solutions.fr.	1	IN	CAA	0 issue "letsencrypt.org"
+logo-solutions.fr.	1	IN	CAA	0 issue "sectigo.com"
+logo-solutions.fr.	1	IN	CAA	0 issuewild "sectigo.com"
+logo-solutions.fr.	1	IN	CAA	0 issuewild "globalsign.com"
+logo-solutions.fr.	1	IN	CAA	0 issuewild "comodoca.com"
+logo-solutions.fr.	1	IN	CAA	0 issuewild "digicert.com"
+logo-solutions.fr.	1	IN	CAA	0 issue "pki.goog"
+logo-solutions.fr.	1	IN	CAA	0 issue "digicert.com"
+logo-solutions.fr.	1	IN	CAA	0 issuewild "letsencrypt.org"
+logo-solutions.fr.	1	IN	CAA	0 issuewild "pki.goog"
+logo-solutions.fr.	1	IN	CAA	0 issue "globalsign.com"
+
+;; CNAME Records
+autoconfig.logo-solutions.fr.	1	IN	CNAME	autoconfig.mail.hostinger.com. ; cf_tags=cf-proxied:true
+autodiscover.logo-solutions.fr.	1	IN	CNAME	autodiscover.mail.hostinger.com. ; cf_tags=cf-proxied:true
+dashboard.nudger.logo-solutions.fr.	1	IN	CNAME	nudger.logo-solutions.fr. ; cf_tags=cf-proxied:false
+grafana.nudger.logo-solutions.fr.	1	IN	CNAME	nudger.logo-solutions.fr. ; cf_tags=cf-proxied:false
+hubble.nudger.logo-solutions.fr.	1	IN	CNAME	nudger.logo-solutions.fr. ; cf_tags=cf-proxied:false
+jellyfin.logo-solutions.fr.	1	IN	CNAME	da8b968c-11a4-4440-8f9a-205afd3d42a0.cfargotunnel.com. ; cf_tags=cf-proxied:true
+prometheus.nudger.logo-solutions.fr.	1	IN	CNAME	nudger.logo-solutions.fr. ; cf_tags=cf-proxied:false
+prowlarr.logo-solutions.fr.	1	IN	CNAME	da8b968c-11a4-4440-8f9a-205afd3d42a0.cfargotunnel.com. ; cf_tags=cf-proxied:true
+sonarr.logo-solutions.fr.	1	IN	CNAME	da8b968c-11a4-4440-8f9a-205afd3d42a0.cfargotunnel.com. ; cf_tags=cf-proxied:true
+supabase.nudger.logo-solutions.fr.	1	IN	CNAME	nudger.logo-solutions.fr. ; cf_tags=cf-proxied:false
+vault.nudger.logo-solutions.fr.	1	IN	CNAME	nudger.logo-solutions.fr. ; cf_tags=cf-proxied:false
+whoami.nudger.logo-solutions.fr.	1	IN	CNAME	nudger.logo-solutions.fr. ; cf_tags=cf-proxied:false
+xwiki.integration.nudger.logo-solutions.fr.	1	IN	CNAME	nudger.logo-solutions.fr. ; cf_tags=cf-proxied:false
+xwiki.nudger.logo-solutions.fr.	1	IN	CNAME	nudger.logo-solutions.fr. ; cf_tags=cf-proxied:false
+xwiki.recette.nudger.logo-solutions.fr.	1	IN	CNAME	nudger.logo-solutions.fr. ; cf_tags=cf-proxied:false
+
+;; MX Records
+logo-solutions.fr.	3600	IN	MX	5 alt1.aspmx.l.google.com.
+logo-solutions.fr.	3600	IN	MX	10 alt3.aspmx.l.google.com.
+logo-solutions.fr.	3600	IN	MX	10 alt4.aspmx.l.google.com.
+logo-solutions.fr.	3600	IN	MX	1 aspmx.l.google.com.
+logo-solutions.fr.	3600	IN	MX	5 alt2.aspmx.l.google.com.
+
+;; TXT Records
+_acme-challenge.dashboard.nudger.logo-solutions.fr.	120	IN	TXT	"RxE9NJomYxqJKYBOMWJEu9zd0QT9NAc6Q-FgusX7x_s"
+_acme-challenge.hubble.nudger.logo-solutions.fr.	120	IN	TXT	"IUSqi3urie1fYoqZFBAgzFOvJw1kJt-RBmuozYc2pss"
+_acme-challenge.www.xwiki.integration.nudger.logo-solutions.fr.	120	IN	TXT	"eohhy1DNzTQTPqPJBPTLajMtsB_9qy3uMG0ak75XJVE"
+_acme-challenge.www.xwiki.recette.logo-solutions.fr.	120	IN	TXT	"_JvsIsROHNqyjaEOt1uN_cQUfPJz-3p6x8VR84Zk1lM"
+_acme-challenge.www.xwiki.recette.nudger.logo-solutions.fr.	120	IN	TXT	"ovFCXHu_p2-d75sYVVRbY_P_Wv9eXWpeOHllwurNTlQ"
+_acme-challenge.xwiki.integration.nudger.logo-solutions.fr.	120	IN	TXT	"JiIwxC0Xl8EBii5i4DmqgbICoHBhEdHoGguXzXncwDw"
+_acme-challenge.xwiki.integration.nudger.logo-solutions.fr.	120	IN	TXT	"_jT6HWKTdulIn04BLvZtjb8DP55iYkCqz4AKzyut0Bg"
+_acme-challenge.xwiki.nudger.logo-solutions.fr.	120	IN	TXT	"uUrQxNCk9FfCoVQ38jDeFMaKm63tgWky024W_fgnqdg"
+_acme-challenge.xwiki.nudger.logo-solutions.fr.	120	IN	TXT	"g_-3Dqa71Eke_qajpkixHzP4MmwpP58C_1T_l-CdR6s"
+_acme-challenge.xwiki.nudger.logo-solutions.fr.	120	IN	TXT	"_U0fLdxDHiyR_uETYp34-BD704CGMEI_CTEFlPFgmkY"
+_acme-challenge.xwiki.nudger.logo-solutions.fr.	120	IN	TXT	"qJxjWmn9Txt1dXzWt9DJ3x4IZ1gsT5WS4tRgLo2gBcU"
+_acme-challenge.xwiki.recette.logo-solutions.fr.	120	IN	TXT	"ofw8bH1-Y_98U7XWo8z99N2GAPDOorOeIs4X2tcvDA8"
+_acme-challenge.xwiki.recette.nudger.logo-solutions.fr.	120	IN	TXT	"b--22CSg92Pi34vIS-fi3voyEULnuN5HDURGU3IZErA"
+_acme-challenge.xwiki.recette.nudger.logo-solutions.fr.	120	IN	TXT	"GNuUzpj52gQTERdVffbFOgR1xiOSyhkGLlinSrG9fDQ"
+_dmarc.logo-solutions.fr.	1	IN	TXT	"v=DMARC1; p=quarantine; rua=mailto:loic@logo-solutions.fr"
+google._domainkey.logo-solutions.fr.	1	IN	TXT	"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmEDO7AyD0eGBetq4sElMtiB7mYtfK/SgJKr319BRUxpknFtR8eYcNNYxLRNbSwN+MX5NweD9h0OVLeslGmC9Bdbe74RHMnxDtzSLbTLkrI6uJvVrYXqPX08c5ixggNX1+1PDL+WowPUBIe+fBpzMqDp72TljPurAmmwVYDvkSeuGylTc3h4MsO64vGZcMflbd" "0CYGdDL2y57k4plrTrAsDeTWArlxDpXdzJx4kEv/ZkBI8SE9HXyT53scnfdlIdpyIY5Z3uBaisGu0J3IZxhUw0vWepAER2Lrf1WAvx4/DKyy/a7Y4AI+6MrRZYGlY0LIguAg9TXzAIVqpBILyPv/QIDAQAB"
+logo-solutions.fr.	1	IN	TXT	"v=spf1 include:_spf.google.com ~all"
+logo-solutions.fr.	3600	IN	TXT	"google-site-verification=TZVO0CP0mO0VfZkO9Nod6euaO2UMmyMHOkhxIrqwKlo"

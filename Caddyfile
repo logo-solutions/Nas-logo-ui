@@ -33,11 +33,24 @@ nas.logo-solutions.fr {
 
 alo.logo-solutions.fr {
     tls /etc/caddy/certs/nas-chain.crt /etc/caddy/certs/nas-leaf.key
-    reverse_proxy alo-backend:8000
+
+    handle /api* {
+        reverse_proxy alo-backend:8000
+    }
+
+    handle * {
+        reverse_proxy alo-frontend
+    }
 }
 
 alo.logo-solutions.fr:80 {
-    reverse_proxy alo-backend:8000
+    handle /api* {
+        reverse_proxy alo-backend:8000
+    }
+
+    handle * {
+        reverse_proxy alo-frontend
+    }
 }
 
 :443 {
