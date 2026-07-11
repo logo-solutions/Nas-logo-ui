@@ -76,7 +76,7 @@ services:
 
 networks:
   nas-network:
-    driver: bridge
+    external: true
 
 volumes:
   caddy_data:
