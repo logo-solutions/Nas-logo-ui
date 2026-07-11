@@ -31,6 +31,15 @@ nas.logo-solutions.fr {
     import site
 }
 
+alo.logo-solutions.fr {
+    tls /etc/caddy/certs/nas-chain.crt /etc/caddy/certs/nas-leaf.key
+    reverse_proxy alo-backend:8000
+}
+
+alo.logo-solutions.fr:80 {
+    reverse_proxy alo-backend:8000
+}
+
 :443 {
     tls /etc/caddy/certs/nas-chain.crt /etc/caddy/certs/nas-leaf.key
     import site
