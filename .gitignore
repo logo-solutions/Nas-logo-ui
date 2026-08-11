@@ -37,3 +37,8 @@ Thumbs.db
 
 # Project
 .claude/settings.local.json
+
+# Financial / Banking data (sensitive)
+*.qif
+*.ofx
+docs/*.zip
