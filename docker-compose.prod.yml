@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  caddy:
+    build:
+      context: .
+      dockerfile: Dockerfile.caddy
+    container_name: nas-logo-caddy-prod
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+      - "2019:2019"
+    volumes:
+      - caddy_data_prod:/data
+      - caddy_config_prod:/config
+    restart: unless-stopped
+    environment:
+      - DOMAIN=${DOMAIN:-nas.logo-solutions.fr}
+    networks:
+      - nas-network
+    depends_on:
+      ui:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  gateway:
+    image: ghcr.io/logo-projects/nas-logo-ui-gateway:latest
+    container_name: nas-logo-gateway-prod
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - JWT_SECRET=${JWT_SECRET}
+      - IMMICH_API_KEY=${IMMICH_API_KEY}
+      - IMMICH_URL=${IMMICH_URL:-http://100.113.214.55:2283}
+      - PAPERLESS_URL=${PAPERLESS_URL:-http://100.113.214.55:8010}
+      - MEILISEARCH_URL=${MEILISEARCH_URL:-http://100.113.214.55:7700}
+      - N8N_URL=${N8N_URL:-http://100.113.214.55:5679}
+      - GRAFANA_URL=${GRAFANA_URL:-http://100.113.214.55:3000}
+      - NTFY_URL=${NTFY_URL}
+    networks:
+      - nas-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  ui:
+    image: ghcr.io/logo-projects/nas-logo-ui-ui:latest
+    container_name: nas-logo-ui-prod
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL:-/api}
+      - VITE_GATEWAY_URL=${VITE_GATEWAY_URL:-http://localhost:8000}
+    networks:
+      - nas-network
+    depends_on:
+      gateway:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+networks:
+  nas-network:
+    external: true
+
+volumes:
+  caddy_data_prod:
+  caddy_config_prod:
